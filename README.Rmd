@@ -1,0 +1,77 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# sanba
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml)
+[![CRAN](https://www.r-pkg.org/badges/version/sanba)](https://cran.r-project.org/package=sanba)
+[![Last Commit](https://img.shields.io/github/last-commit/fradenti/sanba)](https://github.com/fradenti/sanba)
+[![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)
+[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)<!-- badges: end -->
+
+
+The goal of `sanba` is to estimate Bayesian nested mixture models via MCMC and VI methods. Specifically, the package implements the common atoms model (Denti et al., 2023) and hybrid finite-infinite models (D'Angelo and Denti, 2024). All models use Gaussian mixtures with a normal-inverse-gamma prior distribution on the parameters. Additional functions are provided to help analyzing the results of the fitting procedure.    
+
+## Installation
+
+You can install the development version of `sanba` from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Fradenti/sanba")
+```
+
+
+
+## Examples 
+
+### Fitting via MCMC
+
+
+```{r example1}
+library(sanba)
+set.seed(123)
+y <- c(rnorm(160), rnorm(40, 5))
+g <- rep(1:2, rep(100, 2))
+plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
+lines(density(y[g==2]), col = 2)
+
+out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC", mcmc_param = list(nrep = 5000, burn=3000))
+out_mcmc
+plot(out_mcmc)
+```
+
+### Fitting via VI
+
+```{r example2}
+library(sanba)
+set.seed(123)
+y <- c(rnorm(160), rnorm(40, 5))
+g <- rep(1:2, rep(100, 2))
+plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
+lines(density(y[g==2]), col = 2)
+
+out_vi <- fit_fiSAN(y, group = g, est_method = "VI", vi_param = list(n_runs = 100))
+out_vi
+plot(out_vi)
+```
+
+# References
+
+D’Angelo, L., and Denti, F. (2024). A Finite-Infinite Shared Atoms Nested Model for the Bayesian Analysis of Large Grouped Data Sets. *Bayesian Analysis* \doi{10.1214/24-BA1458}
+
+Denti, F., Camerlenghi, F., Guindani, M., Mira, A., 2023. A Common Atoms Model for the Bayesian Nonparametric Analysis of Nested Data. *Journal of the American Statistical Association*. 118(541), 405–416. \doi{10.1080/01621459.2021.1933499}
+

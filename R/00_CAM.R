@@ -1,0 +1,228 @@
+#' Estimation of the Common Atoms model
+#'
+#' @description \code{fit_CAM} is used to perform posterior inference under the common atoms model (CAM) of Denti et al. (2023) with Gaussian likelihood.
+#' The model uses Dirichlet process mixtures (DPM) at both the observational and distributional levels.
+#'
+#' @usage
+#' fit_CAM(y, group, est_method = c("VI", "MCMC"),
+#'          prior_param = list(),
+#'          vi_param = list(),
+#'          mcmc_param = list())
+#'
+#' @param y Numerical vector of observations (required).
+#' @param group Numerical vector of the same length of \code{y}, indicating the group membership (required).
+#' @param est_method Character, specifying the preferred estimation method. It can be either \code{"VI"} or \code{"MCMC"}.
+#' @param prior_param A list containing
+#' \describe{
+#'    \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}.}
+#'    \item{\code{hyp_alpha1, hyp_alpha2}}{If a random \eqn{\alpha} is used, (\code{hyp_alpha1}, \code{hyp_alpha2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\alpha} ~ Gamma(\code{hyp_alpha1}, \code{hyp_alpha2}).}
+#'    \item{\code{alpha}}{Distributional DP parameter if fixed (optional). The distribution is \eqn{\pi\sim GEM (\alpha)}.}
+#'    \item{\code{hyp_beta1, hyp_beta2}}{If a random \eqn{\beta} is used, (\code{hyp_beta1}, \code{hyp_beta2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\beta} ~ Gamma(\code{hyp_beta1}, \code{hyp_beta2}).}
+#'    \item{\code{beta}}{Observational DP parameter if fixed (optional). The distribution is \eqn{\omega_k \sim GEM (\beta)}.}
+#'    }
+#' @param vi_param A list of variational inference-specific settings containing
+#'  \describe{
+#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{epsilon}}{the tolerance that drives the convergence criterion adopted as stopping rule.}
+#'    \item{\code{seed}}{random seed to control the initialization.}
+#'    \item{\code{maxSIM}}{the maximum number of CAVI iteration to perform.}
+#'    \item{\code{warmstart}}{logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
+#'    \item{\code{verbose}}{logical, if \code{TRUE} the iterations are printed.}
+#' }
+#' @param mcmc_param A list of MCMC inference-specific settings containing
+#'  \describe{
+#'    \item{\code{nrep, burn}}{integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
+#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{seed}}{random seed to control the initialization.}
+#'    \item{\code{warmstart}}{logical, if \code{TRUE}, the observational means of
+#'    the cluster atoms are initialized with a k-means algorithm. If \code{FALSE},
+#'    the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start} }
+#'    \item{\code{verbose}}{logical, if \code{TRUE} the iterations are printed.}
+#' }
+#'
+#'
+#' @details
+#'
+#' The common atoms mixture model is used to perform inference in nested settings, where the data are organized into \eqn{J} groups.
+#' The data should be continuous observations \eqn{(Y_1,\dots,Y_J)}, where each \eqn{Y_j = (y_{1,j},\dots,y_{n_j,j})}
+#' contains the \eqn{n_j} observations from group \eqn{j}, for \eqn{j=1,\dots,J}.
+#' The function takes as input the data as a numeric vector \code{y} in this concatenated form. Hence, \code{y} should be a vector of length
+#' \eqn{n_1+\dots+n_J}. The \code{group} parameter is a numeric vector of the same size as \code{y}, indicating the group membership for each
+#' individual observation.
+#' Notice that with this specification, the observations in the same group need not be contiguous as long as the correspondence between the variables
+#' \code{y} and \code{group} is maintained.
+#'
+#' \strong{Model}
+#'
+#' The data are modeled using a Gaussian likelihood, where both the mean and the variance are observational cluster-specific, i.e.,
+#' \deqn{y_{i,j}\mid M_{i,j} = l \sim N(\mu_l,\sigma^2_l)}
+#' where \eqn{M_{i,j} \in \{1,2,\dots\}} is the observational cluster indicator of observation \eqn{i} in group \eqn{j}.
+#' The prior on the model parameters is a Normal-Inverse Gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
+#' i.e., \eqn{\mu_l\mid\sigma^2_l \sim N(m_0, \sigma^2_l / \tau_0)}, \eqn{1/\sigma^2_l \sim Gamma(\lambda_0, \gamma_0)} (shape, rate).
+#'
+#' \strong{Clustering}
+#'
+#' The model clusters both observations and groups.
+#' The clustering of groups (distributional clustering) is provided by the allocation variables \eqn{S_j \in \{1,2,\dots\}}, with
+#' \deqn{Pr(S_j = k \mid \dots ) = \pi_k  \qquad \text{for } \: k = 1,2,\dots}
+#' The distribution of the probabilities is \eqn{ \{\pi_k\}_{k=1}^{\infty} \sim GEM(\alpha)},
+#' where GEM is the Griffiths-Engen-McCloskey distribution of parameter \eqn{\alpha},
+#' which characterizes the stick-breaking construction of the DP (Sethuraman, 1994).
+#'
+#' The clustering of observations (observational clustering) is provided by the allocation variables \eqn{M_{i,j} \in \{1,2,\dots\}}, with
+#' \deqn{ Pr(M_{i,j} = l \mid S_j = k, \dots ) = \omega_{l,k} \qquad \text{for } \: k = 1,2,\dots \, ; \: l = 1,2,\dots }
+#' The distribution of the probabilities is \eqn{ \{\omega_{l,k}\}_{l=1}^{\infty} \sim GEM(\beta)} for all \eqn{k = 1,2,\dots}
+#'
+#'
+#'
+#' @return \code{fit_CAM} returns a list of class \code{SANvi}, if \code{method = "VI"}, or \code{SANmcmc}, if \code{method = "MCMC"}. The list contains the following elements:
+#' \describe{
+#'   \item{\code{model}}{name of the fitted model.}
+#'   \item{\code{params}}{list containing the data and the parameters used in the simulation. Details below.}
+#'   \item{\code{sim}}{list containing the optimized variational parameters or the simulated values. Details below.}
+#'   \item{\code{time}}{total computation time.}
+#' }
+#'
+#'
+#' \strong{Data and parameters}:
+#' \code{params} is a list with the following components:
+#' \itemize{
+#'    \item \code{y, group, Nj, J}: Data, group labels, group frequencies, and number of groups.
+#'    \item \code{K, L}: Number of distributional and observational mixture components.
+#'    \item \code{m0, tau0, lambda0, gamma0}: Model hyperparameters.
+#'    \item (\code{hyp_alpha1, hyp_alpha2}) or \code{alpha}: hyperparameters on \eqn{\alpha} (if \eqn{\alpha} random); or provided value for \eqn{\alpha} (if fixed).
+#'    \item (\code{hyp_beta1, hyp_beta2}) or \code{beta}: hyperparameters on \eqn{\beta} (if \eqn{\beta} random); or provided value for \eqn{\beta} (if fixed).
+#'    \item \code{seed}: The random seed adopted to replicate the run.
+#'    \item \code{epsilon, n_runs}: If \code{method = "VI"}, the threshold controlling the convergence criterion and the number of iterations needed to reach convergence.
+#'    \item \code{nrep, burnin}: If \code{method = "MCMC"}, the number of total MCMC iterations, and the number of discarded ones.
+#'  }
+#'
+#'
+#' \strong{Simulated values}: depending on the algorithm, it returns a list with the optimized variational parameters or a list with the chains of the simulated values.
+#'
+#' \strong{Variational inference}: \code{sim} is a list with the following components:
+#' \itemize{
+#' \item \code{theta_l}: Matrix of size (L,4).
+#'    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
+#' \item \code{XI}: A list of length J. Each element is a matrix of size (N, L)
+#'    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
+#'    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
+#' \item \code{RHO}: Matrix of size (J, K).
+#'    Each row is a posterior variational probability of assignment of the j-th group to the k-th DC, i.e., \eqn{\hat{\rho}_{j,k} = \hat{\mathbb{Q}}(S_j=k)}.
+#' \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the Beta distributions governing the distributional stick-breaking process.
+#' \item \code{a_bar_lk, b_bar_lk}: Matrix of updated variational parameters of the Beta distributions governing the observational stick-breaking
+#'                        process (arranged by column).
+#' \item \code{conc_hyper}: If the concentration parameters are chosen to be random, a vector with the four updated hyperparameters.
+#' \item \code{Elbo_val}: Vector containing the values of the ELBO.
+#'}
+#' \strong{MCMC inference}: \code{sim} is a list with the following components:
+#' \itemize{
+#'    \item \code{mu}: Matrix of size (\code{nrep}, \code{maxL}).
+#'    Each row is a posterior sample of the mean parameter for each observational cluster \eqn{(\mu_1,\dots\mu_L)}.
+#'    \item \code{sigma2}: Matrix of size (\code{nrep}, \code{maxL}).
+#'     Each row is a posterior sample of the variance parameter for each observational cluster \eqn{(\sigma^2_1,\dots\sigma^2_L)}.
+#'    \item \code{obs_cluster}: Matrix of size (\code{nrep}, n), with n = \code{length(y)}.
+#'    Each row is a posterior sample of the observational cluster allocation variables \eqn{(M_{1,1},\dots,M_{n_J,J})}.
+#'    \item \code{distr_cluster}: Matrix of size (\code{nrep}, J), with J = \code{length(unique(group))}
+#'    Each row is a posterior sample of the distributional cluster allocation variables \eqn{(S_1,\dots,S_J)}.
+#'    \item \code{pi}: Matrix of size (\code{nrep}, \code{maxK}).
+#'    Each row is a posterior sample of the distributional cluster probabilities \eqn{(\pi_1,\dots,\pi_{maxK})}.
+#'    \item \code{omega}: 3-d array of size (\code{maxL}, \code{maxK}, \code{nrep}).
+#'    Each slice is a posterior sample of the observational cluster probabilities.
+#'    In each slice, each column \eqn{k} is a vector (of length \code{maxL}) observational cluster probabilities
+#'    \eqn{(\omega_{1,k},\dots,\omega_{maxL,k})} for distributional cluster \eqn{k}.
+#'    \item \code{alpha}: Vector of length \code{nrep} of posterior samples of the parameter \eqn{\alpha}.
+#'    \item \code{beta}: Vector of length \code{nrep} of posterior samples of the parameter \eqn{\beta}.
+#'    \item \code{maxK}: Vector of length \code{nrep} of the number of distributional DP components used by the slice sampler.
+#'    \item \code{maxL}: Vector of length \code{nrep} of the number of observational DP components used by the slice sampler.
+#'  }
+#'
+#'
+#' @references Denti, F., Camerlenghi, F., Guindani, M., and Mira, A. (2023). A Common Atoms Model for the Bayesian Nonparametric Analysis of Nested Data.
+#' \emph{Journal of the American Statistical Association}, 118(541), 405-416. DOI: 10.1080/01621459.2021.1933499
+#'
+#' Sethuraman, A.J. (1994). A Constructive Definition of Dirichlet Priors, \emph{Statistica Sinica}, 4, 639–650.
+#'
+#'@export
+#'
+#'
+#'
+#'
+#'@examples
+#' set.seed(123)
+#' y <- c(rnorm(160), rnorm(40, 5))
+#' g <- rep(1:2, rep(100, 2))
+#' plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
+#' lines(density(y[g==2]), col = 2)
+#'
+#' out_vi <- fit_CAM(y, group = g, est_method = "VI")
+#' out_vi
+#'
+#' out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC")
+#' out_mcmc
+fit_CAM <- function(y,
+                   group,
+                   est_method = c("VI", "MCMC"),
+                   prior_param = list(),
+                   vi_param = list(),
+                   mcmc_param = list()){
+
+  # Checks and list completion ----------------------------------------------
+  est_method <- match.arg(est_method)
+
+  if(est_method == "VI"){
+    vi_param$n_runs       <- ifelse(is.null(vi_param$n_runs), 1, vi_param$n_runs)
+
+    if(vi_param$n_runs == 1){
+      est_model <- variational_CAM(y,
+                                    group,
+                                    prior_param = prior_param,
+                                    vi_param = vi_param)
+    }else{
+
+      print_run_progress    <- ifelse(is.null(vi_param$print_run_progress), FALSE, vi_param$print_run_progress)
+
+      list_est <- list()
+      elbos    <- list()
+      if(is.null( vi_param$seed)){
+        ROOT <- round(stats::runif(1,1,10000))
+      }else{
+        ROOT <- vi_param$seed
+      }
+
+      for(l in 1:vi_param$n_runs){
+
+        vi_param$seed <- ROOT*l
+
+        proposed_fit <- variational_CAM(y,
+                                          group,
+                                          prior_param = prior_param,
+                                          vi_param = vi_param)
+        elbos[[l]] <- proposed_fit$sim$Elbo_val
+        if( l == 1){
+          est_model <- proposed_fit
+          max_elbo_observed <- max(elbos[[1]])
+        } else if(l > 2) {
+         if( max_elbo_observed < max(elbos[[l]]) ){
+           est_model <- proposed_fit
+           max_elbo_observed <- max(elbos[[l]])
+         }
+        }
+
+        if(print_run_progress){
+          cat(paste0("Performing run number ", l, " out of ", vi_param$n_runs, "\n"))
+        }
+      }
+      est_model$all_elbos <- elbos
+    }
+  }else{
+    est_model <- sample_CAM(y,
+                             group,
+                             prior_param = prior_param,
+                             mcmc_param = mcmc_param)
+  }
+
+  return(est_model)
+}
+
+
