@@ -46,5 +46,9 @@ g <- rep(1:2,rep(100,2))
 est <- fit_fiSAN(y,g)
 
 # Estimate posterior atoms and weights
-estimate_G(est)
+est <- estimate_G(est)
+est
+plot(est)
+plot(est, DC_num = 1)
+
 }

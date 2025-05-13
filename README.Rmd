@@ -13,14 +13,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-# sanba
+# sanba v0.0.1
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml)
-[![CRAN](https://www.r-pkg.org/badges/version/sanba)](https://cran.r-project.org/package=sanba)
 [![Last Commit](https://img.shields.io/github/last-commit/fradenti/sanba)](https://github.com/fradenti/sanba)
+<!---
+[![CRAN](https://www.r-pkg.org/badges/version/sanba)](https://cran.r-project.org/package=sanba)
 [![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)
-[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)<!-- badges: end -->
+[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)--->
+<!-- badges: end -->
 
 
 The goal of `sanba` is to estimate Bayesian nested mixture models via MCMC and VI methods. Specifically, the package implements the common atoms model (Denti et al., 2023) and hybrid finite-infinite models (D'Angelo and Denti, 2024). All models use Gaussian mixtures with a normal-inverse-gamma prior distribution on the parameters. Additional functions are provided to help analyzing the results of the fitting procedure.    

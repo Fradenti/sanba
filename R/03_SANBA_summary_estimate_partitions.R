@@ -22,7 +22,16 @@
 #'
 #' @examples
 #' set.seed(123)
-#' ## ....
+#' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
+#' g <- c(rep(1:6,each=10))
+#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 20))
+#' plot(out)
+#' clust <- summary(out)
+#' clust
+#' plot(clust)
+#' plot(clust,  type = "boxplot", palette_brewed = TRUE)
+#' plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
+#'
 #'
 #' @importFrom salso salso
 #' @name summary
@@ -63,6 +72,18 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
 #' @name summary
 #'
 #' @export
+#'
+#' @examples
+#' set.seed(123)
+#' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
+#' g <- c(rep(1:6,each=10))
+#' out <- fit_fSAN(y = y, group = g, "MCMC")
+#' plot(out)
+#' clust <- summary(out)
+#' clust
+#' plot(clust)
+#' plot(clust,  type = "boxplot", palette_brewed = TRUE)
+#' plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
 #'
 summary.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, ...) {
 
@@ -245,7 +266,7 @@ plot.summary_mcmc <- function(x,
       pch = ".",
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
-      xlab = "Group index"
+      xlab = "Group index", ...
     )
   }else{
     old.par <- graphics::par(no.readonly = TRUE)
@@ -395,14 +416,14 @@ plot.summary_vi <- function(x,
          col=subDC,
          xlab = "Group index",
          ylab = "y",
-         main = paste0("Observations colored by DC\n",main_title)
+         main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
          pch=".",
          col=subOC,
          xlab = "Group index",
          ylab = "y",
-         main = paste0("Observations colored by OC\n",main_title)
+         main = paste0("Observations colored by OC\n",main_title), ...
     )
   }
 }

@@ -3,7 +3,8 @@
 #' Check the convergence of the MCMC through visual inspection of the chains.
 #'
 #' @param x object of class \code{SANmcmc}.
-#' @param param string with the names of the parameters to check.
+#' @param param string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
+#' \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.
 #' @param show_density  logical (default \code{TRUE}). Should a kernel estimate of the density be plotted? The burn-in is always discarded.
 #' @param add_burnin integer (default = 0). Optional number of observations to additionally discard.
 #' @param show_convergence logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?
@@ -17,20 +18,22 @@
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
 #' g <- c(rep(1,30), rep(2, 30))
-#' out <- fit_fiSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 5000, burn = 1000))
+#' out <- fit_fiSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 500, burn = 100))
 #' plot(out, param = "mu", trunc_plot = 2)
 #' plot(out, param = "sigma2", trunc_plot = 2)
-#' plot(out, param = "alpha", trunc_plot = 2)
-#' plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 1000)
+#' plot(out, param = "alpha", trunc_plot = 1)
+#' plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
 #' plot(out, param = "pi", trunc_plot = 2)
 #'
-#' out <- fit_CAM(y = y, group = g, "MCMC", mcmc_param = list(nrep = 5000, burn = 1000, seed= 1234))
+#' out <- fit_CAM(y = y, group = g, "MCMC",
+#' mcmc_param = list(nrep = 1000, burn = 500, seed= 1234))
 #' plot(out, param = "mu", trunc_plot = 2)
 #' plot(out, param = "sigma2", trunc_plot = 2)
 #' plot(out, param = "alpha", trunc_plot = 2)
-#' plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 1000)
+#' plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
 #' plot(out, param = "pi", trunc_plot = 2)
 #' plot(out, param = "pi", trunc_plot = 5)
+#' plot(out, param = "num_clust", trunc_plot = 5)
 #' plot(out, param = "beta", trunc_plot = 2)
 #'
 #' out <- fit_fSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 1000, burn = 500))
@@ -38,7 +41,6 @@
 #' plot(out, param = "sigma2", trunc_plot = 2)
 #' plot(out, param = "pi", trunc_plot = 4,
 #'      show_convergence = FALSE, show_density = FALSE)
-#'
 #'
 #' @importFrom graphics par
 #' @importFrom grDevices devAskNewPage
@@ -94,12 +96,6 @@ plot.SANmcmc <- function(x, param = c("mu",
                     show_convergence,
                     trunc_plot)
 {
-
-  # if("omega" %in% param) {
-  #   warning("Traceplot for omega is not available")
-  #   param <- param[param!="omega"]
-  # }
-
 
 
   count <- 0
@@ -249,6 +245,13 @@ plot.SANmcmc <- function(x, param = c("mu",
 #' @return The function plots the path followed by the ELBO and its subsequent differences.
 #'
 #' @export
+#'
+#' @examples
+#' set.seed(123)
+#' y <- c(rnorm(400,0,0.3), rnorm(200,5,0.3))
+#' g <- c(rep(1,300), rep(2, 300))
+#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 5))
+#' plot(out)
 plot.SANvi <- function(x, ...){
 
   old.par <- graphics::par(no.readonly = TRUE)

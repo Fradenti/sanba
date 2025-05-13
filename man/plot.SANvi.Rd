@@ -19,3 +19,10 @@ Plot method for objects of class \code{SANvi}.
 The function displays two graphs, showing the behavior of the ELBO values as
 a function of the iterations and its subsequent increments, which should always be positive (log-scale).
 }
+\examples{
+set.seed(123)
+y <- c(rnorm(400,0,0.3), rnorm(200,5,0.3))
+g <- c(rep(1,300), rep(2, 300))
+out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 5))
+plot(out)
+}

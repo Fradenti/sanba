@@ -17,7 +17,8 @@
 \arguments{
 \item{x}{object of class \code{SANmcmc}.}
 
-\item{param}{string with the names of the parameters to check.}
+\item{param}{string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
+\code{"num_clust"}, \code{"alpha"}, \code{"beta"}.}
 
 \item{show_density}{logical (default \code{TRUE}). Should a kernel estimate of the density be plotted? The burn-in is always discarded.}
 
@@ -43,20 +44,22 @@ The function is not available for the observational weights \eqn{\omega}.
 set.seed(123)
 y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
 g <- c(rep(1,30), rep(2, 30))
-out <- fit_fiSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 5000, burn = 1000))
+out <- fit_fiSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 500, burn = 100))
 plot(out, param = "mu", trunc_plot = 2)
 plot(out, param = "sigma2", trunc_plot = 2)
-plot(out, param = "alpha", trunc_plot = 2)
-plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 1000)
+plot(out, param = "alpha", trunc_plot = 1)
+plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
 plot(out, param = "pi", trunc_plot = 2)
 
-out <- fit_CAM(y = y, group = g, "MCMC", mcmc_param = list(nrep = 5000, burn = 1000, seed= 1234))
+out <- fit_CAM(y = y, group = g, "MCMC",
+mcmc_param = list(nrep = 1000, burn = 500, seed= 1234))
 plot(out, param = "mu", trunc_plot = 2)
 plot(out, param = "sigma2", trunc_plot = 2)
 plot(out, param = "alpha", trunc_plot = 2)
-plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 1000)
+plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
 plot(out, param = "pi", trunc_plot = 2)
 plot(out, param = "pi", trunc_plot = 5)
+plot(out, param = "num_clust", trunc_plot = 5)
 plot(out, param = "beta", trunc_plot = 2)
 
 out <- fit_fSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 1000, burn = 500))
@@ -64,6 +67,5 @@ plot(out, param = "mu", trunc_plot = 2)
 plot(out, param = "sigma2", trunc_plot = 2)
 plot(out, param = "pi", trunc_plot = 4,
      show_convergence = FALSE, show_density = FALSE)
-
 
 }

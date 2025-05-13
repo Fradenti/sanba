@@ -70,7 +70,27 @@ Given the output of a \code{sanba} function, estimate the observational and dist
 }
 \examples{
 set.seed(123)
-## ....
+y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
+g <- c(rep(1:6,each=10))
+out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 20))
+plot(out)
+clust <- summary(out)
+clust
+plot(clust)
+plot(clust,  type = "boxplot", palette_brewed = TRUE)
+plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
+
+
+set.seed(123)
+y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
+g <- c(rep(1:6,each=10))
+out <- fit_fSAN(y = y, group = g, "MCMC")
+plot(out)
+clust <- summary(out)
+clust
+plot(clust)
+plot(clust,  type = "boxplot", palette_brewed = TRUE)
+plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
 
 }
 \seealso{

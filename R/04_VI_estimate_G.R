@@ -23,7 +23,11 @@
 #' est <- fit_fiSAN(y,g)
 #'
 #' # Estimate posterior atoms and weights
-#' estimate_G(est)
+#' est <- estimate_G(est)
+#' est
+#' plot(est)
+#' plot(est, DC_num = 1)
+#'
 estimate_G <- function(object,...){
 
   if(object$model == "CAM"){
