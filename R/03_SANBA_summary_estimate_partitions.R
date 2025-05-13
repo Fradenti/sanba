@@ -28,9 +28,9 @@
 #' plot(out)
 #' clust <- summary(out)
 #' clust
-#' plot(clust)
-#' plot(clust,  type = "boxplot", palette_brewed = TRUE)
-#' plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
+#' plot(clust, lwd = 1.5)
+#' plot(clust, type = "boxplot", palette_brewed = TRUE)
+#' plot(clust, type = "scatter", palette_brewed = FALSE, cex=5)
 #'
 #'
 #' @importFrom salso salso
@@ -158,7 +158,7 @@ print.summary_vi <- function(x, ...){
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
 #' @param palette_brewed (logical) the color palette to be used. Default is \code{R} base colors (\code{palette_brewed = FALSE}).
-#' @param ... ignored.
+#' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
 #' @importFrom stats median
@@ -232,7 +232,7 @@ plot.summary_mcmc <- function(x,
       col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5),
       xlab = "y",
       ylab = "eCDF",
-      main = paste0("eCDFs colored by DC\n",main_title)
+      main = paste0("eCDFs colored by DC\n", main_title), ...
     )
     graphics::points(
       (ysteps ~ xsteps),
@@ -249,7 +249,7 @@ plot.summary_mcmc <- function(x,
       xsteps = sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
-                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5))
+                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
@@ -263,7 +263,6 @@ plot.summary_mcmc <- function(x,
     graphics::boxplot(
       suby ~ subg,
       col = scales::alpha(colpal[ind_ord_dis[inds_col]], .7),
-      pch = ".",
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
       xlab = "Group index", ...
@@ -274,14 +273,12 @@ plot.summary_mcmc <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         pch=".",
          col=subDC,
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         pch=".",
          col=subOC,
          xlab = "Group index",
          ylab = "y",
@@ -296,7 +293,7 @@ plot.summary_mcmc <- function(x,
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
 #' @param palette_brewed (logical) the color palette to be used. Default is \code{R} base colors (\code{palette_brewed = FALSE}).
-#' @param ... ignored.
+#' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
 #' @importFrom stats median
@@ -370,7 +367,7 @@ plot.summary_vi <- function(x,
       col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5),
       xlab = "y",
       ylab = "eCDF",
-      main = paste0("eCDFs colored by DC\n",main_title)
+      main = paste0("eCDFs colored by DC\n",main_title), ...
     )
     graphics::points(
       (ysteps ~ xsteps),
@@ -387,7 +384,7 @@ plot.summary_vi <- function(x,
       xsteps = sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
-                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5))
+                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...elt())
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
@@ -401,10 +398,9 @@ plot.summary_vi <- function(x,
     graphics::boxplot(
       suby ~ subg,
       col = scales::alpha(colpal[ind_ord_dis[inds_col]], .7),
-      pch = ".",
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
-      xlab = "group"
+      xlab = "group", ...length()
     )
   }else{
     old.par <- graphics::par(no.readonly = TRUE)
@@ -412,14 +408,12 @@ plot.summary_vi <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         pch=".",
          col=subDC,
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         pch=".",
          col=subOC,
          xlab = "Group index",
          ylab = "y",

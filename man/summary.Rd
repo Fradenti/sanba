@@ -42,7 +42,7 @@
 \item{ordered}{logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 increasing values of medians of the data assigned to each DC.}
 
-\item{...}{ignored.}
+\item{...}{additional graphical parameters to be passed to the \code{plot} function.}
 
 \item{add_burnin}{integer (default = 0). Optional number of observations to additionally discard.}
 

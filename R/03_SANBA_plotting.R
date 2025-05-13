@@ -9,7 +9,6 @@
 #' @param add_burnin integer (default = 0). Optional number of observations to additionally discard.
 #' @param show_convergence logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?
 #' @param trunc_plot integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.
-#' @param ... ignored
 #' @note The function is not available for the observational weights \eqn{\omega}.
 #'
 #' @return The function displays the traceplots of the MCMC algorithm.
@@ -54,7 +53,7 @@ plot.SANmcmc <- function(x, param = c("mu",
                          show_density = TRUE,
                          add_burnin = 0,
                          show_convergence = TRUE,
-                         trunc_plot = 2, ...)
+                         trunc_plot = 2)
 {
 
 
