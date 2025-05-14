@@ -55,7 +55,6 @@ Possibly misspelled words in DESCRIPTION:
 
 - Running `devtools::check_mac_release()` produces
   
-
 >* checking installed package size ... NOTE  
   installed size is  8.7Mb  
   sub-directories of 1Mb or more:  

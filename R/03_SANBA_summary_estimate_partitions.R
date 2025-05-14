@@ -28,9 +28,9 @@
 #' plot(out)
 #' clust <- summary(out)
 #' clust
-#' plot(clust, lwd = 2, palette_brewed = TRUE)
-#' plot(clust, type = "boxplot", palette_brewed = TRUE)
-#' plot(clust, type = "scatter", palette_brewed = FALSE, cex = 2)
+#' plot(clust, lwd = 2, alt_palette = TRUE)
+#' plot(clust, type = "boxplot", alt_palette = TRUE)
+#' plot(clust, type = "scatter", alt_palette = FALSE, cex = 2)
 #'
 #'
 #' @importFrom salso salso
@@ -82,8 +82,8 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
 #' clust <- summary(out)
 #' clust
 #' plot(clust, lwd = 2)
-#' plot(clust,  type = "boxplot", palette_brewed = TRUE)
-#' plot(clust,  type = "scatter", palette_brewed = TRUE, cex = 2, pch = 4)
+#' plot(clust,  type = "boxplot", alt_palette = TRUE)
+#' plot(clust,  type = "scatter", alt_palette = TRUE, cex = 2, pch = 4)
 #'
 summary.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, ...) {
 
@@ -157,7 +157,7 @@ print.summary_vi <- function(x, ...){
 #' function \code{\link{summary.SANmcmc}}.
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
-#' @param palette_brewed (logical) the color palette to be used. Default is \code{R} base colors (\code{palette_brewed = FALSE}).
+#' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
 #' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
@@ -170,7 +170,7 @@ print.summary_vi <- function(x, ...){
 plot.summary_mcmc <- function(x,
                          DC_num = NULL,
                          type = c("ecdf", "boxplot", "scatter"),
-                         palette_brewed = FALSE,
+                         alt_palette = FALSE,
                          ...) {
 
   type   <- match.arg(type)
@@ -184,9 +184,8 @@ plot.summary_mcmc <- function(x,
   }
 
   max_CD <- max(x$dis_level)
-  if(palette_brewed){
+  if(alt_palette){
     colpal <- RColorBrewer::brewer.pal(8, "Dark2")
-      # rev(grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Dark2"))(max_CD))
   }else{
     colpal <- 1:max_CD
   }
@@ -291,7 +290,7 @@ plot.summary_mcmc <- function(x,
 #' function \code{\link{summary}}.
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
-#' @param palette_brewed (logical) the color palette to be used. Default is \code{R} base colors (\code{palette_brewed = FALSE}).
+#' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
 #' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
@@ -304,7 +303,7 @@ plot.summary_mcmc <- function(x,
 plot.summary_vi <- function(x,
                        DC_num = NULL,
                        type = c("ecdf", "boxplot", "scatter"),
-                       palette_brewed = FALSE,
+                       alt_palette = FALSE,
                        ...) {
 
   type   <- match.arg(type)
@@ -318,9 +317,8 @@ plot.summary_vi <- function(x,
 
 
   max_CD <- max(x$dis_level)
-  if(palette_brewed){
+  if(alt_palette){
     colpal <- RColorBrewer::brewer.pal(8, "Dark2")
-      # rev(grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Dark2"))(max_CD))
   }else{
     colpal <- 1:max_CD
   }
