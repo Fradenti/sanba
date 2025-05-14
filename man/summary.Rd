@@ -22,7 +22,7 @@
   x,
   DC_num = NULL,
   type = c("ecdf", "boxplot", "scatter"),
-  palette_brewed = FALSE,
+  alt_palette = FALSE,
   ...
 )
 
@@ -30,7 +30,7 @@
   x,
   DC_num = NULL,
   type = c("ecdf", "boxplot", "scatter"),
-  palette_brewed = FALSE,
+  alt_palette = FALSE,
   ...
 )
 }
@@ -56,7 +56,7 @@ function \code{\link{summary}}.}
 
 \item{type}{what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".}
 
-\item{palette_brewed}{(logical) the color palette to be used. Default is \code{R} base colors (\code{palette_brewed = FALSE}).}
+\item{alt_palette}{(logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).}
 }
 \value{
 a list of class \code{summary_vi} or \code{summary_mcmc} containing
@@ -76,9 +76,9 @@ out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 20))
 plot(out)
 clust <- summary(out)
 clust
-plot(clust, lwd = 2, palette_brewed = TRUE)
-plot(clust, type = "boxplot", palette_brewed = TRUE)
-plot(clust, type = "scatter", palette_brewed = FALSE, cex = 2)
+plot(clust, lwd = 2, alt_palette = TRUE)
+plot(clust, type = "boxplot", alt_palette = TRUE)
+plot(clust, type = "scatter", alt_palette = FALSE, cex = 2)
 
 
 set.seed(123)
@@ -89,8 +89,8 @@ plot(out)
 clust <- summary(out)
 clust
 plot(clust, lwd = 2)
-plot(clust,  type = "boxplot", palette_brewed = TRUE)
-plot(clust,  type = "scatter", palette_brewed = TRUE, cex = 2, pch = 4)
+plot(clust,  type = "boxplot", alt_palette = TRUE)
+plot(clust,  type = "scatter", alt_palette = TRUE, cex = 2, pch = 4)
 
 }
 \seealso{
