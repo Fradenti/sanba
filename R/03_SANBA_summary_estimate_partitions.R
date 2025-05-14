@@ -23,14 +23,14 @@
 #' @examples
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
-#' g <- c(rep(1:6,each=10))
+#' g <- c(rep(1:6, each = 10))
 #' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 20))
 #' plot(out)
 #' clust <- summary(out)
 #' clust
-#' plot(clust, lwd = 1.5)
+#' plot(clust, lwd = 2, palette_brewed = TRUE)
 #' plot(clust, type = "boxplot", palette_brewed = TRUE)
-#' plot(clust, type = "scatter", palette_brewed = FALSE, cex=5)
+#' plot(clust, type = "scatter", palette_brewed = FALSE, cex = 2)
 #'
 #'
 #' @importFrom salso salso
@@ -76,14 +76,14 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
 #' @examples
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
-#' g <- c(rep(1:6,each=10))
+#' g <- c(rep(1:6, each = 10))
 #' out <- fit_fSAN(y = y, group = g, "MCMC")
 #' plot(out)
 #' clust <- summary(out)
 #' clust
-#' plot(clust)
+#' plot(clust, lwd = 2)
 #' plot(clust,  type = "boxplot", palette_brewed = TRUE)
-#' plot(clust,  type = "scatter", palette_brewed = FALSE, cex=5)
+#' plot(clust,  type = "scatter", palette_brewed = TRUE, cex = 2, pch = 4)
 #'
 summary.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, ...) {
 
@@ -384,7 +384,7 @@ plot.summary_vi <- function(x,
       xsteps = sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
-                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...elt())
+                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
@@ -400,7 +400,7 @@ plot.summary_vi <- function(x,
       col = scales::alpha(colpal[ind_ord_dis[inds_col]], .7),
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
-      xlab = "group", ...length()
+      xlab = "group", ...
     )
   }else{
     old.par <- graphics::par(no.readonly = TRUE)

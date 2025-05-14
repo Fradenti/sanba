@@ -10,7 +10,8 @@
   show_density = TRUE,
   add_burnin = 0,
   show_convergence = TRUE,
-  trunc_plot = 2
+  trunc_plot = 2,
+  ...
 )
 }
 \arguments{
@@ -26,6 +27,8 @@
 \item{show_convergence}{logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?}
 
 \item{trunc_plot}{integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.}
+
+\item{...}{additional graphical parameters.}
 }
 \value{
 The function displays the traceplots of the MCMC algorithm.
@@ -45,15 +48,14 @@ out <- fit_fiSAN(y = y, group = g, "MCMC", mcmc_param = list(nrep = 500, burn = 
 plot(out, param = "mu", trunc_plot = 2)
 plot(out, param = "sigma2", trunc_plot = 2)
 plot(out, param = "alpha", trunc_plot = 1)
-plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
-plot(out, param = "pi", trunc_plot = 2)
+plot(out, param = "alpha", add_burnin = 100)
+plot(out, param = "pi", trunc_plot = 4, show_density = FALSE)
 
 out <- fit_CAM(y = y, group = g, "MCMC",
 mcmc_param = list(nrep = 1000, burn = 500, seed= 1234))
 plot(out, param = "mu", trunc_plot = 2)
 plot(out, param = "sigma2", trunc_plot = 2)
-plot(out, param = "alpha", trunc_plot = 2)
-plot(out, param = "alpha", trunc_plot = 2,  add_burnin = 100)
+plot(out, param = "alpha")
 plot(out, param = "pi", trunc_plot = 2)
 plot(out, param = "pi", trunc_plot = 5)
 plot(out, param = "num_clust", trunc_plot = 5)
