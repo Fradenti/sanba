@@ -185,9 +185,8 @@ plot.summary_mcmc <- function(x,
 
   max_CD <- max(x$dis_level)
   if(palette_brewed){
-    colpal <-
-      rev(
-        grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))(max_CD))
+    colpal <- RColorBrewer::brewer.pal(8, "Dark2")
+      # rev(grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Dark2"))(max_CD))
   }else{
     colpal <- 1:max_CD
   }
@@ -273,13 +272,13 @@ plot.summary_mcmc <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         col=subDC,
+         col=colpal[subDC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         col=subOC,
+         col=colpal[subOC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by OC\n",main_title), ...
@@ -320,9 +319,8 @@ plot.summary_vi <- function(x,
 
   max_CD <- max(x$dis_level)
   if(palette_brewed){
-    colpal <-
-      rev(
-        grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))(max_CD))
+    colpal <- RColorBrewer::brewer.pal(8, "Dark2")
+      # rev(grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, "Dark2"))(max_CD))
   }else{
     colpal <- 1:max_CD
   }
@@ -408,13 +406,13 @@ plot.summary_vi <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         col=subDC,
+         col=colpal[subDC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         col=subOC,
+         col=colpal[subOC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by OC\n",main_title), ...
