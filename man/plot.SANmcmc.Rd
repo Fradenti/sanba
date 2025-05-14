@@ -20,15 +20,15 @@
 \item{param}{string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.}
 
-\item{show_density}{logical (default \code{TRUE}). Should a kernel estimate of the density be plotted? The burn-in is always discarded.}
+\item{show_density}{logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?}
 
-\item{add_burnin}{integer (default = 0). Optional number of observations to additionally discard.}
+\item{add_burnin}{integer (default = 0). Additional number of observations to discard in the burn-in.}
 
 \item{show_convergence}{logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?}
 
 \item{trunc_plot}{integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.}
 
-\item{...}{additional graphical parameters.}
+\item{...}{ignored.}
 }
 \value{
 The function displays the traceplots of the MCMC algorithm.

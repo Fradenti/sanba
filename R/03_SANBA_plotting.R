@@ -5,11 +5,11 @@
 #' @param x object of class \code{SANmcmc}.
 #' @param param string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 #' \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.
-#' @param show_density  logical (default \code{TRUE}). Should a kernel estimate of the density be plotted? The burn-in is always discarded.
-#' @param add_burnin integer (default = 0). Optional number of observations to additionally discard.
+#' @param show_density  logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?
+#' @param add_burnin integer (default = 0). Additional number of observations to discard in the burn-in.
 #' @param show_convergence logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?
 #' @param trunc_plot integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.
-#' @param ... additional graphical parameters.
+#' @param ... ignored.
 #' @note The function is not available for the observational weights \eqn{\omega}.
 #'
 #' @return The function displays the traceplots of the MCMC algorithm.
@@ -240,7 +240,7 @@ plot.SANmcmc <- function(x, param = c("mu",
 #'
 #' @param x object of class \code{SANvi}.
 #'
-#' @param ... additional graphical parameters to be passed.
+#' @param ... ignored.
 #'
 #' @return The function plots the path followed by the ELBO and its subsequent differences.
 #'
@@ -261,8 +261,7 @@ plot.SANvi <- function(x, ...){
     plot(x$sim$Elbo_val,
        xlab = "Iterations - log scale", ylab = "ELBO",
        main = paste(x$model, "- ELBO"),type="b",cex=.5,
-       log="x",
-       ...)
+       log="x")
   }else{
       lli = lapply(x$all_elbos, length)
       lmi = lapply(x$all_elbos, min)
@@ -274,21 +273,20 @@ plot.SANvi <- function(x, ...){
            main = paste(x$model, "- Results over",length(lli),"runs\nELBO trajectories"), ylim = lims,
            xlim = c(1,max(unlist(lli))),
            type="b",cex=.5,
-           log="x", col = "gray", ...)
+           log="x", col = "gray")
     for(i in 1:length(x$all_elbos)){
       points(x$all_elbos[[i]],
            xlab = "Iterations - log scale", ylab = "ELBO",
-           type="b",cex=.5, col = "gray", ...)
+           type="b",cex=.5, col = "gray")
     }
       points(x$sim$Elbo_val,
              xlab = "Iterations - log scale", ylab = "ELBO",
-             type="b",cex=.5, col = "steelblue3", ...)
+             type="b",cex=.5, col = "steelblue3")
   }
   plot(diff(x$sim$Elbo_val),
        xlab = "Iterations - log scale", ylab = "diff(ELBO)",
        main = paste(x$model, "- Best run\nELBO differences"),type="b",cex=.5,
-       log="x",
-       ...)
+       log="x")
 
   }
 

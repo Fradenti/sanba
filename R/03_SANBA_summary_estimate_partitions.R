@@ -156,7 +156,7 @@ print.summary_vi <- function(x, ...){
 #' @param x an object of class \code{mcmc_clustering}, which can be obtained from the
 #' function \code{\link{summary.SANmcmc}}.
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
-#' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
+#' @param type what type of plot should be drawn. Available types are "boxplot", "ecdf", and "scatter".
 #' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
 #' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'

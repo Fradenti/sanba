@@ -14,14 +14,14 @@
 #' @param est_method Character, specifying the preferred estimation method. It can be either \code{"VI"} or \code{"MCMC"}.
 #' @param prior_param A list containing
 #' \describe{
-#'    \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}.}
-#'    \item{\code{a_dirichlet}}{The hyperparameter of the symmetric distributional Dirichlet distribution.}
-#'    \item{\code{b_dirichlet}}{The hyperparameter of the symmetric observational Dirichlet distribution.}
+#'    \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}. The default is (0, 0.01, 3, 2).}
+#'    \item{\code{a_dirichlet}}{The hyperparameter of the symmetric distributional Dirichlet distribution. The default is 1/\code{maxK}.}
+#'    \item{\code{b_dirichlet}}{The hyperparameter of the symmetric observational Dirichlet distribution. The default is 1/\code{maxL}.}
 #' }
 #'
 #' @param vi_param A list of variational inference-specific settings, containing
 #'  \describe{
-#'    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'    \item{\code{epsilon}}{The tolerance that drives the convergence criterion adopted as stopping rule.}
 #'    \item{\code{seed}}{Random seed to control the initialization.}
 #'    \item{\code{maxSIM}}{The maximum number of CAVI iteration to perform.}
@@ -31,7 +31,7 @@
 #' @param mcmc_param A list of MCMC inference-specific settings, containing
 #'  \describe{
 #'    \item{\code{nrep, burn}}{Integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
-#'    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'    \item{\code{seed}}{Random seed to control the initialization.}
 #'    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm. If \code{FALSE}, the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start} }
 #'    \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
@@ -97,12 +97,12 @@
 #'
 #' \strong{Variational inference}: \code{sim} is a list with the following components:
 #' \itemize{
-#' \item \code{theta_l}: Matrix of size (L,4).
+#' \item \code{theta_l}: Matrix of size (\code{maxL},4).
 #'    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
-#' \item \code{XI} : A list of length J. Each element is a matrix of size (N, L)
+#' \item \code{XI} : A list of length J. Each element is a matrix of size (N, \code{maxL})
 #'    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
 #'    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
-#' \item \code{RHO}: Matrix of size (J, K).
+#' \item \code{RHO}: Matrix of size (J, \code{maxK}).
 #'    Each row is a posterior variational probability of assignment of the j-th group to the k-th DC, i.e., \eqn{\hat{\rho}_{j,k} = \hat{\mathbb{Q}}(S_j=k)}.
 #' \item \code{a_dirichlet_k}: Vector of updated variational parameters of the Dirichlet distribution governing the distributional clustering.
 #' \item \code{b_dirichlet_lk}: Matrix of updated variational parameters of the Dirichlet distributions governing the observational clustering (arranged by column).
@@ -143,12 +143,12 @@
 #' out_vi
 #'
 #' out_mcmc <- fit_fSAN(y = y, group = g, est_method = "MCMC",
-#' mcmc_param = list(nrep = 500,burn=100))
+#'                       mcmc_param = list(nrep = 500, burn=100))
 #' out_mcmc
 #'
 fit_fSAN <- function(y,
                      group,
-                     est_method = c("VI","MCMC"),
+                     est_method = c("VI", "MCMC"),
                      prior_param = list(),
                      vi_param = list(),
                      mcmc_param = list()

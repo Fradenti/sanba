@@ -14,7 +14,7 @@
 #' @param est_method Character, specifying the preferred estimation method. It can be either \code{"VI"} or \code{"MCMC"}.
 #' @param prior_param A list containing
 #' \describe{
-#'    \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}.}
+#'    \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}. The default is (0, 0.01, 3, 2).}
 #'    \item{\code{hyp_alpha1, hyp_alpha2}}{If a random \eqn{\alpha} is used, (\code{hyp_alpha1}, \code{hyp_alpha2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\alpha} ~ Gamma(\code{hyp_alpha1}, \code{hyp_alpha2}).}
 #'    \item{\code{alpha}}{Distributional DP parameter if fixed (optional). The distribution is \eqn{\pi\sim GEM (\alpha)}.}
 #'    \item{\code{hyp_beta1, hyp_beta2}}{If a random \eqn{\beta} is used, (\code{hyp_beta1}, \code{hyp_beta2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\beta} ~ Gamma(\code{hyp_beta1}, \code{hyp_beta2}).}
@@ -22,7 +22,7 @@
 #'    }
 #' @param vi_param A list of variational inference-specific settings containing
 #'  \describe{
-#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'    \item{\code{epsilon}}{the tolerance that drives the convergence criterion adopted as stopping rule.}
 #'    \item{\code{seed}}{random seed to control the initialization.}
 #'    \item{\code{maxSIM}}{the maximum number of CAVI iteration to perform.}
@@ -32,7 +32,7 @@
 #' @param mcmc_param A list of MCMC inference-specific settings containing
 #'  \describe{
 #'    \item{\code{nrep, burn}}{integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
-#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'    \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'    \item{\code{seed}}{random seed to control the initialization.}
 #'    \item{\code{warmstart}}{logical, if \code{TRUE}, the observational means of
 #'    the cluster atoms are initialized with a k-means algorithm. If \code{FALSE},
@@ -102,12 +102,12 @@
 #'
 #' \strong{Variational inference}: \code{sim} is a list with the following components:
 #' \itemize{
-#' \item \code{theta_l}: Matrix of size (L,4).
+#' \item \code{theta_l}: Matrix of size (\code{maxL},4).
 #'    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
-#' \item \code{XI}: A list of length J. Each element is a matrix of size (N, L)
-#'    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
+#' \item \code{XI}: A list of length J. Each element is a matrix of size (N, \code{maxL}) containing the
+#'    posterior variational probability of assignment of the i-th observation in the j-th group to the l-th OC,
 #'    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
-#' \item \code{RHO}: Matrix of size (J, K).
+#' \item \code{RHO}: Matrix of size (J, \code{maxK}).
 #'    Each row is a posterior variational probability of assignment of the j-th group to the k-th DC, i.e., \eqn{\hat{\rho}_{j,k} = \hat{\mathbb{Q}}(S_j=k)}.
 #' \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the Beta distributions governing the distributional stick-breaking process.
 #' \item \code{a_bar_lk, b_bar_lk}: Matrix of updated variational parameters of the Beta distributions governing the observational stick-breaking

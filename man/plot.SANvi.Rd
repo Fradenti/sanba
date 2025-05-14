@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{object of class \code{SANvi}.}
 
-\item{...}{additional graphical parameters to be passed.}
+\item{...}{ignored.}
 }
 \value{
 The function plots the path followed by the ELBO and its subsequent differences.

@@ -14,15 +14,15 @@
 #' @param est_method Character, specifying the preferred estimation method. It can be either \code{"VI"} or \code{"MCMC"}.
 #' @param prior_param A list containing:
 #' \describe{
-#'   \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}.}
-#'   \item{\code{hyp_alpha1, hyp_alpha2}}{If a random \eqn{\alpha} is used, (\code{hyp_alpha1}, \code{hyp_alpha2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\alpha \sim \text{Gamma}(\text{hyp\_alpha1}, \text{hyp\_alpha2})}.}
+#'   \item{\code{m0, tau0, lambda0, gamma0}}{Hyperparameters on \eqn{(\mu, \sigma^2) \sim NIG(m_0, \tau_0, \lambda_0,\gamma_0)}. The default is (0, 0.01, 3, 2).}
+#'   \item{\code{hyp_alpha1, hyp_alpha2}}{If a random \eqn{\alpha} is used, (\code{hyp_alpha1}, \code{hyp_alpha2}) specify the hyperparameters. The default is (1,1). The prior is \eqn{\alpha} ~ Gamma(\code{hyp_alpha1}, \code{hyp_alpha2}).}
 #'   \item{\code{alpha}}{Distributional DP parameter if fixed (optional). The distribution is \eqn{\pi\sim \text{GEM} (\alpha)}.}
-#'   \item{\code{b_dirichlet}}{The hyperparameter of the symmetric observational Dirichlet distribution.}
+#'   \item{\code{b_dirichlet}}{The hyperparameter of the symmetric observational Dirichlet distribution. The default is 1/\code{maxL}.}
 #' }
 #'
 #' @param vi_param A list of variational inference-specific settings containing:
 #' \describe{
-#'   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'   \item{\code{epsilon}}{The tolerance that drives the convergence criterion adopted as stopping rule.}
 #'   \item{\code{seed}}{Random seed to control the initialization.}
 #'   \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
@@ -33,7 +33,7 @@
 #' @param mcmc_param A list of MCMC inference-specific settings containing:
 #' \describe{
 #'   \item{\code{nrep, burn}}{Integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
-#'   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively.}
+#'   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
 #'   \item{\code{seed}}{Random seed to control the initialization.}
 #'   \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm. If \code{FALSE}, the starting points can be passed through the parameters \code{nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start}.}
 #'   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
@@ -100,9 +100,9 @@
 #'
 #' \strong{Variational inference}: \code{sim} is a list with the following components:
 #' \itemize{
-#'   \item \code{theta_l}: Matrix of size (L,4). Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
-#'   \item \code{XI}: A list of length J. Each element is a matrix of size (N, L), the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(M_{i,j}=l)}.
-#'   \item \code{RHO}: Matrix of size (J, K), with the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(S_j=k)}.
+#'   \item \code{theta_l}: Matrix of size (\code{maxL},4). Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
+#'   \item \code{XI}: A list of length J. Each element is a matrix of size (N, \code{maxL}), the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(M_{i,j}=l)}.
+#'   \item \code{RHO}: Matrix of size (J, \code{maxK}), with the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(S_j=k)}.
 #'   \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the Beta distributions governing the distributional stick-breaking process.
 #'   \item \code{conc_hyper}: If the concentration parameter is random, this contains its updated hyperparameters.
 #'   \item \code{b_dirichlet_lk}: Matrix of updated variational parameters of the Dirichlet distributions governing observational clustering.
@@ -140,7 +140,7 @@
 #' out_mcmc
 fit_fiSAN <- function(y,
                       group,
-                      est_method = c("VI","MCMC"),
+                      est_method = c("VI", "MCMC"),
                       prior_param = list(),
                       vi_param = list(),
                       mcmc_param = list()){
