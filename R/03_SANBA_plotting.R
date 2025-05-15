@@ -1,8 +1,8 @@
-#' Plot the MCMC output
+#' Visual check of convergence of the MCMC output
 #' @description Plot method for objects of class \code{SANmcmc}.
 #' Check the convergence of the MCMC through visual inspection of the chains.
 #'
-#' @param x object of class \code{SANmcmc}.
+#' @param x object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).
 #' @param param string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 #' \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.
 #' @param show_density  logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?
@@ -12,7 +12,7 @@
 #' @param ... ignored.
 #' @note The function is not available for the observational weights \eqn{\omega}.
 #'
-#' @return The function displays the traceplots of the MCMC algorithm.
+#' @return The function displays the traceplots and posterior density estimates of the parameters sampled in the MCMC algorithm.
 #'
 #' @examples
 #' set.seed(123)
@@ -232,13 +232,13 @@ plot.SANmcmc <- function(x, param = c("mu",
   }
 }
 
-#' Plot the variational inference output
+#' Visual check of convergence of the VI output
 #'
 #' @description Plot method for objects of class \code{SANvi}.
-#' The function displays two graphs, showing the behavior of the ELBO values as
-#' a function of the iterations and its subsequent increments, which should always be positive (log-scale).
+#' The function displays two graphs. The left plot shows the progression of all the ELBO values as a function of the iterations.
+#' The right plots shows the ELBO increments between successive iterations of the best run on a log scale (note: increments should always be positive).
 #'
-#' @param x object of class \code{SANvi}.
+#' @param x object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
 #'
 #' @param ... ignored.
 #'

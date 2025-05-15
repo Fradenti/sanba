@@ -1,7 +1,7 @@
-#' Estimation of the finite-infinite Shared Atoms Model
+#' Fit the Finite-Infinite Shared Atoms Mixture Model
 #'
-#' @description \code{fit_fiSAN} is used to perform posterior inference under the finite-infinite shared atoms nested (fiSAN) model with Gaussian likelihood.
-#' The model uses a Dirichlet process mixture prior at the distributional level, and finite Dirichlet mixtures at the observational one.
+#' @description \code{fit_fiSAN} fits the finite-infinite shared atoms nested (fiSAN) mixture model with Gaussian kernels and normal-inverse gamma priors on the unknown means and variances.
+#' The function returns an object of class \code{SANmcmc} or \code{SANvi} depending on the chosen computational approach (MCMC or VI).
 #'
 #' @usage
 #' fit_fiSAN(y, group, est_method = c("VI", "MCMC"),

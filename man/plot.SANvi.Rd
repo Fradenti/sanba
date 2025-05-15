@@ -2,12 +2,12 @@
 % Please edit documentation in R/03_SANBA_plotting.R
 \name{plot.SANvi}
 \alias{plot.SANvi}
-\title{Plot the variational inference output}
+\title{Visual check of convergence of the VI output}
 \usage{
 \method{plot}{SANvi}(x, ...)
 }
 \arguments{
-\item{x}{object of class \code{SANvi}.}
+\item{x}{object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).}
 
 \item{...}{ignored.}
 }
@@ -16,8 +16,8 @@ The function plots the path followed by the ELBO and its subsequent differences.
 }
 \description{
 Plot method for objects of class \code{SANvi}.
-The function displays two graphs, showing the behavior of the ELBO values as
-a function of the iterations and its subsequent increments, which should always be positive (log-scale).
+The function displays two graphs. The left plot shows the progression of all the ELBO values as a function of the iterations.
+The right plots shows the ELBO increments between successive iterations of the best run on a log scale (note: increments should always be positive).
 }
 \examples{
 set.seed(123)

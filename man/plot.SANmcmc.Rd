@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_SANBA_plotting.R
 \name{plot.SANmcmc}
 \alias{plot.SANmcmc}
-\title{Plot the MCMC output}
+\title{Visual check of convergence of the MCMC output}
 \usage{
 \method{plot}{SANmcmc}(
   x,
@@ -15,7 +15,7 @@
 )
 }
 \arguments{
-\item{x}{object of class \code{SANmcmc}.}
+\item{x}{object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).}
 
 \item{param}{string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.}
@@ -31,7 +31,7 @@
 \item{...}{ignored.}
 }
 \value{
-The function displays the traceplots of the MCMC algorithm.
+The function displays the traceplots and posterior density estimates of the parameters sampled in the MCMC algorithm.
 }
 \description{
 Plot method for objects of class \code{SANmcmc}.

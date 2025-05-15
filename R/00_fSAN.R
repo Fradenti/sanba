@@ -1,7 +1,7 @@
-#' Estimation of the finite Shared Atoms Model
+#' Fit the Finite Shared Atoms Mixture Model
 #'
-#' @description \code{fit_fSAN} is used to perform posterior inference under the finite shared atoms nested (fSAN) model with Gaussian likelihood (originally proposed in D'Angelo et al., 2023).
-#' The model uses finite Dirichlet mixtures for both the distributional and observational levels of the model.
+#' @description \code{fit_fSAN} fits the finite shared atoms nested (fSAN) mixture model with Gaussian kernels and normal-inverse gamma priors on the unknown means and variances.
+#' The function returns an object of class \code{SANmcmc} or \code{SANvi} depending on the chosen computational approach (MCMC or VI).
 #'
 #' @usage
 #' fit_fSAN(y, group, est_method = c("VI", "MCMC"),

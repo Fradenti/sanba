@@ -1,14 +1,15 @@
-#' Estimate the Posterior Atoms and Weights of the Discrete Mixing Distributions
+#' Estimate the Atoms and Weights of the Discrete Mixing Distributions
 #'
-#' This function estimates the posterior atoms and weights characterizing the discrete
-#' mixing distributions using the variational estimates obtained from one of the models implemented in SANvi.
+#' The function computes the posterior means of the atoms and weights characterizing the discrete mixing distributions.
+#' The function takes as input an object from \code{fit_CAM}, \code{fit_fiSAN},
+#' or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument, and returns an object of class \code{SANvi_G}.
 #'
 #'
 #' @param object an object of class \code{SANvi}.
 #' @param ... further arguments passed to or from other methods.
 #'
-#' @return an object of class \code{summary_SANvi}, which is a matrix comprising posterior means,
-#' variances, and a column for each estimated DC containing the posterior weights.
+#' @return The function \code{estimate_G} returns an object of class \code{SANvi_G}, which is a matrix comprising the posterior means,
+#' variances, and weights for each estimated DC (one mixture component for each row).
 #'
 #' @export
 #'
@@ -69,10 +70,10 @@ estimate_G <- function(object,...){
 
 #' @name estimate_G
 #'
-#' @param x an object of class \code{summary_SANvi}.
+#' @param x an object of class \code{summary_SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
-#' @param lim optional value for \code{plot} method to adjust the limits of the x-axis. The atoms are plotted on a range
-#' given by \code{min(posterior means)-2, max(posterior means)+2}. The default is set to 2.
+#' @param lim optional value for the \code{plot} method to adjust the limits of the x-axis (the default is 2). The atoms are plotted on a range
+#' given by \code{min(posterior means)-lim, max(posterior means)+lim}.
 #'
 #' @importFrom graphics abline points lines
 #' @importFrom stats dnorm
@@ -153,8 +154,8 @@ plot.SANvi_G <- function(x,
 
 #' @name estimate_G
 #'
-#' @param x an object of class \code{summary_SANvi}.
-#' @param thr argument for the \code{print()} method. It should be a small positive number,
+#' @param x an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).
+#' @param thr argument for the \code{print} method. It should be a small positive number,
 #' representing a threshold. If the posterior weight of a shared atom is below the threshold, the
 #' atom is not reported.
 #' @param ... ignored.

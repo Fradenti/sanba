@@ -8,7 +8,7 @@
 \alias{print.summary_vi}
 \alias{plot.summary_mcmc}
 \alias{plot.summary_vi}
-\title{Summarize the results estimating observational and distributional clusters}
+\title{Summarize the estimated observational and distributional partition}
 \usage{
 \method{summary}{SANvi}(object, ordered = TRUE, ...)
 
@@ -35,7 +35,7 @@
 )
 }
 \arguments{
-\item{object}{object of class \code{SANmcmc} (the result of a call to \code{\link{fit_fiSAN}},
+\item{object}{object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
 (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).}
 
@@ -44,17 +44,15 @@ increasing values of medians of the data assigned to each DC.}
 
 \item{...}{additional graphical parameters to be passed to the \code{plot} function.}
 
-\item{add_burnin}{integer (default = 0). Optional number of observations to additionally discard.}
+\item{add_burnin}{integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).}
 
-\item{ncores}{for MCMC objects, a parameter of the function \code{salso::salso()}. The number of CPU cores to use, i.e., the number of simultaneous runs at any given time.
-A value of zero indicates the use of all cores on the system.}
+\item{ncores}{a parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.}
 
-\item{x}{an object of class \code{variational_estimates}, which can be obtained from the
-function \code{\link{summary}}.}
+\item{x}{the result of a call to \code{\link{summary}}.}
 
 \item{DC_num}{an integer or a vector of integers indicating which distributional clusters to plot.}
 
-\item{type}{what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".}
+\item{type}{what type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.}
 
 \item{alt_palette}{(logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).}
 }
@@ -66,7 +64,7 @@ a list of class \code{summary_vi} or \code{summary_mcmc} containing
 }
 }
 \description{
-Given the output of a \code{sanba} function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and maximum a posteriori for VI.
+Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 }
 \examples{
 set.seed(123)

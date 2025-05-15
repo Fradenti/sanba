@@ -2,7 +2,7 @@
 % Please edit documentation in R/00_CAM.R
 \name{fit_CAM}
 \alias{fit_CAM}
-\title{Estimation of the Common Atoms model}
+\title{Fit the Common Atoms Mixture Model}
 \usage{
 fit_CAM(y, group, est_method = c("VI", "MCMC"),
          prior_param = list(),
@@ -110,8 +110,8 @@ fit_CAM(y, group, est_method = c("VI", "MCMC"),
  }
 }
 \description{
-\code{fit_CAM} is used to perform posterior inference under the common atoms model (CAM) of Denti et al. (2023) with Gaussian likelihood.
-The model uses Dirichlet process mixtures (DPM) at both the observational and distributional levels.
+\code{fit_CAM} fits the common atoms mixture model (CAM) of Denti et al. (2023) with Gaussian kernels and normal-inverse gamma priors on the unknown means and variances.
+The function returns an object of class \code{SANmcmc} or \code{SANvi} depending on the chosen computational approach (MCMC or VI).
 }
 \details{
 The common atoms mixture model is used to perform inference in nested settings, where the data are organized into \eqn{J} groups.

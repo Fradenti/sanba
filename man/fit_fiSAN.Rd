@@ -2,7 +2,7 @@
 % Please edit documentation in R/00_fiSAN.R
 \name{fit_fiSAN}
 \alias{fit_fiSAN}
-\title{Estimation of the finite-infinite Shared Atoms Model}
+\title{Fit the Finite-Infinite Shared Atoms Mixture Model}
 \usage{
 fit_fiSAN(y, group, est_method = c("VI", "MCMC"),
          prior_param = list(),
@@ -93,8 +93,8 @@ fit_fiSAN(y, group, est_method = c("VI", "MCMC"),
 }
 }
 \description{
-\code{fit_fiSAN} is used to perform posterior inference under the finite-infinite shared atoms nested (fiSAN) model with Gaussian likelihood.
-The model uses a Dirichlet process mixture prior at the distributional level, and finite Dirichlet mixtures at the observational one.
+\code{fit_fiSAN} fits the finite-infinite shared atoms nested (fiSAN) mixture model with Gaussian kernels and normal-inverse gamma priors on the unknown means and variances.
+The function returns an object of class \code{SANmcmc} or \code{SANvi} depending on the chosen computational approach (MCMC or VI).
 }
 \details{
 \strong{Data structure}

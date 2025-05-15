@@ -4,7 +4,7 @@
 \alias{estimate_G}
 \alias{plot.SANvi_G}
 \alias{print.SANvi_G}
-\title{Estimate the Posterior Atoms and Weights of the Discrete Mixing Distributions}
+\title{Estimate the Atoms and Weights of the Discrete Mixing Distributions}
 \usage{
 estimate_G(object, ...)
 
@@ -17,24 +17,25 @@ estimate_G(object, ...)
 
 \item{...}{ignored.}
 
-\item{x}{an object of class \code{summary_SANvi}.}
+\item{x}{an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).}
 
 \item{DC_num}{an integer or a vector of integers indicating which distributional clusters to plot.}
 
-\item{lim}{optional value for \code{plot} method to adjust the limits of the x-axis. The atoms are plotted on a range
-given by \code{min(posterior means)-2, max(posterior means)+2}. The default is set to 2.}
+\item{lim}{optional value for the \code{plot} method to adjust the limits of the x-axis (the default is 2). The atoms are plotted on a range
+given by \code{min(posterior means)-lim, max(posterior means)+lim}.}
 
-\item{thr}{argument for the \code{print()} method. It should be a small positive number,
+\item{thr}{argument for the \code{print} method. It should be a small positive number,
 representing a threshold. If the posterior weight of a shared atom is below the threshold, the
 atom is not reported.}
 }
 \value{
-an object of class \code{summary_SANvi}, which is a matrix comprising posterior means,
-variances, and a column for each estimated DC containing the posterior weights.
+The function \code{estimate_G} returns an object of class \code{SANvi_G}, which is a matrix comprising the posterior means,
+variances, and weights for each estimated DC (one mixture component for each row).
 }
 \description{
-This function estimates the posterior atoms and weights characterizing the discrete
-mixing distributions using the variational estimates obtained from one of the models implemented in SANvi.
+The function computes the posterior means of the atoms and weights characterizing the discrete mixing distributions.
+The function takes as input an object from \code{fit_CAM}, \code{fit_fiSAN},
+or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument, and returns an object of class \code{SANvi_G}.
 }
 \examples{
 # Generate example data

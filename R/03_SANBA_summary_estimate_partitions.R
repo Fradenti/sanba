@@ -1,13 +1,12 @@
-#' Summarize the results estimating observational and distributional clusters
+#' Summarize the estimated observational and distributional partition
 #'
-#' @description Given the output of a \code{sanba} function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and maximum a posteriori for VI.
+#' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 #'
-#' @param object object of class \code{SANmcmc} (the result of a call to \code{\link{fit_fiSAN}},
+#' @param object object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 #' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
 #' (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).
-#' @param add_burnin integer (default = 0). Optional number of observations to additionally discard.
-#' @param ncores for MCMC objects, a parameter of the function \code{salso::salso()}. The number of CPU cores to use, i.e., the number of simultaneous runs at any given time.
-#' A value of zero indicates the use of all cores on the system.
+#' @param add_burnin integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
+#' @param ncores a parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #' @param ordered logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 #' increasing values of medians of the data assigned to each DC.
 #'
@@ -153,8 +152,7 @@ print.summary_vi <- function(x, ...){
 
 #' @name summary
 #'
-#' @param x an object of class \code{mcmc_clustering}, which can be obtained from the
-#' function \code{\link{summary.SANmcmc}}.
+#' @param x the result of a call to \code{\link{summary}}.
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type what type of plot should be drawn. Available types are "boxplot", "ecdf", and "scatter".
 #' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
@@ -286,10 +284,9 @@ plot.summary_mcmc <- function(x,
 }
 #' @name summary
 #'
-#' @param x an object of class \code{variational_estimates}, which can be obtained from the
-#' function \code{\link{summary}}.
+#' @param x the result of a call to \code{\link{summary}}.
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
-#' @param type what type of plot should be drawn (only for the left-side plot). Possible types are "boxplot", "ecdf", and "scatter".
+#' @param type what type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.
 #' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
 #' @param ... additional graphical parameters to be passed to the \code{plot} function.
 #'
