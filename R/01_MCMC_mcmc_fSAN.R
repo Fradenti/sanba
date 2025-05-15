@@ -1,3 +1,4 @@
+#' @importFrom stats cor var dist hclust cutree rgamma
 
 sample_fSAN <- function(y, group,
                         prior_param = list(

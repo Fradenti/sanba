@@ -1,3 +1,5 @@
+#' @importFrom stats cor var dist hclust cutree rgamma
+
 sample_CAM = function(y, group,
                       prior_param = list(m0 = 0, tau0 = 0.01,
                                           lambda0 = 3, gamma0 = 2,
