@@ -6,7 +6,7 @@
 \alias{sanba-package}
 \title{sanba: Fitting Shared Atoms Nested Models via MCMC or Variational Bayes}
 \description{
-An efficient tool for fitting the nested common and shared atoms models using variational Bayes approximate inference for fast computation. Specifically, the package implements the common atoms model (Denti et al., 2023), its finite version (D'Angelo et al., 2023), and a hybrid finite-infinite model. All models use Gaussian mixtures with a normal-inverse-gamma prior distribution on the parameters. Additional functions are provided to help analyze the results of the fitting procedure. References: Denti, Camerlenghi, Guindani, Mira (2023) \doi{10.1080/01621459.2021.1933499}, D’Angelo, Canale, Yu, Guindani (2023) \doi{10.1111/biom.13626}, D’Angelo, Denti (2024) \doi{10.1214/24-BA1458}.
+An efficient tool for fitting the nested common and shared atoms models using variational Bayes approximate inference for fast computation. Specifically, the package implements the common atoms model (Denti et al., 2023), its finite version (D'Angelo et al., 2023), and a hybrid finite-infinite model (D'Angelo and Denti, 2024). All models implement univariate nested mixtures with Gaussian kernels equipped with a normal-inverse-gamma prior distribution on the parameters. Additional functions are provided to help analyze the results of the fitting procedure. References: Denti, Camerlenghi, Guindani, Mira (2023) \doi{10.1080/01621459.2021.1933499}, D’Angelo, Canale, Yu, Guindani (2023) \doi{10.1111/biom.13626}, D’Angelo, Denti (2024) \doi{10.1214/24-BA1458}.
 }
 \seealso{
 Useful links:

@@ -25,7 +25,7 @@ estimate_G(object, ...)
 given by \code{min(posterior means)-lim, max(posterior means)+lim}.}
 
 \item{thr}{argument for the \code{print} method. It should be a small positive number,
-representing a threshold. If the posterior weight of a shared atom is below the threshold, the
+representing a threshold. If the posterior weight of a specific shared atom is below the threshold, the
 atom is not reported.}
 }
 \value{

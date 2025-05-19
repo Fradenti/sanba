@@ -156,7 +156,7 @@ plot.SANvi_G <- function(x,
 #'
 #' @param x an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).
 #' @param thr argument for the \code{print} method. It should be a small positive number,
-#' representing a threshold. If the posterior weight of a shared atom is below the threshold, the
+#' representing a threshold. If the posterior weight of a specific shared atom is below the threshold, the
 #' atom is not reported.
 #' @param ... ignored.
 #'
