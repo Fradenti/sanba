@@ -2,14 +2,14 @@
 #' @description Plot method for objects of class \code{SANmcmc}.
 #' Check the convergence of the MCMC through visual inspection of the chains.
 #'
-#' @param x object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).
-#' @param param string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
+#' @param x Object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).
+#' @param param String with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 #' \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.
-#' @param show_density  logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?
-#' @param add_burnin integer (default = 0). Additional number of observations to discard in the burn-in.
-#' @param show_convergence logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?
-#' @param trunc_plot integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.
-#' @param ... ignored.
+#' @param show_density  Logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?
+#' @param add_burnin Integer (default = 0). Additional number of observations to discard in the burn-in.
+#' @param show_convergence Logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?
+#' @param trunc_plot Integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.
+#' @param ... Ignored.
 #' @note The function is not available for the observational weights \eqn{\omega}.
 #'
 #' @return The function displays the traceplots and posterior density estimates of the parameters sampled in the MCMC algorithm.
@@ -238,9 +238,9 @@ plot.SANmcmc <- function(x, param = c("mu",
 #' The function displays two graphs. The left plot shows the progression of all the ELBO values as a function of the iterations.
 #' The right plots shows the ELBO increments between successive iterations of the best run on a log scale (note: increments should always be positive).
 #'
-#' @param x object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
+#' @param x Object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
 #'
-#' @param ... ignored.
+#' @param ... Ignored.
 #'
 #' @return The function plots the path followed by the ELBO and its subsequent differences.
 #'

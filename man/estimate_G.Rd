@@ -13,7 +13,7 @@ estimate_G(object, ...)
 \method{print}{SANvi_G}(x, thr = 0.01, ...)
 }
 \arguments{
-\item{object}{an object of class \code{SANvi}.}
+\item{object}{An object of class \code{SANvi}.}
 
 \item{...}{ignored.}
 
@@ -30,7 +30,7 @@ atom is not reported.}
 }
 \value{
 The function \code{estimate_G} returns an object of class \code{SANvi_G}, which is a matrix comprising the posterior means,
-variances, and weights for each estimated DC (one mixture component for each row).
+variances, and weights of each estimated DC (one mixture component for each row).
 }
 \description{
 The function computes the posterior means of the atoms and weights characterizing the discrete mixing distributions.

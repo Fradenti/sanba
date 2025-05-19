@@ -1,8 +1,8 @@
 #' Print the variational inference output
 #' @description Print method for objects of class \code{SANvi}.
 #'
-#' @param x object of class \code{SANvi}.
-#' @param ... further arguments passed to or from other methods.
+#' @param x Object of class \code{SANvi}.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return The function prints a summary of the fitted model.
 #'
@@ -24,8 +24,8 @@ print.SANvi <- function(x, ... ){
 #' Print the MCMC output
 #' @description Print method for objects of class \code{SANmcmc}.
 #'
-#' @param x object of class \code{SANmcmc}.
-#' @param ... ignored.
+#' @param x Object of class \code{SANmcmc}.
+#' @param ... Ignored.
 #'
 #' @return The function prints a summary of the fitted model.
 #'

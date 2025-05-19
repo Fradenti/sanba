@@ -69,7 +69,7 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 
 \strong{Variational inference}: \code{sim} is a list with the following components:
 \itemize{
-\item \code{theta_l}: Matrix of size (\code{maxL},4).
+\item \code{theta_l}: Matrix of size (\code{maxL}, 4).
    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
 \item \code{XI} : A list of length J. Each element is a matrix of size (N, \code{maxL})
    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
@@ -83,15 +83,15 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 
 \strong{MCMC inference}: \code{sim} is a list with the following components:
 \itemize{
-\item \code{mu}: matrix of size (\code{nrep}, \code{maxL}).
-   Each row is a posterior sample of the mean parameter for each observational cluster \eqn{(\mu_1,\dots\mu_L)}.
-\item \code{sigma2}: matrix of size (\code{nrep}, \code{maxL}).
-    Each row is a posterior sample of the variance parameter for each observational cluster \eqn{(\sigma^2_1,\dots\sigma^2_L)}.
-\item \code{obs_cluster}: matrix of size (\code{nrep}, n), with n = \code{length(y)}.
+\item \code{mu}: Matrix of size (\code{nrep}, \code{maxL}).
+   Each row is a posterior sample of the mean parameter of each observational cluster \eqn{(\mu_1,\dots\mu_L)}.
+\item \code{sigma2}: Matrix of size (\code{nrep}, \code{maxL}).
+    Each row is a posterior sample of the variance parameter of each observational cluster \eqn{(\sigma^2_1,\dots\sigma^2_L)}.
+\item \code{obs_cluster}: Matrix of size (\code{nrep}, n), with n = \code{length(y)}.
    Each row is a posterior sample of the observational cluster allocation variables \eqn{(M_{1,1},\dots,M_{n_J,J})}.
-\item \code{distr_cluster}: matrix of size (\code{nrep}, J), with J = \code{length(unique(group))}.
+\item \code{distr_cluster}: Matrix of size (\code{nrep}, J), with J = \code{length(unique(group))}.
    Each row is a posterior sample of the distributional cluster allocation variables \eqn{(S_1,\dots,S_J)}.
-\item \code{pi}: matrix of size (\code{nrep}, \code{maxK}).
+\item \code{pi}: Matrix of size (\code{nrep}, \code{maxK}).
    Each row is a posterior sample of the distributional cluster probabilities \eqn{(\pi_1,\dots,\pi_{\code{maxK}})}.
 \item \code{omega}: 3-d array of size (\code{maxL}, \code{maxK}, \code{nrep}).
    Each slice is a posterior sample of the observational cluster probabilities.
@@ -120,7 +120,7 @@ Notice that with this specification the observations in the same group need not 
 The data are modeled using a Gaussian likelihood, where both the mean and the variance are observational-cluster-specific, i.e.,
 \deqn{y_{i,j}\mid M_{i,j} = l \sim N(\mu_l,\sigma^2_l)}
 where \eqn{M_{i,j} \in \{1,\dots,L \}} is the observational cluster indicator of observation \eqn{i} in group \eqn{j}.
-The prior on the model parameters is a Normal-Inverse-Gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
+The prior on the model parameters is a normal-inverse gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
 i.e., \eqn{\mu_l\mid\sigma^2_l \sim N(m_0, \sigma^2_l / \tau_0)}, \eqn{1/\sigma^2_l \sim Gamma(\lambda_0, \gamma_0)} (shape, rate).
 
 \strong{Clustering}

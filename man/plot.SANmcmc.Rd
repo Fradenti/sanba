@@ -15,20 +15,20 @@
 )
 }
 \arguments{
-\item{x}{object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).}
+\item{x}{Object of class \code{SANmcmc} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "MCMC"} argument).}
 
-\item{param}{string with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
+\item{param}{String with the names of the parameters to check. It can be one of \code{"mu"}, \code{"sigma2"}, \code{"pi"},
 \code{"num_clust"}, \code{"alpha"}, \code{"beta"}.}
 
-\item{show_density}{logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?}
+\item{show_density}{Logical (default \code{TRUE}). Should a kernel estimate of the density be plotted?}
 
-\item{add_burnin}{integer (default = 0). Additional number of observations to discard in the burn-in.}
+\item{add_burnin}{Integer (default = 0). Additional number of observations to discard in the burn-in.}
 
-\item{show_convergence}{logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?}
+\item{show_convergence}{Logical (default \code{TRUE}). Should a superimposed red line of the cumulative mean be plotted?}
 
-\item{trunc_plot}{integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.}
+\item{trunc_plot}{Integer (default = 10). For multidimensional parameters, the maximum number of components to be plotted.}
 
-\item{...}{ignored.}
+\item{...}{Ignored.}
 }
 \value{
 The function displays the traceplots and posterior density estimates of the parameters sampled in the MCMC algorithm.

@@ -7,9 +7,9 @@
 \method{print}{SANmcmc}(x, ...)
 }
 \arguments{
-\item{x}{object of class \code{SANmcmc}.}
+\item{x}{Object of class \code{SANmcmc}.}
 
-\item{...}{ignored.}
+\item{...}{Ignored.}
 }
 \value{
 The function prints a summary of the fitted model.

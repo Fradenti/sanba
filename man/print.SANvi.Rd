@@ -7,9 +7,9 @@
 \method{print}{SANvi}(x, ...)
 }
 \arguments{
-\item{x}{object of class \code{SANvi}.}
+\item{x}{Object of class \code{SANvi}.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 The function prints a summary of the fitted model.

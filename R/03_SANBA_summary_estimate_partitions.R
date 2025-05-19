@@ -2,15 +2,15 @@
 #'
 #' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 #'
-#' @param object object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
+#' @param object Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 #' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
 #' (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).
-#' @param add_burnin integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
-#' @param ncores a parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
-#' @param ordered logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
+#' @param add_burnin Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
+#' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
+#' @param ordered Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 #' increasing values of medians of the data assigned to each DC.
 #'
-#' @return a list of class \code{summary_vi} or \code{summary_mcmc} containing
+#' @return A list of class \code{summary_vi} or \code{summary_mcmc} containing
 #' \itemize{
 #'   \item \code{obs_level}: a data frame containing the data values, their group indexes, and the observational and distributional clustering assignments for each observation.
 #'   \item \code{dis_level}: a vector with the distributional clustering assignment for each unit.
@@ -152,11 +152,11 @@ print.summary_vi <- function(x, ...){
 
 #' @name summary
 #'
-#' @param x the result of a call to \code{\link{summary}}.
-#' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
-#' @param type what type of plot should be drawn. Available types are "boxplot", "ecdf", and "scatter".
-#' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
-#' @param ... additional graphical parameters to be passed to the \code{plot} function.
+#' @param x The result of a call to \code{\link{summary}}.
+#' @param DC_num An integer or a vector of integers indicating which distributional clusters to plot.
+#' @param type What type of plot should be drawn. Available types are "boxplot", "ecdf", and "scatter".
+#' @param alt_palette Logical, the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
+#' @param ... Additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
 #' @importFrom stats median
@@ -284,11 +284,11 @@ plot.summary_mcmc <- function(x,
 }
 #' @name summary
 #'
-#' @param x the result of a call to \code{\link{summary}}.
-#' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
-#' @param type what type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.
-#' @param alt_palette (logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
-#' @param ... additional graphical parameters to be passed to the \code{plot} function.
+#' @param x The result of a call to \code{\link{summary}}.
+#' @param DC_num An integer or a vector of integers indicating which distributional clusters to plot.
+#' @param type What type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.
+#' @param alt_palette Logical, the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
+#' @param ... Additional graphical parameters to be passed to the \code{plot} function.
 #'
 #' @importFrom graphics abline lines points boxplot
 #' @importFrom stats median

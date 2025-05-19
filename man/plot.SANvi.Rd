@@ -7,9 +7,9 @@
 \method{plot}{SANvi}(x, ...)
 }
 \arguments{
-\item{x}{object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).}
+\item{x}{Object of class \code{SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).}
 
-\item{...}{ignored.}
+\item{...}{Ignored.}
 }
 \value{
 The function plots the path followed by the ELBO and its subsequent differences.

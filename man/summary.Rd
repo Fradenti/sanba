@@ -35,29 +35,29 @@
 )
 }
 \arguments{
-\item{object}{object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
+\item{object}{Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
 (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).}
 
-\item{ordered}{logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
+\item{ordered}{Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 increasing values of medians of the data assigned to each DC.}
 
-\item{...}{additional graphical parameters to be passed to the \code{plot} function.}
+\item{...}{Additional graphical parameters to be passed to the \code{plot} function.}
 
-\item{add_burnin}{integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).}
+\item{add_burnin}{Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).}
 
-\item{ncores}{a parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.}
+\item{ncores}{A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.}
 
-\item{x}{the result of a call to \code{\link{summary}}.}
+\item{x}{The result of a call to \code{\link{summary}}.}
 
-\item{DC_num}{an integer or a vector of integers indicating which distributional clusters to plot.}
+\item{DC_num}{An integer or a vector of integers indicating which distributional clusters to plot.}
 
-\item{type}{what type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.}
+\item{type}{What type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.}
 
-\item{alt_palette}{(logical) the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).}
+\item{alt_palette}{Logical, the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).}
 }
 \value{
-a list of class \code{summary_vi} or \code{summary_mcmc} containing
+A list of class \code{summary_vi} or \code{summary_mcmc} containing
 \itemize{
   \item \code{obs_level}: a data frame containing the data values, their group indexes, and the observational and distributional clustering assignments for each observation.
   \item \code{dis_level}: a vector with the distributional clustering assignment for each unit.

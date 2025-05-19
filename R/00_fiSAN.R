@@ -56,7 +56,7 @@
 #' The data are modeled using a Gaussian likelihood, where both the mean and the variance are observational-cluster-specific:
 #' \deqn{y_{i,j}\mid M_{i,j} = l \sim N(\mu_l,\sigma^2_l)}
 #' where \eqn{M_{i,j} \in \{1,\dots,L \}} is the observational cluster indicator of observation \eqn{i} in group \eqn{j}.
-#' The prior on the model parameters is a Normal-Inverse-Gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
+#' The prior on the model parameters is a normal-inverse gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
 #' i.e., \eqn{\mu_l\mid\sigma^2_l \sim N(m_0, \sigma^2_l / \tau_0)}, \eqn{1/\sigma^2_l \sim \text{Gamma}(\lambda_0, \gamma_0)} (shape, rate).
 #'
 #' \strong{Clustering}
@@ -100,10 +100,10 @@
 #'
 #' \strong{Variational inference}: \code{sim} is a list with the following components:
 #' \itemize{
-#'   \item \code{theta_l}: Matrix of size (\code{maxL},4). Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
+#'   \item \code{theta_l}: Matrix of size (\code{maxL}, 4). Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
 #'   \item \code{XI}: A list of length J. Each element is a matrix of size (N, \code{maxL}), the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(M_{i,j}=l)}.
 #'   \item \code{RHO}: Matrix of size (J, \code{maxK}), with the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(S_j=k)}.
-#'   \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the Beta distributions governing the distributional stick-breaking process.
+#'   \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the beta distributions governing the distributional stick-breaking process.
 #'   \item \code{conc_hyper}: If the concentration parameter is random, this contains its updated hyperparameters.
 #'   \item \code{b_dirichlet_lk}: Matrix of updated variational parameters of the Dirichlet distributions governing observational clustering.
 #'   \item \code{Elbo_val}: Vector containing the values of the ELBO.

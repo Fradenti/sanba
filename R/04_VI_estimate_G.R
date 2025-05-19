@@ -5,11 +5,11 @@
 #' or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument, and returns an object of class \code{SANvi_G}.
 #'
 #'
-#' @param object an object of class \code{SANvi}.
-#' @param ... further arguments passed to or from other methods.
+#' @param object An object of class \code{SANvi}.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return The function \code{estimate_G} returns an object of class \code{SANvi_G}, which is a matrix comprising the posterior means,
-#' variances, and weights for each estimated DC (one mixture component for each row).
+#' variances, and weights of each estimated DC (one mixture component for each row).
 #'
 #' @export
 #'

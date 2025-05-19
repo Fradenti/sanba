@@ -27,32 +27,32 @@ fit_CAM(y, group, est_method = c("VI", "MCMC"),
 
 \item{vi_param}{A list of variational inference-specific settings containing
  \describe{
-   \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-   \item{\code{epsilon}}{the tolerance that drives the convergence criterion adopted as stopping rule.}
-   \item{\code{seed}}{random seed to control the initialization.}
-   \item{\code{maxSIM}}{the maximum number of CAVI iteration to perform.}
-   \item{\code{warmstart}}{logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
-   \item{\code{verbose}}{logical, if \code{TRUE} the iterations are printed.}
+   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
+   \item{\code{epsilon}}{The tolerance that drives the convergence criterion adopted as stopping rule.}
+   \item{\code{seed}}{Random seed to control the initialization.}
+   \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
+   \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
+   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
 }}
 
 \item{mcmc_param}{A list of MCMC inference-specific settings containing
  \describe{
-   \item{\code{nrep, burn}}{integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
-   \item{\code{maxL, maxK}}{integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-   \item{\code{seed}}{random seed to control the initialization.}
-   \item{\code{warmstart}}{logical, if \code{TRUE}, the observational means of
+   \item{\code{nrep, burn}}{Integers, the number of total MCMC iterations, and the number of discarded iterations, respectively.}
+   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
+   \item{\code{seed}}{Random seed to control the initialization.}
+   \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of
    the cluster atoms are initialized with a k-means algorithm. If \code{FALSE},
    the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start} }
-   \item{\code{verbose}}{logical, if \code{TRUE} the iterations are printed.}
+   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
 }}
 }
 \value{
 \code{fit_CAM} returns a list of class \code{SANvi}, if \code{method = "VI"}, or \code{SANmcmc}, if \code{method = "MCMC"}. The list contains the following elements:
 \describe{
-  \item{\code{model}}{name of the fitted model.}
-  \item{\code{params}}{list containing the data and the parameters used in the simulation. Details below.}
-  \item{\code{sim}}{list containing the optimized variational parameters or the simulated values. Details below.}
-  \item{\code{time}}{total computation time.}
+  \item{\code{model}}{Name of the fitted model.}
+  \item{\code{params}}{List containing the data and the parameters used in the simulation. Details below.}
+  \item{\code{sim}}{List containing the optimized variational parameters or the simulated values. Details below.}
+  \item{\code{time}}{Total computation time.}
 }
 
 
@@ -74,15 +74,15 @@ fit_CAM(y, group, est_method = c("VI", "MCMC"),
 
 \strong{Variational inference}: \code{sim} is a list with the following components:
 \itemize{
-\item \code{theta_l}: Matrix of size (\code{maxL},4).
+\item \code{theta_l}: Matrix of size (\code{maxL}, 4).
    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
 \item \code{XI}: A list of length J. Each element is a matrix of size (N, \code{maxL}) containing the
    posterior variational probability of assignment of the i-th observation in the j-th group to the l-th OC,
    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
 \item \code{RHO}: Matrix of size (J, \code{maxK}).
    Each row is a posterior variational probability of assignment of the j-th group to the k-th DC, i.e., \eqn{\hat{\rho}_{j,k} = \hat{\mathbb{Q}}(S_j=k)}.
-\item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the Beta distributions governing the distributional stick-breaking process.
-\item \code{a_bar_lk, b_bar_lk}: Matrix of updated variational parameters of the Beta distributions governing the observational stick-breaking
+\item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the beta distributions governing the distributional stick-breaking process.
+\item \code{a_bar_lk, b_bar_lk}: Matrix of updated variational parameters of the beta distributions governing the observational stick-breaking
                        process (arranged by column).
 \item \code{conc_hyper}: If the concentration parameters are chosen to be random, a vector with the four updated hyperparameters.
 \item \code{Elbo_val}: Vector containing the values of the ELBO.
@@ -128,7 +128,7 @@ Notice that with this specification, the observations in the same group need not
 The data are modeled using a Gaussian likelihood, where both the mean and the variance are observational cluster-specific, i.e.,
 \deqn{y_{i,j}\mid M_{i,j} = l \sim N(\mu_l,\sigma^2_l)}
 where \eqn{M_{i,j} \in \{1,2,\dots\}} is the observational cluster indicator of observation \eqn{i} in group \eqn{j}.
-The prior on the model parameters is a Normal-Inverse Gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
+The prior on the model parameters is a normal-inverse gamma distribution \eqn{(\mu_l,\sigma^2_l)\sim NIG (m_0,\tau_0,\lambda_0,\gamma_0)},
 i.e., \eqn{\mu_l\mid\sigma^2_l \sim N(m_0, \sigma^2_l / \tau_0)}, \eqn{1/\sigma^2_l \sim Gamma(\lambda_0, \gamma_0)} (shape, rate).
 
 \strong{Clustering}
