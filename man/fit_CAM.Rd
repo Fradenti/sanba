@@ -151,10 +151,11 @@ g <- rep(1:2, rep(50, 2))
 plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
 lines(density(y[g==2]), col = 2)
 
-out_vi <- fit_CAM(y, group = g, est_method = "VI", vi_param = list(n_runs = 3))
+out_vi <- fit_CAM(y, group = g, est_method = "VI", vi_param = list(n_runs = 1))
 out_vi
 
-out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC")
+out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC",
+                    mcmc_param = list(nrep = 500, burn = 100))
 out_mcmc
 }
 \references{

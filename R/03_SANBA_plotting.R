@@ -248,9 +248,9 @@ plot.SANmcmc <- function(x, param = c("mu",
 #'
 #' @examples
 #' set.seed(123)
-#' y <- c(rnorm(400,0,0.3), rnorm(200,5,0.3))
-#' g <- c(rep(1,300), rep(2, 300))
-#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 5))
+#' y <- c(rnorm(200,0,0.3), rnorm(100,5,0.3))
+#' g <- c(rep(1,150), rep(2, 150))
+#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 2))
 #' plot(out)
 plot.SANvi <- function(x, ...){
 
