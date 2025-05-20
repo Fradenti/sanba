@@ -23,12 +23,11 @@
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
 #' g <- c(rep(1:6, each = 10))
-#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 20))
+#' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 10))
 #' plot(out)
 #' clust <- summary(out)
 #' clust
 #' plot(clust, lwd = 2, alt_palette = TRUE)
-#' plot(clust, type = "boxplot", alt_palette = TRUE)
 #' plot(clust, type = "scatter", alt_palette = FALSE, cex = 2)
 #'
 #'
@@ -76,7 +75,7 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
 #' g <- c(rep(1:6, each = 10))
-#' out <- fit_fSAN(y = y, group = g, "MCMC")
+#' out <- fit_fSAN(y = y, group = g, "MCMC", mcmc_param=list(nrep=500,burn=200))
 #' plot(out)
 #' clust <- summary(out)
 #' clust

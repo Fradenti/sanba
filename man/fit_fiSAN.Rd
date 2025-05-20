@@ -138,7 +138,7 @@ plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
 lines(density(y[g==2]), col = 2)
 
 out_vi <- fit_fiSAN(y, group = g, est_method = "VI",
-                    vi_param = list(n_runs = 2))
+                    vi_param = list(n_runs = 1))
 out_vi
 
 out_mcmc <- fit_fiSAN(y = y, group = g, est_method = "MCMC")

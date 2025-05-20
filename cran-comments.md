@@ -12,30 +12,10 @@ First release of the `sanba` package, which integrates, improves, and downstream
 
 - Running `devtools::check(remote = TRUE, manual = TRUE)` produces
 
-
-> checking CRAN incoming feasibility ... NOTE  
-  Maintainer: ‘Francesco Denti <francescodenti.personal@gmail.com>’  
-  New submission  
-  Possibly misspelled words in DESCRIPTION:  
-    Camerlenghi (20:20)
-    Canale (21:23)
-    D'Angelo (17:256)
-    Denti (17:215, 20:13, 22:23)
-    D’Angelo (21:13, 22:13)
-    Guindani (20:33, 21:35)
-    Variational (3:55)
-    Yu (21:31)
-    al (17:224, 17:268)
-    et (17:221, 17:265)
-    variational (17:92)
-
-and again
-
-> checking for future file timestamps ... NOTE  
-  unable to verify current time  
-> 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
-
-Note that the words highlighted above are not misspelled.
+> checking CRAN incoming feasibility ... [7s/17s] NOTE
+> Maintainer: ‘Francesco Denti <francescodenti.personal@gmail.com>’
+> New submission
+> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 - Running `devtools::check_win_devel()` produces
 
@@ -52,6 +32,8 @@ Possibly misspelled words in DESCRIPTION:
   Yu (21:33)
   al (17:224, 17:268)
   et (17:221, 17:265)
+  
+None of the above words are misspelled.  
 
 - Running `devtools::check_mac_release()` produces
   
