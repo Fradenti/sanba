@@ -29,7 +29,6 @@ Imports:
 Depends:
     scales, RColorBrewer
 LinkingTo: 
-    cpp11,
     Rcpp,
     RcppArmadillo,
     RcppProgress
