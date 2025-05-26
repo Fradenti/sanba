@@ -1,17 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sanba v0.0.1
+# sanba v0.0.1.900
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml)
 [![Last
 Commit](https://img.shields.io/github/last-commit/fradenti/sanba)](https://github.com/fradenti/sanba)
-<!---
 [![CRAN](https://www.r-pkg.org/badges/version/sanba)](https://cran.r-project.org/package=sanba)
-[![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)
-[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)--->
+[![Downloads
+(monthly)](https://cranlogs.r-pkg.org/badges/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)
+[![Downloads
+(total)](https://cranlogs.r-pkg.org/badges/grand-total/sanba?color=brightgreen)](https://www.r-pkg.org/pkg/sanba)
 <!-- badges: end -->
 
 The goal of `sanba` is to estimate Bayesian nested mixture models via
@@ -63,7 +64,7 @@ out_mcmc
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
 #> maxL: 50 - maxK: 20 
-#> Elapsed time: 0.615 secs
+#> Elapsed time: 0.617 secs
 plot(out_mcmc)
 ```
 
@@ -90,12 +91,12 @@ out_vi <- fit_fiSAN(y, group = g, est_method = "VI", vi_param = list(n_runs = 10
 out_vi
 #> Variational inference results for fiSAN 
 #> ----------------------------------------------
-#> L: 30 - K: 20 
+#> L: 50 - K: 20 
 #> Threshold: 1e-06 
-#> ELBO value: -173.141 
+#> ELBO value: -171.476 
 #> Best run out of 100 
-#> Convergence reached in 180 iterations
-#> Elapsed time: 0.041 secs
+#> Convergence reached in 291 iterations
+#> Elapsed time: 0.099 secs
 plot(out_vi)
 ```
 
