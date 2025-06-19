@@ -2,7 +2,7 @@
 % Please edit documentation in R/02_SANBA_printing.R
 \name{print.SANvi}
 \alias{print.SANvi}
-\title{Print the variational inference output}
+\title{Print the Variational Inference Output}
 \usage{
 \method{print}{SANvi}(x, ...)
 }

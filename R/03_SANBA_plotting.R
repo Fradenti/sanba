@@ -1,4 +1,4 @@
-#' Visual check of convergence of the MCMC output
+#' Visual Check of the Convergence of the MCMC Output
 #' @description Plot method for objects of class \code{SANmcmc}.
 #' Check the convergence of the MCMC through visual inspection of the chains.
 #'
@@ -143,9 +143,9 @@ plot.SANmcmc <- function(x, param = c("mu",
     devAskNewPage(ask = T)
   }
   if(dim(tmp)[2]>trunc_plot){
-    print(paste0("Output truncated at ", trunc_plot, " for ", param, "."))
+    message(paste0("Output truncated at ", trunc_plot, " for ", param, "."))
   }else{
-    print(paste0("Output for ", param, "."))
+    message(paste0("Output for ", param, "."))
   }
 }
 
@@ -226,13 +226,13 @@ plot.SANmcmc <- function(x, param = c("mu",
     }
 
   if(dim(tmp)[2]>trunc_plot){
-    print(paste0("Output truncated at ", trunc_plot, " for ", param, "."))
+    message(paste0("Output truncated at ", trunc_plot, " for ", param, "."))
   }else{
-    print(paste0("Output for ", param, "."))
+    message(paste0("Output for ", param, "."))
   }
 }
 
-#' Visual check of convergence of the VI output
+#' Visual Check of the Convergence of the VI Output
 #'
 #' @description Plot method for objects of class \code{SANvi}.
 #' The function displays two graphs. The left plot shows the progression of all the ELBO values as a function of the iterations.

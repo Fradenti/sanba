@@ -25,9 +25,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 Imports: 
-    Rcpp, matrixStats, salso
-Depends:
-    scales, RColorBrewer
+    Rcpp, matrixStats, salso, scales, RColorBrewer
 LinkingTo: 
     Rcpp,
     RcppArmadillo,

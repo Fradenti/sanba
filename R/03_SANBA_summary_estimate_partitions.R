@@ -1,4 +1,4 @@
-#' Summarize the estimated observational and distributional partition
+#' Summarize the Estimated Observational and Distributional Partition
 #'
 #' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 #'

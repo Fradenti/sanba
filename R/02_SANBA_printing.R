@@ -1,4 +1,4 @@
-#' Print the variational inference output
+#' Print the Variational Inference Output
 #' @description Print method for objects of class \code{SANvi}.
 #'
 #' @param x Object of class \code{SANvi}.
@@ -21,7 +21,7 @@ print.SANvi <- function(x, ... ){
 
 
 
-#' Print the MCMC output
+#' Print the MCMC Output
 #' @description Print method for objects of class \code{SANmcmc}.
 #'
 #' @param x Object of class \code{SANmcmc}.

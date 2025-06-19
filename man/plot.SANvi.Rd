@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_SANBA_plotting.R
 \name{plot.SANvi}
 \alias{plot.SANvi}
-\title{Visual check of convergence of the VI output}
+\title{Visual Check of the Convergence of the VI Output}
 \usage{
 \method{plot}{SANvi}(x, ...)
 }

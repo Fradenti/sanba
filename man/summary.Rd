@@ -8,7 +8,7 @@
 \alias{print.summary_vi}
 \alias{plot.summary_mcmc}
 \alias{plot.summary_vi}
-\title{Summarize the estimated observational and distributional partition}
+\title{Summarize the Estimated Observational and Distributional Partition}
 \usage{
 \method{summary}{SANvi}(object, ordered = TRUE, ...)
 

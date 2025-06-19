@@ -2,7 +2,7 @@
 % Please edit documentation in R/02_SANBA_printing.R
 \name{print.SANmcmc}
 \alias{print.SANmcmc}
-\title{Print the MCMC output}
+\title{Print the MCMC Output}
 \usage{
 \method{print}{SANmcmc}(x, ...)
 }

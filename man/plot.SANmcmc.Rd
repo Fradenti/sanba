@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_SANBA_plotting.R
 \name{plot.SANmcmc}
 \alias{plot.SANmcmc}
-\title{Visual check of convergence of the MCMC output}
+\title{Visual Check of the Convergence of the MCMC Output}
 \usage{
 \method{plot}{SANmcmc}(
   x,
