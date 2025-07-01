@@ -36,8 +36,8 @@
 }
 \arguments{
 \item{object}{Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
-\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
-(the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).}
+\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "MCMC"}) or \code{SANvi}
+(the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).}
 
 \item{ordered}{Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 increasing values of medians of the data assigned to each DC.}

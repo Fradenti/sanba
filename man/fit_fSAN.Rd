@@ -26,7 +26,8 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 \item{vi_param}{A list of variational inference-specific settings, containing
  \describe{
    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-   \item{\code{epsilon}}{The tolerance that drives the convergence criterion adopted as stopping rule.}
+   \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
+   \item{\code{n_runs}}{Number of starting points considered for the estimation.}
    \item{\code{seed}}{Random seed to control the initialization.}
    \item{\code{maxSIM}}{The maximum number of CAVI iteration to perform.}
    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
@@ -43,7 +44,7 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 }}
 }
 \value{
-\code{fit_fSAN} returns a list of class \code{SANvi}, if \code{method = "VI"}, or \code{SANmcmc}, if \code{method = "MCMC"}. The list contains the following elements:
+\code{fit_fSAN} returns a list of class \code{SANvi}, if \code{est_method = "VI"}, or \code{SANmcmc}, if \code{est_method = "MCMC"}. The list contains the following elements:
 \describe{
   \item{ \code{model}}{Name of the fitted model.}
   \item{ \code{params}}{List containing the data and the parameters used in the simulation. Details below.}
@@ -61,8 +62,8 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 \item \code{a_dirichlet}: Provided value for \eqn{a}.
 \item \code{b_dirichlet}: Provided value for \eqn{b}.
 \item \code{seed}: The random seed adopted to replicate the run.
-\item \code{epsilon, n_runs}: If \code{method = "VI"}, the threshold controlling the convergence criterion and the number of iterations needed to reach convergence.
-\item \code{nrep, burnin}: If \code{method = "MCMC"}, the number of total MCMC iterations, and the number of discarded ones.
+\item \code{epsilon, n_runs}: The threshold controlling the convergence criterion and the number of starting points considered
+\item \code{nrep, burnin}: If \code{est_method = "MCMC"}, the number of total MCMC iterations, and the number of discarded ones.
 }
 
 \strong{Simulated values}: depending on the algorithm, it returns a list with the optimized variational parameters or a list with the chains of the simulated values.

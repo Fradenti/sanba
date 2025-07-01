@@ -3,8 +3,8 @@
 #' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 #'
 #' @param object Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
-#' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "MCMC"}) or \code{SANvi}
-#' (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{method = "VI"}).
+#' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "MCMC"}) or \code{SANvi}
+#' (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).
 #' @param add_burnin Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
 #' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #' @param ordered Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the

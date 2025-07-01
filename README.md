@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sanba v0.0.1.900
+# sanba v0.0.2
 
 <!-- badges: start -->
 
@@ -39,8 +39,6 @@ devtools::install_github("Fradenti/sanba")
 
 ``` r
 library(sanba)
-#> Loading required package: scales
-#> Loading required package: RColorBrewer
 set.seed(123)
 y <- c(rnorm(160), rnorm(40, 5))
 g <- rep(1:2, rep(100, 2))
@@ -64,13 +62,13 @@ out_mcmc
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
 #> maxL: 50 - maxK: 20 
-#> Elapsed time: 2 secs
+#> Elapsed time: 0.615 secs
 plot(out_mcmc)
 ```
 
 <img src="man/figures/README-example1-2.png" width="100%" />
 
-    #> [1] "Output truncated at 2 for mu."
+    #> Output truncated at 2 for mu.
 
 ### Fitting via VI
 
@@ -96,7 +94,7 @@ out_vi
 #> ELBO value: -171.476 
 #> Best run out of 100 
 #> Convergence reached in 291 iterations
-#> Elapsed time: 0.424 secs
+#> Elapsed time: 0.099 secs
 plot(out_vi)
 ```
 

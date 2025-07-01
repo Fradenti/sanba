@@ -1,10 +1,12 @@
-# sanba 0.0.1.9000
+# sanba 0.0.2
 
-* Removed unused LinkingTo: entry from DESCRIPTION, accepting a suggested pull request
-* Removed the unused function `extract_best()`.
-* Uniformed the title case of the documentation.
-* Moved the `R` packages `scales` and `RColorBrewer` from `Depends` to `Imports`.
-* Change `print()` into `message()` in plotting MCMC functions.
+- Removed an unused `LinkingTo:` entry from the `DESCRIPTION` file, following a suggested pull request.
+- Deleted the unused function `extract_best()`.
+- Standardized the title case across documentation files.
+- Moved the packages `scales` and `RColorBrewer` from `Depends` to `Imports`.
+- Replaced `print()` calls with `message()` in MCMC plotting functions for cleaner output.
+- Added accessory functions to extract quantities of interest from fitted objects, such as runtime, model type, and estimated values.
+- Corrected minor typos and improved clarity in the documentation.
 
 # sanba 0.0.1
 

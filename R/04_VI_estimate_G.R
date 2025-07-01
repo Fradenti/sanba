@@ -4,9 +4,7 @@
 #' The function takes as input an object from \code{fit_CAM}, \code{fit_fiSAN},
 #' or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument, and returns an object of class \code{SANvi_G}.
 #'
-#'
 #' @param object An object of class \code{SANvi}.
-#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return The function \code{estimate_G} returns an object of class \code{SANvi_G}, which is a matrix comprising the posterior means,
 #' variances, and weights of each estimated DC (one mixture component for each row).
@@ -16,20 +14,22 @@
 #'
 #' @examples
 #' # Generate example data
-#' set.seed(1232)
+#' set.seed(123)
 #' y <- c(rnorm(100),rnorm(100,5))
 #' g <- rep(1:2,rep(100,2))
-#'
+#' plot(y,col=g)
 #' # Fitting fiSAN via variational inference
-#' est <- fit_fiSAN(y,g)
-#'
-#' # Estimate posterior atoms and weights
-#' est <- estimate_G(est)
+#' est <- fit_fiSAN(y,g,vi_param= list(n_runs = 10))
 #' est
-#' plot(est)
-#' plot(est, DC_num = 1)
-#'
-estimate_G <- function(object,...){
+#' summary(est)
+#' # Estimate posterior atoms and weights
+#' G <- estimate_G(est)
+#' summary(G)
+estimate_G <- function(object){
+
+  if (!inherits(object, "SANvi")) {
+    stop("estimate_G() is only defined for objects of class 'SANvi'.")
+  }
 
   if(object$model == "CAM"){
     exp_weights = post_sb_weight(object$sim$a_bar_lk, object$sim$b_bar_lk)
@@ -64,7 +64,7 @@ estimate_G <- function(object,...){
   }
 
   structure(D,
-            class = c("SANvi_G", object$model, class(D)))
+            class = c("SANvi_G", class(D)))
 
 }
 
@@ -154,7 +154,7 @@ plot.SANvi_G <- function(x,
 
 #' @name estimate_G
 #'
-#' @param x an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).
+#' @param object an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).
 #' @param thr argument for the \code{print} method. It should be a small positive number,
 #' representing a threshold. If the posterior weight of a specific shared atom is below the threshold, the
 #' atom is not reported.
@@ -162,15 +162,13 @@ plot.SANvi_G <- function(x,
 #'
 #' @export
 #'
-print.SANvi_G <- function(x, thr = 1e-2, ...){
-
-
-  cat(paste("Clustering results for", class(x)[2] ,"\n"))
+summary.SANvi_G <- function(object, thr = 1e-2, ...){
+  cat(paste("Estimated random measures via VI\n"))
   cat("----------------------------------\n")
 
   rows <- list()
-  for(i in 1:(ncol(x)-2)){
-    rows[[i]] <- which(x[,2+i] > thr)
+  for(i in 1:(ncol(object)-2)){
+    rows[[i]] <- which(object[,2+i] > thr)
   }
   n_g <- length(rows)
 
@@ -187,7 +185,7 @@ print.SANvi_G <- function(x, thr = 1e-2, ...){
       cat(paste0("No atom has weight above the selected threshold of ",thr,"\n"))
       next()
     }
-    Dsubj <- round(x[rows[[j]],c(1,2,j+2)],3)
+    Dsubj <- round(object[rows[[j]],c(1,2,j+2)],3)
 
     if(is.null(nrow(Dsubj))){
       Dsubj <- matrix(Dsubj,1,3)
@@ -202,3 +200,22 @@ print.SANvi_G <- function(x, thr = 1e-2, ...){
 }
 
 
+#' @name estimate_G
+#'
+#' @param x an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).
+#' @param thr argument for the \code{print} method. It should be a small positive number,
+#' representing a threshold. If the posterior weight of a specific shared atom is below the threshold, the
+#' atom is not reported.
+#' @param ... ignored.
+#'
+#' @export
+#'
+print.SANvi_G <- function(x, thr = 1e-2, ...){
+  G2 <- as.data.frame(x)
+  atoms <- G2[,1:2]
+  print(
+    cbind(round(atoms,3),
+    as.data.frame(
+      apply(round(G2[,-c(1:2)],3), 2 ,
+            function(z) ifelse(z<thr, ".",z)))))
+}

@@ -23,7 +23,8 @@
 #' @param vi_param A list of variational inference-specific settings containing
 #'  \describe{
 #'    \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-#'    \item{\code{epsilon}}{The tolerance that drives the convergence criterion adopted as stopping rule.}
+#'    \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
+#'    \item{\code{n_runs}}{Number of starting points considered for the estimation.}
 #'    \item{\code{seed}}{Random seed to control the initialization.}
 #'    \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
 #'    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
@@ -75,7 +76,7 @@
 #'
 #'
 #'
-#' @return \code{fit_CAM} returns a list of class \code{SANvi}, if \code{method = "VI"}, or \code{SANmcmc}, if \code{method = "MCMC"}. The list contains the following elements:
+#' @return \code{fit_CAM} returns a list of class \code{SANvi}, if \code{est_method = "VI"}, or \code{SANmcmc}, if \code{est_method = "MCMC"}. The list contains the following elements:
 #' \describe{
 #'   \item{\code{model}}{Name of the fitted model.}
 #'   \item{\code{params}}{List containing the data and the parameters used in the simulation. Details below.}
@@ -93,8 +94,9 @@
 #'    \item (\code{hyp_alpha1, hyp_alpha2}) or \code{alpha}: hyperparameters on \eqn{\alpha} (if \eqn{\alpha} random); or provided value for \eqn{\alpha} (if fixed).
 #'    \item (\code{hyp_beta1, hyp_beta2}) or \code{beta}: hyperparameters on \eqn{\beta} (if \eqn{\beta} random); or provided value for \eqn{\beta} (if fixed).
 #'    \item \code{seed}: The random seed adopted to replicate the run.
-#'    \item \code{epsilon, n_runs}: If \code{method = "VI"}, the threshold controlling the convergence criterion and the number of iterations needed to reach convergence.
-#'    \item \code{nrep, burnin}: If \code{method = "MCMC"}, the number of total MCMC iterations, and the number of discarded ones.
+#'   \item \code{epsilon, n_runs}: The threshold controlling the convergence criterion and the number of
+#'   starting points considered.
+#'   \item \code{nrep, burnin}: If \code{est_method = "MCMC"}, the number of total MCMC iterations, and the number of discarded ones.
 #'  }
 #'
 #'
@@ -159,7 +161,7 @@
 #' out_vi
 #'
 #' out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC",
-#'                     mcmc_param = list(nrep = 500, burn = 100))
+#'                     mcmc_param = list(nrep = 100, burn = 50))
 #' out_mcmc
 fit_CAM <- function(y,
                    group,

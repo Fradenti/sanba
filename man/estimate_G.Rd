@@ -4,18 +4,19 @@
 \alias{estimate_G}
 \alias{plot.SANvi_G}
 \alias{print.SANvi_G}
+\alias{summary.SANvi_G}
 \title{Estimate the Atoms and Weights of the Discrete Mixing Distributions}
 \usage{
-estimate_G(object, ...)
+estimate_G(object)
 
 \method{plot}{SANvi_G}(x, DC_num = NULL, lim = 2, ...)
 
 \method{print}{SANvi_G}(x, thr = 0.01, ...)
+
+\method{summary}{SANvi_G}(object, thr = 0.01, ...)
 }
 \arguments{
-\item{object}{An object of class \code{SANvi}.}
-
-\item{...}{ignored.}
+\item{object}{an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).}
 
 \item{x}{an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).}
 
@@ -23,6 +24,8 @@ estimate_G(object, ...)
 
 \item{lim}{optional value for the \code{plot} method to adjust the limits of the x-axis (the default is 2). The atoms are plotted on a range
 given by \code{min(posterior means)-lim, max(posterior means)+lim}.}
+
+\item{...}{ignored.}
 
 \item{thr}{argument for the \code{print} method. It should be a small positive number,
 representing a threshold. If the posterior weight of a specific shared atom is below the threshold, the
@@ -39,17 +42,15 @@ or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument, and returns
 }
 \examples{
 # Generate example data
-set.seed(1232)
+set.seed(123)
 y <- c(rnorm(100),rnorm(100,5))
 g <- rep(1:2,rep(100,2))
-
+plot(y,col=g)
 # Fitting fiSAN via variational inference
-est <- fit_fiSAN(y,g)
-
-# Estimate posterior atoms and weights
-est <- estimate_G(est)
+est <- fit_fiSAN(y,g,vi_param= list(n_runs = 10))
 est
-plot(est)
-plot(est, DC_num = 1)
-
+summary(est)
+# Estimate posterior atoms and weights
+G <- estimate_G(est)
+G
 }
