@@ -3,17 +3,17 @@
 \name{estimate_G}
 \alias{estimate_G}
 \alias{plot.SANvi_G}
-\alias{print.SANvi_G}
 \alias{summary.SANvi_G}
+\alias{print.SANvi_G}
 \title{Estimate the Atoms and Weights of the Discrete Mixing Distributions}
 \usage{
 estimate_G(object)
 
 \method{plot}{SANvi_G}(x, DC_num = NULL, lim = 2, ...)
 
-\method{print}{SANvi_G}(x, thr = 0.01, ...)
-
 \method{summary}{SANvi_G}(object, thr = 0.01, ...)
+
+\method{print}{SANvi_G}(x, thr = 0.01, ...)
 }
 \arguments{
 \item{object}{an object of class \code{SANvi_G} (usually, the result of a call to \code{estimate_G}).}
@@ -52,5 +52,5 @@ est
 summary(est)
 # Estimate posterior atoms and weights
 G <- estimate_G(est)
-G
+summary(G)
 }

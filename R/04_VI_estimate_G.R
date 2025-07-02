@@ -28,7 +28,7 @@
 estimate_G <- function(object){
 
   if (!inherits(object, "SANvi")) {
-    stop("estimate_G() is only defined for objects of class 'SANvi'.")
+    stop("estimate_G() can only be applied to objects of class 'SANvi'.")
   }
 
   if(object$model == "CAM"){

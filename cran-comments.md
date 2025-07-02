@@ -1,6 +1,6 @@
-## sanba 0.0.1
+## sanba 0.0.2
 
-First release of the `sanba` package, which integrates, improves, and downstreams the functionalities of the `R` packages `SANple` and `SANvi`.
+We have implemented minor changes in response to comply with the requests of a manuscript pre-screening review.
 
 ## R CMD check results
 
@@ -12,10 +12,9 @@ First release of the `sanba` package, which integrates, improves, and downstream
 
 - Running `devtools::check(remote = TRUE, manual = TRUE)` produces
 
-> checking CRAN incoming feasibility ... [7s/17s] NOTE
-> Maintainer: ‘Francesco Denti <francescodenti.personal@gmail.com>’
-> New submission
-> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+> checking for future file timestamps ... NOTE
+  unable to verify current time
+> 0 errors ✔ | 0 warnings ✔ | 1 note ✖
 
 - Running `devtools::check_win_devel()` produces
 
@@ -37,14 +36,12 @@ None of the above words are misspelled.
 
 - Running `devtools::check_mac_release()` produces
   
->* checking installed package size ... NOTE  
-  installed size is  8.7Mb  
-  sub-directories of 1Mb or more:  
-    libs   8.3Mb  
+>* checking installed package size ... NOTE
+  installed size is  8.7Mb
+  sub-directories of 1Mb or more:
+    libs   8.3Mb
   
 - Finally, in its current state, this package also passes all the standard checks performed via *GitHub actions*.
-
-
 
 
 ## Downstream dependencies

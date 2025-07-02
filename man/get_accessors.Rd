@@ -13,7 +13,7 @@
 \alias{get_sim}
 \alias{get_sim.SANvi}
 \alias{get_sim.SANmcmc}
-\title{Accessor functions for SAN model output}
+\title{Accessor Functions for SAN Model Outputs}
 \usage{
 get_model(object)
 

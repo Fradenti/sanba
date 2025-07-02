@@ -1,4 +1,4 @@
-#' Accessor functions for SAN model output
+#' Accessor Functions for SAN Model Outputs
 #'
 #' @description
 #' \code{get_model}, \code{get_time}, \code{get_params}, and \code{get_sim} are accessor functions that extract key components from objects of class \code{SANmcmc} or \code{SANvi},
