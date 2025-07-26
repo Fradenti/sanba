@@ -13,55 +13,66 @@
 \alias{get_sim}
 \alias{get_sim.SANvi}
 \alias{get_sim.SANmcmc}
+\alias{get_seed_best_run}
+\alias{get_seed_best_run.SANvi}
 \title{Accessor Functions for SAN Model Outputs}
 \usage{
-get_model(object)
+get_model(object, ...)
 
-\method{get_model}{SANvi}(object)
+\method{get_model}{SANvi}(object, ...)
 
-\method{get_model}{SANmcmc}(object)
+\method{get_model}{SANmcmc}(object, ...)
 
-get_time(object)
+get_time(object, ...)
 
-\method{get_time}{SANvi}(object)
+\method{get_time}{SANvi}(object, ...)
 
-\method{get_time}{SANmcmc}(object)
+\method{get_time}{SANmcmc}(object, ...)
 
-get_params(object)
+get_params(object, ...)
 
-\method{get_params}{SANvi}(object)
+\method{get_params}{SANvi}(object, ...)
 
-\method{get_params}{SANmcmc}(object)
+\method{get_params}{SANmcmc}(object, ...)
 
-get_sim(object)
+get_sim(object, ...)
 
-\method{get_sim}{SANvi}(object)
+\method{get_sim}{SANvi}(object, ...)
 
-\method{get_sim}{SANmcmc}(object)
+\method{get_sim}{SANmcmc}(object, ...)
+
+get_seed_best_run(object, ...)
+
+\method{get_seed_best_run}{SANvi}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{SANmcmc} or \code{SANvi}.}
+\item{object}{An object of class \code{SANmcmc} or \code{SANvi}, as returned by \code{\link{fit_fSAN}}.}
+
+\item{...}{ignored.}
 }
 \value{
-A component from the model object (see details).
+The requested component from the fitted model object. See the function descriptions above for details.
 }
 \description{
-\code{get_model}, \code{get_time}, \code{get_params}, and \code{get_sim} are accessor functions that extract key components from objects of class \code{SANmcmc} or \code{SANvi},
-depending on whether the model was estimated via MCMC or variational inference. In particular:
+The functions \code{get_model}, \code{get_time}, \code{get_params}, \code{get_sim}, and \code{get_seed_best_run} provide convenient access to specific components of model output objects of class \code{SANmcmc} (fitted via MCMC) or \code{SANvi} (fitted via variational inference).
 
+Specifically:
 \itemize{
-  \item \code{get_model}: returns a character string indicating the model type;
-  \item \code{get_time}: returns the runtime of the estimation procedure;
-  \item \code{get_params}: returns the list of data and prior hyperparameters;
-  \item \code{get_sim}: returns the fitted quantities (e.g., MCMC or VI estimates).
+  \item \code{get_model}: returns a character string specifying the model type used;
+  \item \code{get_time}: returns the total runtime of the estimation procedure;
+  \item \code{get_params}: returns a list containing data and prior hyperparameters;
+  \item \code{get_sim}: returns the fitted quantities, such as posterior draws (MCMC) or variational estimates (VI);
+  \item \code{get_seed_best_run}: (only for \code{SANvi}) returns the random seed associated with the run that achieved the highest ELBO.
 }
 }
 \examples{
 set.seed(123)
 y <- c(rnorm(40, 0, 0.3), rnorm(20, 5, 0.3))
 g <- c(rep(1:6, each = 10))
+
 out <- fit_fSAN(y = y, group = g, est_method = "MCMC",
                 mcmc_param = list(nrep = 500, burn = 200))
+
 get_model(out)
 get_time(out)
 hp <- get_params(out)

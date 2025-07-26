@@ -1,7 +1,7 @@
 Package: sanba
 Type: Package
 Title: Fitting Shared Atoms Nested Models via MCMC or Variational Bayes
-Version: 0.0.2
+Version: 0.0.3
 Date: 2025-07-01
 Authors@R: c(
     person("Francesco", "Denti", ,"francescodenti.personal@gmail.com", 
@@ -31,3 +31,5 @@ LinkingTo:
     RcppArmadillo,
     RcppProgress
 Language: en-US
+Suggests: 
+    spelling

@@ -1,4 +1,4 @@
-#' Summarize the Estimated Observational and Distributional Partition
+#' Estimate the Observational and Distributional Partition
 #'
 #' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
 #'
@@ -9,34 +9,39 @@
 #' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #' @param ordered Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
 #' increasing values of medians of the data assigned to each DC.
+#' @param ... urther arguments passed to or from other methods.
 #'
-#' @return A list of class \code{summary_vi} or \code{summary_mcmc} containing
+#' @return A list of class \code{partition_vi} or \code{partition_mcmc} containing
 #' \itemize{
 #'   \item \code{obs_level}: a data frame containing the data values, their group indexes, and the observational and distributional clustering assignments for each observation.
 #'   \item \code{dis_level}: a vector with the distributional clustering assignment for each unit.
 #' }
 #'
 #'
-#' @seealso \code{\link[salso:salso]{salso::salso()}}, \code{\link{print.SANmcmc}}, \code{\link{plot.SANmcmc}}
+#' @rdname estimate_partition
 #'
+#' @export
+estimate_partition <- function(object, ...) {
+  if (!inherits(object, "SANmcmc") && !inherits(object, "SANvi")) {
+    stop("get_model() is only defined for objects of class 'SANmcmc' or 'SANvi'.")
+  }
+  UseMethod("estimate_partition")
+}
+
+#' @rdname estimate_partition
 #' @examples
 #' set.seed(123)
 #' y <- c(rnorm(40,0,0.3), rnorm(20,5,0.3))
 #' g <- c(rep(1:6, each = 10))
 #' out <- fit_fSAN(y = y, group = g, "VI", vi_param = list(n_runs = 10))
 #' plot(out)
-#' clust <- summary(out)
-#' clust
+#' clust <- estimate_partition(out)
+#' summary(clust)
 #' plot(clust, lwd = 2, alt_palette = TRUE)
 #' plot(clust, type = "scatter", alt_palette = FALSE, cex = 2)
 #'
-#'
-#' @importFrom salso salso
-#' @name summary
-#'
 #' @export
-#'
-summary.SANvi <- function(object, ordered = TRUE, ...) {
+estimate_partition.SANvi <- function(object, ordered = TRUE, ...) {
 
   if(!inherits(object, "SANvi")){
     warning("The passed object should be of class 'SANvi'")
@@ -63,12 +68,14 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
   L <- (list(obs_level = D,
              dis_level = estimated_dc))
 
-  structure(L,class = c("summary_vi",class(L)))
+  structure(L,class = c("partition_vi",class(L)))
   }
 
 
-#' @name summary
+#' @rdname estimate_partition
+#' @seealso \code{\link[salso:salso]{salso::salso()}}, \code{\link{print.SANmcmc}}, \code{\link{plot.SANmcmc}}
 #'
+#' @importFrom salso salso
 #' @export
 #'
 #' @examples
@@ -77,13 +84,13 @@ summary.SANvi <- function(object, ordered = TRUE, ...) {
 #' g <- c(rep(1:6, each = 10))
 #' out <- fit_fSAN(y = y, group = g, "MCMC", mcmc_param=list(nrep=500,burn=200))
 #' plot(out)
-#' clust <- summary(out)
-#' clust
+#' clust <- estimate_partition(out)
+#' summary(clust)
 #' plot(clust, lwd = 2)
 #' plot(clust,  type = "boxplot", alt_palette = TRUE)
 #' plot(clust,  type = "scatter", alt_palette = TRUE, cex = 2, pch = 4)
 #'
-summary.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, ...) {
+estimate_partition.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, ...) {
 
 
   if(!inherits(object, "SANmcmc")){
@@ -117,41 +124,59 @@ summary.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, ncores = 0, 
   L <- (list(obs_level = D,
              dis_level = estimated_dc))
 
-  structure(L, class = c("summary_mcmc", class(L)))
+  structure(L, class = c("partition_mcmc", class(L)))
 }
 
-#' @name summary
+#' @name estimate_partition
 #'
 #' @export
 #'
-print.summary_mcmc <- function(x, ...){
-  cat("Summary of the estimated observ. and distrib. clusters estimated via MCMC\n")
+summary.partition_mcmc <- function(object, ...){
+  cat("Summary of the posterior observ. and distrib. partitions estimated via MCMC\n")
   cat("----------------------------------\n")
-  cat(paste("Number of estimated OCs:", length(unique(x$obs_level$OC)),"\n"))
-  cat(paste("Number of estimated DCs:",length(unique(x$dis_level)),"\n"))
+  cat(paste("Number of estimated OCs:", length(unique(object$obs_level$OC)),"\n"))
+  cat(paste("Number of estimated DCs:",length(unique(object$dis_level)),"\n"))
   cat("----------------------------------\n")
+  invisible(object)
+}
+
+
+#' @name estimate_partition
+#'
+#' @export
+#'
+summary.partition_vi <- function(object, ...){
+  cat("Summary of the posterior observ. and distrib. partitions estimated via VI\n")
+  cat("----------------------------------\n")
+  cat(paste("Number of estimated OCs:", length(unique(object$obs_level$OC)),"\n"))
+  cat(paste("Number of estimated DCs:",length(unique(object$dis_level)),"\n"))
+  cat("----------------------------------\n")
+  invisible(object)
+}
+
+#' @name estimate_partition
+#'
+#' @export
+#'
+print.partition_mcmc <- function(x, ...){
+  cat("Estimated posterior partitions via MCMC\n")
   invisible(x)
 }
 
 
-#' @name summary
+#' @name estimate_partition
 #'
 #' @export
 #'
-print.summary_vi <- function(x, ...){
-  cat("Summary of the estimated observ. and distrib. clusters estimated via VI\n")
-  cat("----------------------------------\n")
-  cat(paste("Number of estimated OCs:", length(unique(x$obs_level$OC)),"\n"))
-  cat(paste("Number of estimated DCs:",length(unique(x$dis_level)),"\n"))
-  cat("----------------------------------\n")
+print.partition_vi <- function(x, ...){
+  cat("Estimated posterior partitions via VI\n")
   invisible(x)
 }
 
 
-
-#' @name summary
+#' @name estimate_partition
 #'
-#' @param x The result of a call to \code{\link{summary}}.
+#' @param x The result of a call to \code{\link{estimate_partition}}.
 #' @param DC_num An integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type What type of plot should be drawn. Available types are "boxplot", "ecdf", and "scatter".
 #' @param alt_palette Logical, the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
@@ -164,7 +189,7 @@ print.summary_vi <- function(x, ...){
 #' @importFrom RColorBrewer brewer.pal
 #' @export
 #'
-plot.summary_mcmc <- function(x,
+plot.partition_mcmc <- function(x,
                          DC_num = NULL,
                          type = c("ecdf", "boxplot", "scatter"),
                          alt_palette = FALSE,
@@ -174,7 +199,6 @@ plot.summary_mcmc <- function(x,
   if (is.null(DC_num)) {
     DC_num <- 1:max(x$dis_level)
   }
-  cat(DC_num)
   if(max(DC_num) > max(x$dis_level)){
     stop(paste0("There are less estimated DCs than requested.\n",
                 "Please provide a number for DC_num between 1 and ", max(x$dis_level) ))
@@ -281,9 +305,9 @@ plot.summary_mcmc <- function(x,
     )
   }
 }
-#' @name summary
+#' @name estimate_partition
 #'
-#' @param x The result of a call to \code{\link{summary}}.
+#' @param x The result of a call to \code{\link{estimate_partition}}.
 #' @param DC_num An integer or a vector of integers indicating which distributional clusters to plot.
 #' @param type What type of plot should be drawn. Available types are \code{"boxplot"}, \code{"ecdf"}, and \code{"scatter"}.
 #' @param alt_palette Logical, the color palette to be used. Default is \code{R} base colors (\code{alt_palette = FALSE}).
@@ -296,7 +320,7 @@ plot.summary_mcmc <- function(x,
 #' @importFrom RColorBrewer brewer.pal
 #' @export
 #'
-plot.summary_vi <- function(x,
+plot.partition_vi <- function(x,
                        DC_num = NULL,
                        type = c("ecdf", "boxplot", "scatter"),
                        alt_palette = FALSE,

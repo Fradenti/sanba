@@ -73,7 +73,7 @@ fit_fiSAN(y, group, est_method = c("VI", "MCMC"),
 \strong{Variational inference}: \code{sim} is a list with the following components:
 \itemize{
   \item \code{theta_l}: Matrix of size (\code{maxL}, 4). Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
-  \item \code{XI}: A list of length J. Each element is a matrix of size (N, \code{maxL}), the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(M_{i,j}=l)}.
+  \item \code{XI}: A list of length J. Each element is a matrix of size (\code{Nj}, \code{maxL}), the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(M_{i,j}=l)}.
   \item \code{RHO}: Matrix of size (J, \code{maxK}), with the posterior variational assignment probabilities \eqn{\hat{\mathbb{Q}}(S_j=k)}.
   \item \code{a_tilde_k, b_tilde_k}: Vector of updated variational parameters of the beta distributions governing the distributional stick-breaking process.
   \item \code{conc_hyper}: If the concentration parameter is random, this contains its updated hyperparameters.

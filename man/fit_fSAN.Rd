@@ -72,7 +72,7 @@ fit_fSAN(y, group, est_method = c("VI", "MCMC"),
 \itemize{
 \item \code{theta_l}: Matrix of size (\code{maxL}, 4).
    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
-\item \code{XI} : A list of length J. Each element is a matrix of size (N, \code{maxL})
+\item \code{XI} : A list of length J. Each element is a matrix of size (\code{Nj}, \code{maxL})
    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
 \item \code{RHO}: Matrix of size (J, \code{maxK}).
