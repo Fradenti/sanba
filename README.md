@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sanba v0.0.2
+# sanba v0.0.3
 
 <!-- badges: start -->
 
@@ -56,13 +56,14 @@ out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC", mcmc_param = list(nre
 #> were used. Check '$warnings' to see when it happened.
 out_mcmc
 #> 
-#> MCMC result of CAM model 
+#> MCMC results for CAM 
 #> -----------------------------------------------
 #> Model estimated on 200 total observations and 2 groups 
+#> Groups sample sizes: 100, 100 
+#> 
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
-#> maxL: 50 - maxK: 20 
-#> Elapsed time: 0.615 secs
+#> Elapsed time: 0.65 secs
 plot(out_mcmc)
 ```
 
@@ -87,9 +88,12 @@ lines(density(y[g==2]), col = 2)
 
 out_vi <- fit_fiSAN(y, group = g, est_method = "VI", vi_param = list(n_runs = 100))
 out_vi
+#> 
 #> Variational inference results for fiSAN 
 #> ----------------------------------------------
-#> L: 50 - K: 20 
+#> Model estimated on 200 total observations and 2 groups 
+#> Groups sample sizes: 100, 100 
+#> 
 #> Threshold: 1e-06 
 #> ELBO value: -171.476 
 #> Best run out of 100 
