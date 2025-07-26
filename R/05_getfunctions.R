@@ -127,6 +127,5 @@ get_seed_best_run <- function(object, ...){
 #' @rdname get_accessors
 #' @export
 get_seed_best_run.SANvi <- function(object, ...) {
-  ind_berstrun <- which.max(lapply(object$all_elbos, max))
-  object$params$seed * ind_berstrun
+  object$params$seed
 }

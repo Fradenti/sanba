@@ -5,7 +5,7 @@
 * Standardized the title case across documentation files.
 * Moved the packages `scales` and `RColorBrewer` from `Depends` to `Imports`.
 * Replaced `print()` calls with `message()` in MCMC plotting functions for cleaner output.
-* Added accessor functions to extract quantities of interest from fitted objects such as, for example, runtime, model type, and estimated values.
+* Added various accessor functions to extract quantities of interest from fitted objects such as, for example, runtime, model type, and estimated values.
 * Corrected minor typos and improved clarity in the documentation.
 * Added a method for the `estimate_G()` function.
 * Created appropriate `summary()` methods; now the partition estimation has its own function, `estimate_cluster()`
