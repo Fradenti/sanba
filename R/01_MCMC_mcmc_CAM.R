@@ -57,14 +57,14 @@ sample_CAM = function(y, group,
   set.seed(mcmc_param$seed)
 
   #------------------------------------------
-  warmstart =  mcmc_param$warmstart
-  nclus_start = mcmc_param$nclus_start
-  mu_start =  mcmc_param$mu_start
-  sigma2_start = mcmc_param$sigma2_start
-  M_start =  mcmc_param$M_start
-  S_start = mcmc_param$S_start
-  alpha_start =  mcmc_param$alpha_start
-  beta_start = mcmc_param$beta_start
+  warmstart <-  mcmc_param$warmstart
+  nclus_start <- mcmc_param$nclus_start
+  mu_start <-  mcmc_param$mu_start
+  sigma2_start <- mcmc_param$sigma2_start
+  M_start <-  mcmc_param$M_start
+  S_start <- mcmc_param$S_start
+  alpha_start <-  mcmc_param$alpha_start
+  beta_start <- mcmc_param$beta_start
   #------------------------------------------
 
   params <- list(y = y,
@@ -118,7 +118,7 @@ sample_CAM = function(y, group,
     }
   } else {
 
-    if(is.null(nclus_start)) { nclus_start = min(c(mcmc_param$maxL, 30))}
+    if(is.null(nclus_start)) { nclus_start <- min(c(mcmc_param$maxL, 30))}
     suppressWarnings(
     M_start <- stats::kmeans(y,
                              centers = nclus_start,
@@ -156,19 +156,19 @@ sample_CAM = function(y, group,
   if(is.null(alpha_start)) { alpha_start <- rgamma(1, prior_param$hyp_alpha1, prior_param$hyp_alpha2) }
   if(is.null(beta_start)) { beta_start <- rgamma(1, prior_param$hyp_beta1, prior_param$hyp_beta2) }
 
-  fixed_alpha <- F
-  fixed_beta <- F
+  fixed_alpha <- FALSE
+  fixed_beta <- FALSE
   if(!is.null(prior_param$alpha) ) {
-    fixed_alpha <- T ;
+    fixed_alpha <- TRUE
     alpha_start <- prior_param$alpha
   } else { prior_param$alpha <- 1 }
   if(!is.null(prior_param$beta) ) {
     beta_start <- prior_param$beta
-    fixed_beta <- T ;
+    fixed_beta <- TRUE
     eps_beta <- 1 } else { prior_param$beta <- 1 }
 
-  start = Sys.time()
-  out = sample_CAM_cpp(nrep = mcmc_param$nrep, burn = mcmc_param$burn,
+  start <- Sys.time()
+  out <- sample_CAM_cpp(nrep = mcmc_param$nrep, burn = mcmc_param$burn,
                        y, group,
                        mcmc_param$maxK,
                        mcmc_param$maxL,
@@ -192,7 +192,7 @@ sample_CAM = function(y, group,
                        beta_start,
                        mcmc_param$verbose
   )
-  end = Sys.time()
+  end <- Sys.time()
 
   warnings <- out$warnings
   out[11] <- NULL

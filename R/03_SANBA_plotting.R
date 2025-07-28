@@ -83,7 +83,7 @@ plot.SANmcmc <- function(x, param = c("mu",
             show_convergence,
             trunc_plot)
   }
-  devAskNewPage(ask = F)
+  devAskNewPage(ask = FALSE)
 }
 
 
@@ -120,7 +120,7 @@ plot.SANmcmc <- function(x, param = c("mu",
   on.exit(graphics::par(old.par))
   graphics::par(mfrow= c(min(3,count),2), mar = c(4, 4, 2, 2) + 0.1)
 
-  devAskNewPage(ask <- F)
+  devAskNewPage(ask = FALSE)
   for(j in 1:min(dim(tmp)[2],  trunc_plot)){
 
     if(param == "num_clust"){
@@ -140,7 +140,7 @@ plot.SANmcmc <- function(x, param = c("mu",
 
     }
 
-    devAskNewPage(ask = T)
+    devAskNewPage(ask = TRUE)
   }
   if(dim(tmp)[2]>trunc_plot){
     message(paste0("Output truncated at ", trunc_plot, " for ", param, "."))
@@ -190,7 +190,7 @@ plot.SANmcmc <- function(x, param = c("mu",
   on.exit(graphics::par(old.par))
   graphics::par(mfrow= c(min(3,count),2), mar = c(4, 4, 2, 2) + 0.1)
 
-  devAskNewPage(ask = F)
+  devAskNewPage(ask = FALSE)
 
     for(j in 1:min(dim(tmp)[2],  trunc_plot)){
 
@@ -222,7 +222,7 @@ plot.SANmcmc <- function(x, param = c("mu",
 
       }
 
-      devAskNewPage(ask = T)
+      devAskNewPage(ask = TRUE)
     }
 
   if(dim(tmp)[2]>trunc_plot){
@@ -263,10 +263,10 @@ plot.SANvi <- function(x, ...){
        main = paste(x$model, "- ELBO"),type="b",cex=.5,
        log="x")
   }else{
-      lli = lapply(x$all_elbos, length)
-      lmi = lapply(x$all_elbos, min)
-      lma = lapply(x$all_elbos, max)
-      lims = c(min(unlist(lmi)),max(unlist(lma)))
+      lli <- lapply(x$all_elbos, length)
+      lmi <- lapply(x$all_elbos, min)
+      lma <- lapply(x$all_elbos, max)
+      lims <- c(min(unlist(lmi)),max(unlist(lma)))
 
       plot(x$all_elbos[[1]],
            xlab = "Iterations - log scale", ylab = "ELBO",

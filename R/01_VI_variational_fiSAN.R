@@ -71,8 +71,8 @@ variational_fiSAN <- function(y,
                 lambda0 = lambda0,
                 gamma0 = gamma0,
                 b_dirichlet = b_dirichlet,
-                seed = vi_param$seed,
-                epsilon = epsilon,
+                epsilon =  epsilon,
+                seed =  vi_param$seed,
                 n_runs = vi_param$n_runs)
 
   conc_hyperpar <- c(hyp_alpha1,
@@ -132,7 +132,7 @@ variational_fiSAN <- function(y,
 
 
   ###############################################################################################
-  XI_ijl = list()
+  XI_ijl <- list()
   for(j in 1:J){
     log.XI_il  <- array(stats::rbeta( Nj[j] * L, 1, 1),dim = c( Nj[j], L))
     Z           <- apply(log.XI_il, c(1), function(x) matrixStats::logSumExp(x))

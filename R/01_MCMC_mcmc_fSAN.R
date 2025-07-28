@@ -51,14 +51,14 @@ sample_fSAN <- function(y, group,
 
 
   #----------------------------------------------------
-  warmstart = mcmc_param$warmstart
-  nclus_start = mcmc_param$nclus_start
-  mu_start = mcmc_param$mu_start
-  sigma2_start = mcmc_param$sigma2_start
-  M_start = mcmc_param$M_start
-  S_start = mcmc_param$S_start
-  verbose = mcmc_param$verbose
-  seed = mcmc_param$seed
+  warmstart <- mcmc_param$warmstart
+  nclus_start <- mcmc_param$nclus_start
+  mu_start <- mcmc_param$mu_start
+  sigma2_start <- mcmc_param$sigma2_start
+  M_start <- mcmc_param$M_start
+  S_start <- mcmc_param$S_start
+  verbose <- mcmc_param$verbose
+  seed <- mcmc_param$seed
   #----------------------------------------------------
 
   params <- list(nrep = mcmc_param$nrep,
@@ -136,14 +136,14 @@ sample_fSAN <- function(y, group,
   sigma2_start[is.na(sigma2_start)] <- 0.001
 
   if(!is.null(prior_param$a_dirichlet) ) {
-    fixed_a_dirichlet <- T ;
+    fixed_a_dirichlet <- TRUE
     a_dirichlet_start <- prior_param$a_dirichlet
     eps_a_dirichlet <- 1
   } else { prior_param$a_dirichlet <- 1 }
 
   if(!is.null(prior_param$b_dirichlet) ) {
     b_dirichlet_start <- prior_param$b_dirichlet
-    fixed_b_dirichlet <- T ;
+    fixed_b_dirichlet <- TRUE
     eps_b_dirichlet <- 1
   } else { prior_param$b_dirichlet <- 1 }
 

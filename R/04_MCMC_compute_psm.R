@@ -5,8 +5,9 @@
 #' used with the \code{est_method = "MCMC"} argument.
 #'
 #' @param object An object of class \code{SANmcmc}.
-#' @param group_specific Logical (default \code{FALSE}). If \code{group_specific = FALSE}, the function considers the overall PSM.
-#' If \code{group_specific = TRUE}, the function considers the group-specific PSMs.
+#' @param distributional Logical (default \code{FALSE}). If \code{FALSE}, the function computes the posterior similarity matrix (PSM) for the observational partition (i.e., between individual observations). If \code{TRUE}, it computes the PSM at the distributional level, that is, between groups.
+#' @param group_specific Logical (default \code{FALSE}). If \code{FALSE}, the function considers the overall PSM.
+#' If \code{TRUE}, the function considers the group-specific PSMs. This argument only affects the observational partition, i.e., when \code{distributional} is \code{FALSE}.
 #' @param plot Logical (default \code{TRUE}). Whether to plot the PSM.
 #' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #'
@@ -31,10 +32,23 @@
 #' psm_gs <- compute_psm(est, group_specific =  TRUE)
 #'
 #' @export
-compute_psm <- function(object, group_specific = FALSE, plot = TRUE, ncores = 0 ){
+compute_psm <- function(object,
+                        distributional = FALSE,
+                        group_specific = FALSE, plot = TRUE, ncores = 0 ){
   if (!inherits(object, "SANmcmc")) {
     stop("compute_psm() is only defined for objects of class 'SANmcmc'.")
   }
+
+  if(distributional){
+    out <- salso::psm(object$sim$distr_cluster, nCores = ncores )
+    if(plot) {
+      n <- length(object$params$Nj)
+      graphics::image(1:n, 1:n, out,
+                      xlab = "Index", ylab = "Index",
+                      main = "Posterior similarity matrix for all groups")
+    }
+  }else{
+
   if(!group_specific){
     out <- salso::psm(object$sim$obs_cluster, nCores = ncores )
     if(plot) {
@@ -57,10 +71,12 @@ compute_psm <- function(object, group_specific = FALSE, plot = TRUE, ncores = 0 
         nj <- object$params$Nj[j]
         graphics::image(1:nj, 1:nj, out[[j]],
               xlab = "Index", ylab = "Index", main = paste0("Posterior similarity matrix for group ", j))
-        devAskNewPage(ask = T)
+        devAskNewPage(ask = TRUE)
       }
+      devAskNewPage(ask = FALSE)
     }
   }
-  out
+  }
+  return(out)
 }
 

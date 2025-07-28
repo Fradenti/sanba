@@ -67,7 +67,7 @@ variational_fSAN <- function(y,
                 gamma0 = gamma0,
                 a_dirichlet = a_dirichlet,
                 b_dirichlet = b_dirichlet,
-                epsilon =  vi_param$epsilon,
+                epsilon =  epsilon,
                 seed =  vi_param$seed,
                 n_runs = vi_param$n_runs)
 
@@ -93,7 +93,7 @@ variational_fSAN <- function(y,
 
 
   ###############################################################################################
-  XI_ijl = list()
+  XI_ijl <- list()
   for(j in 1:J){
     log.XI_il  <- array(stats::rbeta( Nj[j] * L, 1, 1),dim = c( Nj[j], L))
     Z           <- apply(log.XI_il, c(1), function(x) matrixStats::logSumExp(x))

@@ -4,13 +4,21 @@
 \alias{compute_psm}
 \title{Compute and Plot the Posterior Similarity Matrix}
 \usage{
-compute_psm(object, group_specific = FALSE, plot = TRUE, ncores = 0)
+compute_psm(
+  object,
+  distributional = FALSE,
+  group_specific = FALSE,
+  plot = TRUE,
+  ncores = 0
+)
 }
 \arguments{
 \item{object}{An object of class \code{SANmcmc}.}
 
-\item{group_specific}{Logical (default \code{FALSE}). If \code{group_specific = FALSE}, the function considers the overall PSM.
-If \code{group_specific = TRUE}, the function considers the group-specific PSMs.}
+\item{distributional}{Logical (default \code{FALSE}). If \code{FALSE}, the function computes the posterior similarity matrix (PSM) for the observational partition (i.e., between individual observations). If \code{TRUE}, it computes the PSM at the distributional level, that is, between groups.}
+
+\item{group_specific}{Logical (default \code{FALSE}). If \code{FALSE}, the function considers the overall PSM.
+If \code{TRUE}, the function considers the group-specific PSMs. This argument only affects the observational partition, i.e., when \code{distributional} is \code{FALSE}.}
 
 \item{plot}{Logical (default \code{TRUE}). Whether to plot the PSM.}
 

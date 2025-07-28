@@ -56,14 +56,14 @@ sample_fiSAN <- function(y, group,
   }
 
   #----------------------------------------------------
-  warmstart = mcmc_param$warmstart
-  nclus_start = mcmc_param$nclus_start
-  mu_start = mcmc_param$mu_start
-  sigma2_start = mcmc_param$sigma2_start
-  M_start = mcmc_param$M_start
-  S_start = mcmc_param$S_start
-  verbose = mcmc_param$verbose
-  seed = mcmc_param$seed
+  warmstart <- mcmc_param$warmstart
+  nclus_start <- mcmc_param$nclus_start
+  mu_start <- mcmc_param$mu_start
+  sigma2_start <- mcmc_param$sigma2_start
+  M_start <- mcmc_param$M_start
+  S_start <- mcmc_param$S_start
+  verbose <- mcmc_param$verbose
+  seed <- mcmc_param$seed
   #----------------------------------------------------
 
 
@@ -107,7 +107,7 @@ sample_fiSAN <- function(y, group,
       sigma2_start <- rep(0.001,mcmc_param$maxL)
       ncl0 <- length(unique(M_start))
       for(l in unique(M_start)) {
-        sigma2_start[l] = var(y[M_start == l])
+        sigma2_start[l] <- var(y[M_start == l])
       }
     }
   } else {
@@ -144,9 +144,9 @@ sample_fiSAN <- function(y, group,
   M_start <- M_start-1
   sigma2_start[is.na(sigma2_start)] <- 0.001
 
-  fixed_alpha <- F
+  fixed_alpha <- FALSE
   if(!is.null(prior_param$alpha) ) {
-    fixed_alpha <- T ;
+    fixed_alpha <- TRUE
     alpha_start <- prior_param$alpha
   } else { prior_param$alpha <- 1 }
 

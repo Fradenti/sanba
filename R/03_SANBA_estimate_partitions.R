@@ -264,8 +264,8 @@ plot.partition_mcmc <- function(x,
 
 
     for (j in 2:length(X)) {
-      ysteps = (0:(Nj[X[j]] - 1)) / (Nj[X[j]] - 1)
-      xsteps = sort(suby[subg == X[j]])
+      ysteps <- (0:(Nj[X[j]] - 1)) / (Nj[X[j]] - 1)
+      xsteps <- sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
                       col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)
@@ -396,8 +396,8 @@ plot.partition_vi <- function(x,
 
 
     for (j in 2:length(X)) {
-      ysteps = (0:(Nj[X[j]] - 1)) / (Nj[X[j]] - 1)
-      xsteps = sort(suby[subg == X[j]])
+      ysteps <- (0:(Nj[X[j]] - 1)) / (Nj[X[j]] - 1)
+      xsteps <- sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
                       col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)

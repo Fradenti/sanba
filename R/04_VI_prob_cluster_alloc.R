@@ -1,4 +1,4 @@
-#' Plot Cluster Allocation Probabilities
+#' Plot Variational Cluster Allocation Probabilities
 #'
 #' @description
 #' Produces visualizations of the posterior cluster allocation probabilities from a SAN model fitted via variational inference.
@@ -10,7 +10,7 @@
 #' @param distributional Logical (default \code{FALSE}). If \code{FALSE}, plots the allocation probabilities of individual observations to observational clusters (OC). If \code{TRUE}, plots the allocation probabilities of groups to distributional clusters (DC).
 #' @param ... Additional graphical parameters passed to the underlying \code{image()} function (or equivalent), for customizing the plot (e.g., \code{col}, \code{main}, \code{xlab}, \code{ylab}).
 #'
-#' @return The function plots the cluster allocation probabilities.
+#' @return The function plots the variational cluster allocation probabilities.
 #'
 #' @examples
 #' # Generate example data
@@ -22,15 +22,15 @@
 #' est <- fit_fiSAN(y, g, est_method = "VI")
 #'
 #' # Plot observational cluster probabilities
-#' plot_cluster_prob(est)
+#' plot_vi_allocation_prob(est)
 #'
 #' # Plot distributional cluster probabilities
-#' plot_cluster_prob(est, distributional = TRUE)
+#' plot_vi_allocation_prob(est, distributional = TRUE)
 #'
 #' @export
-plot_cluster_prob <- function(object, distributional = FALSE, ...){
+plot_vi_allocation_prob <- function(object, distributional = FALSE, ...){
   if (!inherits(object, "SANvi")) {
-    stop("plot_cluster_prob() is only defined for objects of class 'SANvi'.")
+    stop("plot_vi_allocation_prob() is only defined for objects of class 'SANvi'.")
   }
   old.par <- graphics::par(no.readonly = TRUE)
   on.exit(graphics::par(old.par))
@@ -60,7 +60,8 @@ plot_cluster_prob <- function(object, distributional = FALSE, ...){
       graphics::axis(2, c(0:nrowXI)+.5, labels = NA)
       graphics::axis(2, seq(from = 0, to = nrowXI, by = 10), labels = seq(from = 0, to = nrowXI, by = 10), col = NA, col.ticks = NA)
       graphics::box()
-      devAskNewPage(ask = T)
+      devAskNewPage(ask = TRUE)
     }
+    devAskNewPage(ask = FALSE)
   }
 }

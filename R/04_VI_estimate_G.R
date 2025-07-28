@@ -32,7 +32,7 @@ estimate_G <- function(object){
   }
 
   if(object$model == "CAM"){
-    exp_weights = post_sb_weight(object$sim$a_bar_lk, object$sim$b_bar_lk)
+    exp_weights <- post_sb_weight(object$sim$a_bar_lk, object$sim$b_bar_lk)
 
   }else   if(object$model == "fSAN" |
              object$model == "fiSAN"){
@@ -192,7 +192,7 @@ summary.SANvi_G <- function(object, thr = 1e-2, ...){
       rownames(Dsubj) <- "1"
       colnames(Dsubj) <- c("post_mean", "post_var", "post_weight")
     }else{
-      colnames(Dsubj)[3] = "post_weight"
+      colnames(Dsubj)[3] <- "post_weight"
     }
     print(data.frame(Dsubj))
 

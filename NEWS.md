@@ -9,6 +9,8 @@
 * Corrected minor typos and improved clarity in the documentation.
 * Added a method for the `estimate_G()` function.
 * Created appropriate `summary()` methods; now the partition estimation has its own function, `estimate_cluster()`
+* Amended few details (e.g., assignment symbols and logical variables) following the `goodpractice::gp()` suggestions. Also removed `Date` field in the description as suggested.
+
 
 # sanba 0.0.1
 

@@ -1,4 +1,4 @@
-variational_CAM = function(y,
+variational_CAM <- function(y,
                   group,
                   prior_param = list(m0 = 0,
                                      tau0 = .01,
@@ -49,7 +49,7 @@ variational_CAM = function(y,
   hyp_beta2  <- ifelse(is.null(vi_param$hyp_beta2),  1, vi_param$hyp_beta2)
 
 
-  ### vi_paramm list
+  ### vi_param list
   L <- ifelse(is.null(vi_param$maxL), 50, vi_param$maxL)
   K <- ifelse(is.null(vi_param$maxK), 20, vi_param$maxK)
   epsilon   <- ifelse(is.null(vi_param$epsilon), 1e-6,   vi_param$epsilon)
@@ -82,10 +82,9 @@ variational_CAM = function(y,
                 tau0 = tau0,
                 lambda0 = lambda0,
                 gamma0 = gamma0,
-                seed = vi_param$seed,
-                epsilon = epsilon,
-                n_runs = vi_param$n_runs
-                )
+                epsilon =  epsilon,
+                seed =  vi_param$seed,
+                n_runs = vi_param$n_runs)
 
   conc_hyperpar <- c(hyp_alpha1,
                      hyp_alpha2,
@@ -150,7 +149,7 @@ variational_CAM = function(y,
 
 
   ###############################################################################################
-  XI_ijl = list()
+  XI_ijl <- list()
   for(j in 1:J){
     log.XI_il  <- array(stats::rbeta( Nj[j] * L, 1, 1),dim = c( Nj[j], L))
     Z           <- apply(log.XI_il, c(1), function(x) matrixStats::logSumExp(x))
