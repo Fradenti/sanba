@@ -6,7 +6,7 @@
 #' For variational inference (\code{SANvi} objects), the function returns point estimates based on posterior mode assignments.
 #' For MCMC-based inference (\code{SANmcmc} objects), it returns the mean, median, and variance of the number of clusters across posterior samples.
 #'
-#' @param @param object An object of class \code{SANvi} or \code{SANmcmc}, typically, the output of a call to \code{\link{fit_fiSAN}}, \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}}.
+#' @param object An object of class \code{SANvi} or \code{SANmcmc}, typically, the output of a call to \code{\link{fit_fiSAN}}, \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}}.
 #' @param ... ignored.
 #'
 #' @return A data frame reporting the estimated number of observational (OC) and distributional (DC) clusters.

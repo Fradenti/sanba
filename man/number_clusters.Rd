@@ -7,7 +7,7 @@
 number_clusters(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{SANvi} or \code{SANmcmc}, typically returned by \code{\link{fit_fiSAN}}.}
+\item{object}{An object of class \code{SANvi} or \code{SANmcmc}, typically, the output of a call to \code{\link{fit_fiSAN}}, \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}}.}
 
 \item{...}{ignored.}
 }

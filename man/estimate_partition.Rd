@@ -45,12 +45,12 @@ estimate_partition(object, ...)
 \arguments{
 \item{object}{Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "MCMC"}) or \code{SANvi}
-(the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).}
+(the result of a call to \code{\link{fit_fiSAN}}, \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).}
 
 \item{...}{Additional graphical parameters to be passed to the \code{plot} function.}
 
 \item{ordered}{Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
-increasing values of medians of the data assigned to each DC. If \code{FALSE}, the order of appearance of the cluster labels, as returned by the estimation algorithm that is used, is preserved.}
+increasing values of medians of the data assigned to each DC. If \code{FALSE}, no ordering is applied.}
 
 \item{add_burnin}{Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).}
 
@@ -72,7 +72,7 @@ A list of class \code{partition_vi} or \code{partition_mcmc} containing
 }
 }
 \description{
-#' @description Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
+Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
 For MCMC objects, it computes a point estimate using \code{\link[salso:salso]{salso::salso()}};
 for Variational Inference (VI) objects, the cluster allocation is determined by the label with the highest estimated variational probability.
 }

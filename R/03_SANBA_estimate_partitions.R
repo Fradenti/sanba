@@ -207,12 +207,16 @@ plot.partition_mcmc <- function(x,
                 "Please provide a number for DC_num between 1 and ", max(x$dis_level) ))
   }
 
-  max_CD <- max(x$dis_level)
+  max_OC <- max(x$obs_level$OC)
+  max_DC <- max(x$dis_level)
   if(alt_palette){
-    colpal <- RColorBrewer::brewer.pal(8, "Dark2")
+    colpal_DC <- colorRampPalette(brewer.pal(8, "Dark2"))(max_DC)
+    colpal_OC <- colorRampPalette(brewer.pal(8, "Dark2"))(max_OC)
   }else{
-    colpal <- 1:max_CD
+    colpal_DC <- 1:max_DC
+    colpal_OC <- 1:max_OC
   }
+
 
   dix <- rank(tapply(x$obs_level$Y, x$obs_level$DC, stats::median))
 
@@ -251,7 +255,7 @@ plot.partition_mcmc <- function(x,
       type = "l",
       xlim = c(min(suby), max(suby)),
       ylim = c(0, 1),
-      col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5),
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][1]], .5),
       xlab = "y",
       ylab = "eCDF",
       main = paste0("eCDFs colored by DC\n", main_title), ...
@@ -259,7 +263,7 @@ plot.partition_mcmc <- function(x,
     graphics::points(
       (ysteps ~ xsteps),
       cex = .1,
-      col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5)
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][1]], .5)
     )
     graphics::abline(h = c(0, 1),
                      col = "gray",
@@ -271,11 +275,11 @@ plot.partition_mcmc <- function(x,
       xsteps <- sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
-                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)
+                      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][j]], .5), ...)
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
-        col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5)
+        col = scales::alpha(colpal_DC[ind_ord_dis_DC[inds_col][j]], .5)
       )
 
     }
@@ -284,7 +288,7 @@ plot.partition_mcmc <- function(x,
 
     graphics::boxplot(
       suby ~ subg,
-      col = scales::alpha(colpal[ind_ord_dis[inds_col]], .7),
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col]], .7),
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
       xlab = "Group index", ...
@@ -295,13 +299,13 @@ plot.partition_mcmc <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         col  = colpal[subDC],
+         col  = colpal_DC[subDC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         col  = colpal[subOC],
+         col  = colpal_OC[subOC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by OC\n",main_title), ...
