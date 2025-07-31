@@ -279,7 +279,7 @@ plot.partition_mcmc <- function(x,
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
-        col = scales::alpha(colpal_DC[ind_ord_dis_DC[inds_col][j]], .5)
+        col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][j]], .5)
       )
 
     }
