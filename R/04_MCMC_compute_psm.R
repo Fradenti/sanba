@@ -9,11 +9,11 @@
 #' @param group_specific Logical (default \code{FALSE}). If \code{FALSE}, the function considers the overall PSM.
 #' If \code{TRUE}, the function considers the group-specific PSMs. This argument only affects the observational partition, i.e., when \code{distributional} is \code{FALSE}.
 #' @param plot Logical (default \code{TRUE}). Whether to plot the PSM.
-#' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
+#' @param ncores A parameter to pass to the \code{salso::salso()} function. The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #'
-#' @return The function \code{compute_psm} returns and plots the posterior similarity matrix. If \code{group_specific = FALSE},
-#' the output is a matrix of dimension N x N. If \code{group_specific = TRUE}, the output is a list on length G, where each
-#' entry contains a matrix of dimension Nj x Nj.
+#' @return The function \code{compute_psm} returns and plots the posterior similarity matrix.
+#' When \code{distributional = FALSE}, if \code{group_specific = FALSE}, the output is a matrix of dimension \code{N x N};
+#' if \code{group_specific = TRUE}, the output is a list on length \code{G}, where each entry contains a matrix of dimension \code{Nj x Nj}.
 #'
 #' @importFrom graphics image
 #'
@@ -28,10 +28,11 @@
 #' est
 #' # Estimate PSM
 #' psm_overall <- compute_psm(est)
-#' # Estimate group-specific PSMs
-#' psm_gs <- compute_psm(est, group_specific =  TRUE)
+#' # Estimate distributional PSM
+#' psm_distrib <- compute_psm(est, distributional = TRUE)
 #'
 #' @export
+#'
 compute_psm <- function(object,
                         distributional = FALSE,
                         group_specific = FALSE, plot = TRUE, ncores = 0 ){

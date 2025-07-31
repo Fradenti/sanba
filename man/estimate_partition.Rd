@@ -50,7 +50,7 @@ estimate_partition(object, ...)
 \item{...}{Additional graphical parameters to be passed to the \code{plot} function.}
 
 \item{ordered}{Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
-increasing values of medians of the data assigned to each DC.}
+increasing values of medians of the data assigned to each DC. If \code{FALSE}, the order of appearance of the cluster labels, as returned by the estimation algorithm that is used, is preserved.}
 
 \item{add_burnin}{Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).}
 
@@ -72,7 +72,9 @@ A list of class \code{partition_vi} or \code{partition_mcmc} containing
 }
 }
 \description{
-Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
+#' @description Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
+For MCMC objects, it computes a point estimate using \code{\link[salso:salso]{salso::salso()}};
+for Variational Inference (VI) objects, the cluster allocation is determined by the label with the highest estimated variational probability.
 }
 \examples{
 set.seed(123)
@@ -98,5 +100,5 @@ plot(clust,  type = "scatter", alt_palette = TRUE, cex = 2, pch = 4)
 
 }
 \seealso{
-\code{\link[salso:salso]{salso::salso()}}, \code{\link{print.SANmcmc}}, \code{\link{plot.SANmcmc}}
+\code{\link[salso:salso]{salso::salso()}}
 }

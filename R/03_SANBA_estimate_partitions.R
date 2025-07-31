@@ -1,6 +1,8 @@
 #' Estimate the Observational and Distributional Partition
 #'
-#' @description Given the output of a \code{sanba} model-fitting function, estimate the observational and distributional partitions using \code{\link[salso:salso]{salso::salso()}} for MCMC, and the maximum a posteriori estimate for VI.
+#' @description #' @description Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
+#' For MCMC objects, it computes a point estimate using \code{\link[salso:salso]{salso::salso()}};
+#' for Variational Inference (VI) objects, the cluster allocation is determined by the label with the highest estimated variational probability.
 #'
 #' @param object Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 #' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "MCMC"}) or \code{SANvi}
@@ -8,8 +10,8 @@
 #' @param add_burnin Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
 #' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #' @param ordered Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
-#' increasing values of medians of the data assigned to each DC.
-#' @param ... urther arguments passed to or from other methods.
+#' increasing values of medians of the data assigned to each DC. If \code{FALSE}, the order of appearance of the cluster labels, as returned by the estimation algorithm that is used, is preserved.
+#' @param ... further arguments passed to or from other methods.
 #'
 #' @return A list of class \code{partition_vi} or \code{partition_mcmc} containing
 #' \itemize{
@@ -73,7 +75,7 @@ estimate_partition.SANvi <- function(object, ordered = TRUE, ...) {
 
 
 #' @rdname estimate_partition
-#' @seealso \code{\link[salso:salso]{salso::salso()}}, \code{\link{print.SANmcmc}}, \code{\link{plot.SANmcmc}}
+#' @seealso \code{\link[salso:salso]{salso::salso()}}
 #'
 #' @importFrom salso salso
 #' @export
