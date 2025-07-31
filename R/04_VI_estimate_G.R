@@ -216,6 +216,6 @@ print.SANvi_G <- function(x, thr = 1e-2, ...){
   print(
     cbind(round(atoms,3),
     as.data.frame(
-      apply(round(G2[,-c(1:2)],3), 2 ,
+      apply(round(as.matrix(G2[,-c(1:2)]),3), 2 ,
             function(z) ifelse(z<thr, ".",z)))))
 }

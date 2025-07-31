@@ -1,16 +1,17 @@
 #' Estimate the Observational and Distributional Partition
 #'
-#' @description #' @description Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
+#' @description Given the output of a \code{sanba} model-fitting function, this method estimates both the observational and distributional partitions.
 #' For MCMC objects, it computes a point estimate using \code{\link[salso:salso]{salso::salso()}};
 #' for Variational Inference (VI) objects, the cluster allocation is determined by the label with the highest estimated variational probability.
 #'
 #' @param object Object of class \code{SANmcmc} (usually, the result of a call to \code{\link{fit_fiSAN}},
 #' \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "MCMC"}) or \code{SANvi}
-#' (the result of a call to \code{\link{fit_fiSAN}},\code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).
+#' (the result of a call to \code{\link{fit_fiSAN}}, \code{\link{fit_fSAN}}, or \code{\link{fit_CAM}} with \code{est_method = "VI"}).
 #' @param add_burnin Integer (default = 0). Number of observations to discard as additional burn-in (only for \code{SANmcmc} objects).
 #' @param ncores A parameter to pass to the \code{salso::salso()} function (only for \code{SANmcmc} objects). The number of CPU cores to use for parallel computing; a value of zero indicates the use of all cores on the system.
 #' @param ordered Logical, if \code{TRUE} (default), the function sorts the distributional cluster labels reflecting the
-#' increasing values of medians of the data assigned to each DC. If \code{FALSE}, the order of appearance of the cluster labels, as returned by the estimation algorithm that is used, is preserved.
+#' increasing values of medians of the data assigned to each DC. If \code{FALSE}, no ordering is applied.
+
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return A list of class \code{partition_vi} or \code{partition_mcmc} containing
@@ -294,13 +295,13 @@ plot.partition_mcmc <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         col=colpal[subDC],
+         col  = colpal[subDC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         col=colpal[subOC],
+         col  = colpal[subOC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by OC\n",main_title), ...
@@ -338,12 +339,16 @@ plot.partition_vi <- function(x,
   }
 
 
-  max_CD <- max(x$dis_level)
+  max_OC <- max(x$obs_level$OC)
+  max_DC <- max(x$dis_level)
   if(alt_palette){
-    colpal <- RColorBrewer::brewer.pal(8, "Dark2")
+    colpal_DC <- colorRampPalette(brewer.pal(8, "Dark2"))(max_DC)
+    colpal_OC <- colorRampPalette(brewer.pal(8, "Dark2"))(max_OC)
   }else{
-    colpal <- 1:max_CD
+    colpal_DC <- 1:max_DC
+    colpal_OC <- 1:max_OC
   }
+
 
   dix <- rank(tapply(x$obs_level$Y, x$obs_level$DC, stats::median))
 
@@ -382,7 +387,7 @@ plot.partition_vi <- function(x,
       type = "l",
       xlim = c(min(suby), max(suby)),
       ylim = c(0, 1),
-      col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5),
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][1]], .5),
       xlab = "y",
       ylab = "eCDF",
       main = paste0("eCDFs colored by DC\n",main_title), ...
@@ -390,7 +395,7 @@ plot.partition_vi <- function(x,
     graphics::points(
       (ysteps ~ xsteps),
       cex = .1,
-      col = scales::alpha(colpal[ind_ord_dis[inds_col][1]], .5)
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][1]], .5)
     )
     graphics::abline(h = c(0, 1),
                      col = "gray",
@@ -402,11 +407,11 @@ plot.partition_vi <- function(x,
       xsteps <- sort(suby[subg == X[j]])
 
       graphics::lines((ysteps ~ xsteps),
-                      col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5), ...)
+                      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][j]], .5), ...)
       graphics::points(
         (ysteps ~ xsteps),
         cex = .1,
-        col = scales::alpha(colpal[ind_ord_dis[inds_col][j]], .5)
+        col = scales::alpha(colpal_DC[ind_ord_dis[inds_col][j]], .5)
       )
 
     }
@@ -415,7 +420,7 @@ plot.partition_vi <- function(x,
 
     graphics::boxplot(
       suby ~ subg,
-      col = scales::alpha(colpal[ind_ord_dis[inds_col]], .7),
+      col = scales::alpha(colpal_DC[ind_ord_dis[inds_col]], .7),
       main = paste0("Boxplots colored by DC\n",main_title),
       ylab = "y",
       xlab = "group", ...
@@ -426,13 +431,13 @@ plot.partition_vi <- function(x,
 
     graphics::par(mfrow=c(1,2))
     plot(suby ~ jitter(subg),
-         col=colpal[subDC],
+         col=colpal_DC[subDC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by DC\n",main_title), ...
     )
     plot(suby ~ jitter(subg),
-         col=colpal[subOC],
+         col=colpal_OC[subOC],
          xlab = "Group index",
          ylab = "y",
          main = paste0("Observations colored by OC\n",main_title), ...
