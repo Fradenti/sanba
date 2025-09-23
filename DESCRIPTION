@@ -1,7 +1,7 @@
 Package: sanba
 Type: Package
 Title: Fitting Shared Atoms Nested Models via MCMC or Variational Bayes
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: c(
     person("Francesco", "Denti", ,"francescodenti.personal@gmail.com", 
     role = c("aut", "cre", "cph"),
@@ -28,7 +28,7 @@ Description:
     D’Angelo, Denti (2024) <doi:10.1214/24-BA1458>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     Rcpp, matrixStats, salso, scales, RColorBrewer
 LinkingTo: 

@@ -1,3 +1,7 @@
+# sanba 0.0.3
+
+* Replaced `arma::is_finite` with `std::isfinite` to ensure compatibility with the latest `RcppArmadillo` release and CRAN policies.
+
 # sanba 0.0.2
 
 * Removed an unused `LinkingTo:` entry from the `DESCRIPTION` file, following a suggested pull request.

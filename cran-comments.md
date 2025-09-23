@@ -1,7 +1,7 @@
-## sanba 0.0.2
+## sanba 0.0.3
 
-We have implemented several revisions to address the feedback received during 
-the package's vignette pre-screening review.
+* Replaced `arma::is_finite` with `std::isfinite` to ensure compatibility with the latest `RcppArmadillo` release and CRAN policies.
+* Implemented small code adjustments to address and resolve compiler warnings.
 
 ## R CMD check results
 
