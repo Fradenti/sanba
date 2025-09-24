@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sanba v0.0.2
+# sanba v0.0.3
 
 <!-- badges: start -->
 
@@ -63,7 +63,7 @@ out_mcmc
 #> 
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
-#> Elapsed time: 0.632 secs
+#> Elapsed time: 0.997 secs
 plot(out_mcmc)
 ```
 
@@ -98,7 +98,7 @@ out_vi
 #> ELBO value: -171.476 
 #> Best run out of 100 
 #> Convergence reached in 291 iterations
-#> Elapsed time: 0.101 secs
+#> Elapsed time: 0.2 secs
 plot(out_vi)
 ```
 
