@@ -70,7 +70,7 @@ summary.SANmcmc <- function(object, ...)
 
   cat("\n")
   cat(paste("MCMC results for", object$model, "\n"))
-  cat("-----------------------------------------------\n")
+  cat("-------------------------------------------------------------------\n")
   cat(paste("Model estimated on", length(object$params$y), "total observations and",  length(unique(object$params$group)), "groups \n"))
   if( length(object$params$Nj) <= 10 ){
     cat(paste("Groups sample sizes:", paste0(object$params$Nj, collapse = ", "), "\n\n"))
@@ -82,7 +82,7 @@ summary.SANmcmc <- function(object, ...)
   cat(paste("Total MCMC iterations performed:", object$params$nrep, "\n"))
   cat(paste("Elapsed time:",round(as.numeric(object$time[[1]]),3), attr(object$time, "units"),"\n\n"))
 
-  cat("Number of observational and distributional clusters:\n")
+  cat("Summary statistics for the numbers of\nobservational and distributional clusters:\n")
   print(out)
   invisible(object)
 }

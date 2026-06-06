@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sanba v0.0.3
+# sanba v0.0.4
 
 <!-- badges: start -->
 
@@ -46,7 +46,7 @@ plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
 lines(density(y[g==2]), col = 2)
 ```
 
-<img src="man/figures/README-example1-1.png" width="100%" />
+<img src="man/figures/README-example1-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -63,11 +63,11 @@ out_mcmc
 #> 
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
-#> Elapsed time: 0.997 secs
+#> Elapsed time: 0.645 secs
 plot(out_mcmc)
 ```
 
-<img src="man/figures/README-example1-2.png" width="100%" />
+<img src="man/figures/README-example1-2.png" alt="" width="100%" />
 
     #> Output truncated at 2 for mu.
 
@@ -82,7 +82,7 @@ plot(density(y[g==1]), xlim = c(-5,10), main = "Group-specific density")
 lines(density(y[g==2]), col = 2)
 ```
 
-<img src="man/figures/README-example2-1.png" width="100%" />
+<img src="man/figures/README-example2-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -98,15 +98,15 @@ out_vi
 #> ELBO value: -171.476 
 #> Best run out of 100 
 #> Convergence reached in 291 iterations
-#> Elapsed time: 0.2 secs
+#> Elapsed time: 0.109 secs
 plot(out_vi)
 ```
 
-<img src="man/figures/README-example2-2.png" width="100%" />
+<img src="man/figures/README-example2-2.png" alt="" width="100%" />
 
 # References
 
-D’Angelo, L., and Denti, F. (2024). A Finite-Infinite Shared Atoms
+D’Angelo, L., and Denti, F. (2026). A Finite-Infinite Shared Atoms
 Nested Model for the Bayesian Analysis of Large Grouped Data Sets.
 *Bayesian Analysis*
 

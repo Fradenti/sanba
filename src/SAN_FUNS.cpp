@@ -60,7 +60,7 @@ arma::mat dirichlet_sample_obs_weights(arma::vec M_iter,
     for(int l = 0; l < L_iter ; l++)
     {
       arma::uvec subcluster_l = find( subcluster == l ) ;
-      dir_param(l) = beta + subcluster_l.n_elem ; // beta/L_iter + subcluster_l.n_elem ;
+      dir_param(l) = beta + subcluster_l.n_elem ;
     }
     out_omega(arma::span(0, L_iter-1), arma::span(k)) = rdirichlet(dir_param) ;
   }

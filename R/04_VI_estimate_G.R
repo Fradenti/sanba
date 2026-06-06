@@ -81,8 +81,9 @@ estimate_G <- function(object){
 #' @export
 #'
 plot.SANvi_G <- function(x,
-                                  DC_num = NULL,
-                                  lim = 2, ...) {
+                         DC_num = NULL,
+                         lim = 2,
+                         ...) {
 
   if (is.null(DC_num)) {
     DC_num <- 1:(ncol(x)-2)
@@ -97,7 +98,7 @@ plot.SANvi_G <- function(x,
                  max(atoms[, 1]) + lim,
                  length.out = 250)
 
-  width <- sqrt(atoms[, 2])
+  width <- (sqrt(atoms[, 2]))/max(sqrt(atoms[, 2]))*3
 
   weights <-  x[, DC_num[1] + 2]
   dens <- sapply(seqq, function(g) {
@@ -126,7 +127,7 @@ plot.SANvi_G <- function(x,
   )
   graphics::points(weights ~ atoms[, 1], cex = width)
   graphics::lines(norm_dens ~ seqq)
-
+  width
   if (length(DC_num) > 1) {
     for (j in 2:length(DC_num)) {
       weights <-  x[, DC_num[j] + 2]

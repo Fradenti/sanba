@@ -1,3 +1,8 @@
+# sanba 0.0.4
+
+* Added functions to compute and display group-specific posterior densities for MCMC estimation methods.
+* Minor changes in output clarity.
+
 # sanba 0.0.3
 
 * Replaced `arma::is_finite` with `std::isfinite` to ensure compatibility with the latest `RcppArmadillo` release and CRAN policies.

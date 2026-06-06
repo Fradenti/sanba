@@ -135,7 +135,7 @@ estimate_partition.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, n
 #' @export
 #'
 summary.partition_mcmc <- function(object, ...){
-  cat("Summary of the posterior observ. and distrib. partitions estimated via MCMC\n")
+  cat("Summary statistics for the numbers of observational and distributional clusters\n")
   cat("----------------------------------\n")
   cat(paste("Number of estimated OCs:", length(unique(object$obs_level$OC)),"\n"))
   cat(paste("Number of estimated DCs:",length(unique(object$dis_level)),"\n"))

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# sanba v0.0.3
+# sanba v0.0.4
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Fradenti/sanba/actions/workflows/R-CMD-check.yaml)
@@ -72,7 +72,7 @@ plot(out_vi)
 
 # References
 
-D’Angelo, L., and Denti, F. (2024). A Finite-Infinite Shared Atoms Nested Model for the Bayesian Analysis of Large Grouped Data Sets. *Bayesian Analysis* \doi{10.1214/24-BA1458}
+D’Angelo, L., and Denti, F. (2026). A Finite-Infinite Shared Atoms Nested Model for the Bayesian Analysis of Large Grouped Data Sets. *Bayesian Analysis* \doi{10.1214/24-BA1458}
 
 Denti, F., Camerlenghi, F., Guindani, M., Mira, A., 2023. A Common Atoms Model for the Bayesian Nonparametric Analysis of Nested Data. *Journal of the American Statistical Association*. 118(541), 405–416. \doi{10.1080/01621459.2021.1933499}
 

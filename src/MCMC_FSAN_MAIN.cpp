@@ -32,8 +32,6 @@ Rcpp::List sample_fSAN_cpp(int nrep, // number of replications of the Gibbs samp
   arma::mat out_M(N, nrep - burn) ; // observational clusters
   arma::mat out_pi(maxK, nrep - burn, arma::fill::zeros) ;
   arma::cube out_omega(maxL, maxK, nrep - burn, arma::fill::zeros) ;
-  arma::vec out_maxK(nrep - burn) ;
-  arma::vec out_maxL(nrep - burn) ;
 
   // initialization
   arma::vec current_mu = mu_start ;
