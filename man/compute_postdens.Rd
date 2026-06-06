@@ -7,9 +7,9 @@
 compute_postdens(
   object,
   group_ind = 1,
-  mcmc_considered = 10,
-  lim = 5,
-  length_yseq = 1000
+  mcmc_considered = 500,
+  lim = 1,
+  length_yseq = 500
 )
 }
 \arguments{
@@ -70,7 +70,7 @@ est <- fit_fiSAN(y, g, est_method = "MCMC")
 postdens <- compute_postdens(
   est,
   group_ind = 1,
-  mcmc_considered = 500
+  mcmc_considered = 50
 )
 
 # Plot posterior density summaries
