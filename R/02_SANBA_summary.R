@@ -51,7 +51,7 @@ summary.SANvi <- function(object, ...){
 #' Summarize the MCMC Output
 #' @description Summary method for objects of class \code{SANmcmc}.
 #'
-#' @param object of class \code{SANmcmc}.
+#' @param object An object of class \code{SANmcmc}.
 #' @param ... Ignored.
 #'
 #' @return The function prints a summary of the fitted model.

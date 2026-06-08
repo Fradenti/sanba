@@ -12,7 +12,7 @@
 #'   \item \code{get_seed_best_run}: (only for \code{SANvi}) returns the random seed associated with the run that achieved the highest ELBO.
 #' }
 #'
-#' @param object An object of class \code{SANmcmc} or \code{SANvi}, as returned by \code{\link{fit_fSAN}}.
+#' @param object An object of class \code{SANmcmc} or \code{SANvi}, as returned by \code{\link{fit_fSAN}}, \code{\link{fit_fiSAN}}, or \code{\link{fit_CAM}}.
 #' @param ... ignored.
 #'
 #' @return The requested component from the fitted model object. See the function descriptions above for details.

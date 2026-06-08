@@ -90,7 +90,7 @@ compute_postdens <- function(object, group_ind = 1, mcmc_considered = 500,
 
     # 3. Outer product magic:
     # outer() evaluates dnorm for every combination of x (rows) and mu/sigma (columns)
-    # objectulting in a 1000 x maxL matrix.
+    # resulting in a length_yseq x maxL matrix.
     component_densities <- outer(x, 1:maxL, function(x_val, k) {
       dnorm(x_val, mean = mu[k], sd = sigma[k])
     })

@@ -122,6 +122,7 @@
 #'   \item \code{maxK}: Vector of length \code{nrep} with number of active distributional components.
 #' }
 #'
+#' @importFrom utils flush.console
 #'
 #'@export
 #'
@@ -172,6 +173,10 @@ fit_fiSAN <- function(y,
       for(l in 1:vi_param$n_runs){
 
         vi_param$seed <- ROOT*l
+        if(print_run_progress){
+          cat(paste0("\rRun completed: ", l - 1, "/", vi_param$n_runs))
+          utils::flush.console()
+        }
 
         proposed_fit <- variational_fiSAN(y,
                                           group,
@@ -181,17 +186,17 @@ fit_fiSAN <- function(y,
         if( l == 1){
           est_model <- proposed_fit
           max_elbo_observed <- max(elbos[[1]])
-        } else if(l > 2) {
+        } else if(l > 1) {
           if( max_elbo_observed < max(elbos[[l]]) ){
             est_model <- proposed_fit
             max_elbo_observed <- max(elbos[[l]])
           }
         }
-
-        if(print_run_progress){
-          cat(paste0("Performing run number ", l, " out of ", vi_param$n_runs, "\n"))
-        }
       }
+      if(print_run_progress){
+          cat(paste0("\rRun completed: ", vi_param$n_runs, "/", vi_param$n_runs, "\n"))
+          utils::flush.console()
+        }
 
       est_model$all_elbos <- elbos
     }

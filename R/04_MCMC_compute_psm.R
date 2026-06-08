@@ -13,7 +13,7 @@
 #'
 #' @return The function \code{compute_psm} returns and plots the posterior similarity matrix.
 #' When \code{distributional = FALSE}, if \code{group_specific = FALSE}, the output is a matrix of dimension \code{N x N};
-#' if \code{group_specific = TRUE}, the output is a list on length \code{J} (the number of groups), where each entry contains a matrix of dimension \code{Nj x Nj}.
+#' if \code{group_specific = TRUE}, the output is a list of length \code{J} (the number of groups), where each entry contains a matrix of dimension \code{Nj x Nj}.
 #' If \code{distributional = TRUE}, the output is a matrix of dimension \code{J x J}.
 #'
 #'

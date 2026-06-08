@@ -81,7 +81,7 @@ sample_fiSAN <- function(y, group,
                  nrep = mcmc_param$nrep,
                  burn = mcmc_param$burn)
 
-  if(!is.null(prior_param$alpha)) { params$alpha <- alpha }
+  if(!is.null(prior_param$alpha)) { params$alpha <- prior_param$alpha }
   if(is.null(prior_param$alpha)) { params$hyp_alpha1 <- prior_param$hyp_alpha1
                                    params$hyp_alpha2 <- prior_param$hyp_alpha2 }
 

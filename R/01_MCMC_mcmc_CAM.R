@@ -53,9 +53,6 @@ sample_CAM = function(y, group,
     stop("The number of observations and groups must match")
   }
 
-  if(is.null(mcmc_param$seed)){mcmc_param$seed <- round(stats::runif(1,1,10000))}
-  set.seed(mcmc_param$seed)
-
   #------------------------------------------
   warmstart <-  mcmc_param$warmstart
   nclus_start <- mcmc_param$nclus_start

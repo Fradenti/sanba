@@ -26,7 +26,7 @@
 #' @export
 estimate_partition <- function(object, ...) {
   if (!inherits(object, "SANmcmc") && !inherits(object, "SANvi")) {
-    stop("get_model() is only defined for objects of class 'SANmcmc' or 'SANvi'.")
+    stop("estimate_partition() is only defined for objects of class 'SANmcmc' or 'SANvi'.")
   }
   UseMethod("estimate_partition")
 }
@@ -100,8 +100,8 @@ estimate_partition.SANmcmc <- function(object, ordered = TRUE, add_burnin = 0, n
     warning("The passed object should be of class 'SANmcmc'")
   }
   if(add_burnin>0) {
-    OC <- object$sim$obs_cluster[-1:add_burnin,]
-    DC <- object$sim$distr_cluster[-1:add_burnin,]
+    OC <- object$sim$obs_cluster[-(1:add_burnin),]
+    DC <- object$sim$distr_cluster[-(1:add_burnin),]
   }else{
     OC <- object$sim$obs_cluster
     DC <- object$sim$distr_cluster

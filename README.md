@@ -18,7 +18,7 @@ Commit](https://img.shields.io/github/last-commit/fradenti/sanba)](https://githu
 The goal of `sanba` is to estimate Bayesian nested mixture models via
 MCMC and VI methods. Specifically, the package implements the common
 atoms model (Denti et al., 2023) and hybrid finite-infinite models
-(D’Angelo and Denti, 2024). All models use Gaussian mixtures with a
+(D’Angelo and Denti, 2026). All models use Gaussian mixtures with a
 normal-inverse-gamma prior distribution on the parameters. Additional
 functions are provided to help analyzing the results of the fitting
 procedure.
@@ -63,7 +63,7 @@ out_mcmc
 #> 
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
-#> Elapsed time: 0.645 secs
+#> Elapsed time: 0.623 secs
 plot(out_mcmc)
 ```
 
@@ -98,7 +98,7 @@ out_vi
 #> ELBO value: -171.476 
 #> Best run out of 100 
 #> Convergence reached in 291 iterations
-#> Elapsed time: 0.109 secs
+#> Elapsed time: 0.112 secs
 plot(out_vi)
 ```
 
@@ -107,9 +107,9 @@ plot(out_vi)
 # References
 
 D’Angelo, L., and Denti, F. (2026). A Finite-Infinite Shared Atoms
-Nested Model for the Bayesian Analysis of Large Grouped Data Sets.
-*Bayesian Analysis*
+Nested Model for the Bayesian Analysis of Large Grouped Data Sets.  
+*Bayesian Analysis*, 21(1): 105-138;
 
 Denti, F., Camerlenghi, F., Guindani, M., Mira, A., 2023. A Common Atoms
-Model for the Bayesian Nonparametric Analysis of Nested Data. *Journal
-of the American Statistical Association*. 118(541), 405–416.
+Model for the Bayesian Nonparametric Analysis of Nested Data.  
+*Journal of the American Statistical Association*, 118(541), 405–416.

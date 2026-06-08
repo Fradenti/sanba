@@ -46,7 +46,7 @@ get_seed_best_run(object, ...)
 \method{get_seed_best_run}{SANvi}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{SANmcmc} or \code{SANvi}, as returned by \code{\link{fit_fSAN}}.}
+\item{object}{An object of class \code{SANmcmc} or \code{SANvi}, as returned by \code{\link{fit_fSAN}}, \code{\link{fit_fiSAN}}, or \code{\link{fit_CAM}}.}
 
 \item{...}{ignored.}
 }

@@ -52,15 +52,15 @@ estimate_G <- function(object){
 
   D <- data.frame(post_mean = exp_mu[ind_row],
                   post_var  = exp_sigma2[ind_row],
-                  post_weigths_DC = W)
+                  post_weights_DC = W)
 
 
   if(is.null(nrow(W))){
-    colnames(D)[-c(1:2)] <- paste0("post_weigths_DC",1:(ncol(D)-2))
+    colnames(D)[-c(1:2)] <- paste0("post_weights_DC",1:(ncol(D)-2))
   }else{
     wmeans <- apply(W,2,function(x) sum(x*D$post_mean))
     D <- D[order(D$post_mean),c(1:2,order(wmeans)+2)]
-    colnames(D)[-c(1:2)] <- paste0("post_weigths_DC",1:(ncol(D)-2))
+    colnames(D)[-c(1:2)] <- paste0("post_weights_DC",1:(ncol(D)-2))
   }
 
   structure(D,
@@ -70,7 +70,7 @@ estimate_G <- function(object){
 
 #' @name estimate_G
 #'
-#' @param x an object of class \code{summary_SANvi} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
+#' @param x an object of class \code{SANvi_G} (usually, the result of a call to \code{fit_CAM}, \code{fit_fiSAN}, or \code{fit_fSAN}, used with the \code{est_method = "VI"} argument).
 #' @param DC_num an integer or a vector of integers indicating which distributional clusters to plot.
 #' @param lim optional value for the \code{plot} method to adjust the limits of the x-axis (the default is 2). The atoms are plotted on a range
 #' given by \code{min(posterior means)-lim, max(posterior means)+lim}.

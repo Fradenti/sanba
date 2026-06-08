@@ -145,6 +145,9 @@
 #'
 #' Sethuraman, A.J. (1994). A Constructive Definition of Dirichlet Priors, \emph{Statistica Sinica}, 4, 639–650.
 #'
+#'
+#' @importFrom utils flush.console
+#'
 #'@export
 #'
 #'
@@ -195,7 +198,10 @@ fit_CAM <- function(y,
       for(l in 1:vi_param$n_runs){
 
         vi_param$seed <- ROOT*l
-
+        if(print_run_progress){
+          cat(paste0("\rRun completed: ", l - 1, "/", vi_param$n_runs))
+          utils::flush.console()
+        }
         proposed_fit <- variational_CAM(y,
                                           group,
                                           prior_param = prior_param,
@@ -204,17 +210,18 @@ fit_CAM <- function(y,
         if( l == 1){
           est_model <- proposed_fit
           max_elbo_observed <- max(elbos[[1]])
-        } else if(l > 2) {
+        } else if(l > 1) {
          if( max_elbo_observed < max(elbos[[l]]) ){
            est_model <- proposed_fit
            max_elbo_observed <- max(elbos[[l]])
          }
         }
-
-        if(print_run_progress){
-          cat(paste0("Performing run number ", l, " out of ", vi_param$n_runs, "\n"))
-        }
       }
+      if(print_run_progress){
+        cat(paste0("\rRun completed: ", vi_param$n_runs, "/", vi_param$n_runs, "\n"))
+        utils::flush.console()
+      }
+
       est_model$all_elbos <- elbos
     }
   }else{
