@@ -39,8 +39,12 @@ summary.SANvi <- function(object, ...){
   cat(paste("ELBO value:", round(max(object$sim$Elbo_val),3),"\n"))
   cat(paste("Best run out of",object$params$n_runs,"\n"))
   cat(paste("Convergence reached in",length(object$sim$Elbo_val),"iterations\n"))
-  cat(paste("Elapsed time:",round(as.numeric(object$time),3),units(object$time),"\n\n"))
-
+  if(!is.null(object$all_difftimes)){
+    cat(paste("Elapsed time (best run):",format_time(object$time),"\n"))
+    cat(paste("Elapsed time (all runs):", format_time(Reduce("+",object$all_difftimes)),"\n"))
+  }else{
+    cat(paste("Elapsed time (single run):",format_time(object$time),"\n"))
+  }
   cat("Number of observational and distributional clusters:\n")
   print(out)
   invisible(object)
@@ -80,7 +84,7 @@ summary.SANmcmc <- function(object, ...)
 
   cat(paste("Size of the MCMC sample (after burn-in):", object$params$nrep - object$params$burn, "\n"))
   cat(paste("Total MCMC iterations performed:", object$params$nrep, "\n"))
-  cat(paste("Elapsed time:",round(as.numeric(object$time[[1]]),3), attr(object$time, "units"),"\n\n"))
+  cat(paste("Elapsed time:",format_time(object$time),"\n"))
 
   cat("Summary statistics for the numbers of\nobservational and distributional clusters:\n")
   print(out)

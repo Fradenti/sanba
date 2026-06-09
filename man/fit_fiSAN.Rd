@@ -27,12 +27,13 @@ fit_fiSAN(y, group, est_method = c("VI", "MCMC"),
 \item{vi_param}{A list of variational inference-specific settings containing:
 \describe{
   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-   \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
-   \item{\code{n_runs}}{Number of starting points considered for the estimation.}
+  \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
+  \item{\code{n_runs}}{Number of starting points considered for the estimation.}
   \item{\code{seed}}{Random seed to control the initialization.}
   \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
   \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
+  \item{\code{print_run_progress}}{Logical, if \code{TRUE} it tracks the number of fitted models with different starting points. It has an effect only when \code{n_runs>1}.}
 }}
 
 \item{mcmc_param}{A list of MCMC inference-specific settings containing:

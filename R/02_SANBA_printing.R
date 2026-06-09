@@ -1,3 +1,21 @@
+format_time <- function(x) {
+  stopifnot(inherits(x, "difftime"))
+
+  seconds <- as.numeric(x, units = "secs")
+
+  h <- floor(seconds / 3600)
+  m <- floor((seconds %% 3600) / 60)
+  s <- seconds %% 60
+
+  if (h > 0) {
+    sprintf("%d h %d min %.1f s", h, m, s)
+  } else if (m > 0) {
+    sprintf("%d min %.1f s", m, s)
+  } else {
+    sprintf("%.3f s", s)
+  }
+}
+
 #' Print the Variational Inference Output
 #' @description Print method for objects of class \code{SANvi}.
 #'
@@ -20,7 +38,12 @@ print.SANvi <- function(x, ... ){
   cat(paste("ELBO value:", round(max(x$sim$Elbo_val),3),"\n"))
   cat(paste("Best run out of",x$params$n_runs,"\n"))
   cat(paste("Convergence reached in",length(x$sim$Elbo_val),"iterations\n"))
-  cat(paste("Elapsed time:",round(as.numeric(x$time),3),units(x$time),"\n"))
+  if(!is.null(x$all_difftimes)){
+    cat(paste("Elapsed time (best run):",format_time(x$time),"\n"))
+    cat(paste("Elapsed time (all runs):", format_time(Reduce("+",x$all_difftimes)),"\n"))
+  }else{
+    cat(paste("Elapsed time (single run):",format_time(x$time),"\n"))
+  }
   cat("\n")
   invisible(x)
 }
@@ -48,6 +71,6 @@ print.SANmcmc <- function(x, ...)
 
   cat(paste("Size of the MCMC sample (after burn-in):", x$params$nrep - x$params$burn, "\n"))
   cat(paste("Total MCMC iterations performed:", x$params$nrep, "\n"))
-  cat(paste("Elapsed time:",round(as.numeric(x$time[[1]]),3), attr(x$time, "units"),"\n"))
+  cat(paste("Elapsed time:",format_time(x$time),"\n"))
   cat("\n")
 }

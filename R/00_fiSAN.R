@@ -23,12 +23,13 @@
 #' @param vi_param A list of variational inference-specific settings containing:
 #' \describe{
 #'   \item{\code{maxL, maxK}}{Integers, the upper bounds for the observational and distributional clusters to fit, respectively. The default is (50, 20).}
-#'    \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
-#'    \item{\code{n_runs}}{Number of starting points considered for the estimation.}
+#'   \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
+#'   \item{\code{n_runs}}{Number of starting points considered for the estimation.}
 #'   \item{\code{seed}}{Random seed to control the initialization.}
 #'   \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
 #'   \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
 #'   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
+#'   \item{\code{print_run_progress}}{Logical, if \code{TRUE} it tracks the number of fitted models with different starting points. It has an effect only when \code{n_runs>1}.}
 #' }
 #'
 #' @param mcmc_param A list of MCMC inference-specific settings containing:
@@ -163,6 +164,7 @@ fit_fiSAN <- function(y,
       print_run_progress    <- ifelse(is.null(vi_param$print_run_progress), FALSE, vi_param$print_run_progress)
 
       elbos    <- list()
+      difftimes    <- list()
       if(is.null( vi_param$seed)){
         ROOT <- round(stats::runif(1,1,10000))
       }else{
@@ -182,6 +184,7 @@ fit_fiSAN <- function(y,
                                           prior_param = prior_param,
                                           vi_param = vi_param)
         elbos[[l]] <- proposed_fit$sim$Elbo_val
+        difftimes[[l]] <- proposed_fit$time
         if( l == 1){
           est_model <- proposed_fit
           max_elbo_observed <- max(elbos[[1]])
@@ -198,6 +201,8 @@ fit_fiSAN <- function(y,
         }
 
       est_model$all_elbos <- elbos
+      est_model$all_difftimes <- difftimes
+
     }
   }else{
     est_model <- sample_fiSAN(y,
