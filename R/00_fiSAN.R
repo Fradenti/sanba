@@ -162,7 +162,6 @@ fit_fiSAN <- function(y,
 
       print_run_progress    <- ifelse(is.null(vi_param$print_run_progress), FALSE, vi_param$print_run_progress)
 
-      list_est <- list()
       elbos    <- list()
       if(is.null( vi_param$seed)){
         ROOT <- round(stats::runif(1,1,10000))

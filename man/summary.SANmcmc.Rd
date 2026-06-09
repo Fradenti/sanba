@@ -7,7 +7,7 @@
 \method{summary}{SANmcmc}(object, ...)
 }
 \arguments{
-\item{object}{of class \code{SANmcmc}.}
+\item{object}{An object of class \code{SANmcmc}.}
 
 \item{...}{Ignored.}
 }

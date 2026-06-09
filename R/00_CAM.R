@@ -37,7 +37,7 @@
 #'    \item{\code{seed}}{Random seed to control the initialization.}
 #'    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of
 #'    the cluster atoms are initialized with a k-means algorithm. If \code{FALSE},
-#'    the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start} }
+#'    the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start}. }
 #'    \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
 #' }
 #'
@@ -173,7 +173,7 @@ fit_CAM <- function(y,
                    mcmc_param = list()){
 
   # Checks and list completion ----------------------------------------------
-  est_method <- match.arg(est_method)
+  est_method <- match.arg(arg = est_method)
 
   if(est_method == "VI"){
     vi_param$n_runs       <- ifelse(is.null(vi_param$n_runs), 1, vi_param$n_runs)
@@ -187,7 +187,6 @@ fit_CAM <- function(y,
 
       print_run_progress    <- ifelse(is.null(vi_param$print_run_progress), FALSE, vi_param$print_run_progress)
 
-      list_est <- list()
       elbos    <- list()
       if(is.null( vi_param$seed)){
         ROOT <- round(stats::runif(1,1,10000))

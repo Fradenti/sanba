@@ -43,7 +43,7 @@ fit_CAM(y, group, est_method = c("VI", "MCMC"),
    \item{\code{seed}}{Random seed to control the initialization.}
    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of
    the cluster atoms are initialized with a k-means algorithm. If \code{FALSE},
-   the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start} }
+   the starting points can be passed through the parameters \code{ nclus_start, mu_start, sigma2_start, M_start, S_start, alpha_start, beta_start}. }
    \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
 }}
 }

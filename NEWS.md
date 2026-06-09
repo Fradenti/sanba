@@ -1,7 +1,7 @@
 # sanba 0.0.4
 
 * Added functions to compute and display group-specific posterior densities for MCMC estimation methods: `compute_postdens()` and its relative `plot()` method.
-* Fixed some minor bugs and typos.
+* Fixed some minor bugs and typos in documentation.
 * Minor changes in output clarity.
 
 # sanba 0.0.3
@@ -19,7 +19,7 @@
 * Corrected minor typos and improved clarity in the documentation.
 * Added a method for the `estimate_G()` function.
 * Created appropriate `summary()` methods; now the partition estimation has its own function, `estimate_partition()`
-* Amended few details (e.g., assignment symbols and logical variables) following the `goodpractice::gp()` suggestions. Also removed `Date` field in the description as suggested.
+* Amended a few details (e.g., assignment symbols and logical variables) following the `goodpractice::gp()` suggestions. Also removed `Date` field in the description as suggested.
 * Corrected a bug in `estimate_G`; now it works even when there is a single DC detected.
 * Made the `plot()` method for the `plot.partition_vi` more robust.
 

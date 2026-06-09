@@ -25,7 +25,7 @@
 #'    \item{\code{epsilon}}{The threshold controlling the convergence criterion.}
 #'    \item{\code{n_runs}}{Number of starting points considered for the estimation.}
 #'    \item{\code{seed}}{Random seed to control the initialization.}
-#'    \item{\code{maxSIM}}{The maximum number of CAVI iteration to perform.}
+#'    \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
 #'    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
 #'    \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
 #' }
@@ -101,7 +101,7 @@
 #' \item \code{theta_l}: Matrix of size (\code{maxL}, 4).
 #'    Each row is a posterior variational estimate of the four normal-inverse gamma hyperparameters.
 #' \item \code{XI} : A list of length J. Each element is a matrix of size (\code{Nj}, \code{maxL})
-#'    posterior variational probability of assignment of assignment of the i-th observation in the j-th group to the l-th OC,
+#'    posterior variational probability of assignment of the i-th observation in the j-th group to the l-th OC,
 #'    i.e., \eqn{\hat{\xi}_{i,j,l} = \hat{\mathbb{Q}}(M_{i,j}=l)}.
 #' \item \code{RHO}: Matrix of size (J, \code{maxK}).
 #'    Each row is a posterior variational probability of assignment of the j-th group to the k-th DC, i.e., \eqn{\hat{\rho}_{j,k} = \hat{\mathbb{Q}}(S_j=k)}.
@@ -170,7 +170,6 @@ fit_fSAN <- function(y,
     }else{
       print_run_progress    <- ifelse(is.null(vi_param$print_run_progress), FALSE, vi_param$print_run_progress)
 
-      list_est <- list()
       elbos    <- list()
       if(is.null( vi_param$seed)){
         ROOT <- round(stats::runif(1,1,10000))
