@@ -1,5 +1,6 @@
 ## sanba 0.0.4
 
+* Changed how elapsed times are reported. Also reporting total runtime with multiple runs in VI framework.
 * Added functions to compute and display group-specific posterior densities for MCMC estimation methods.
 * Fixed some minor bugs and typos.
 * Minor edits in the titles of the produced tables.

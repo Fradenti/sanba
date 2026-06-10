@@ -33,7 +33,7 @@ fit_CAM(y, group, est_method = c("VI", "MCMC"),
    \item{\code{seed}}{Random seed to control the initialization.}
    \item{\code{maxSIM}}{The maximum number of CAVI iterations to perform.}
    \item{\code{warmstart}}{Logical, if \code{TRUE}, the observational means of the cluster atoms are initialized with a k-means algorithm.}
-   \item{\code{verbose}}{Logical, if \code{TRUE} the iterations are printed.}
+  \item{\code{verbose}}{Logical, if \code{TRUE}, detailed information about each optimization step is printed.}
   \item{\code{print_run_progress}}{Logical, if \code{TRUE} it tracks the number of fitted models with different starting points. It has an effect only when \code{n_runs>1}.}
 }}
 

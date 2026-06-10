@@ -2,7 +2,7 @@
 % Please edit documentation in R/04_MCMC_compute_postdens.R
 \name{compute_postdens}
 \alias{compute_postdens}
-\title{Compute Posterior Predictive Density Samples for a Group}
+\title{Compute the Posterior Density for a Group}
 \usage{
 compute_postdens(
   object,
@@ -33,25 +33,24 @@ on
 \value{
 An object of class \code{SANmcmc_postdens}, containing:
 \describe{
-  \item{mcmcdens}{
-    A matrix of dimension \code{length_yseq x mcmc_considered}, where each
-    column contains the posterior predictive density evaluated on the grid
-    for one MCMC iteration.
+  \item{densities}{
+    A matrix of dimension \code{length_yseq x mcmc_considered}.
+    Rows correspond to grid points and columns correspond to retained MCMC iterations.
   }
-  \item{x}{
+  \item{grid}{
     Numeric vector containing the evaluation grid.
   }
-  \item{YG}{
+  \item{data}{
     Two-column matrix containing the observations and corresponding group
     labels for the selected group.
   }
 }
 }
 \description{
-Computes posterior predictive density estimates for a selected group from
-a fitted SAN model estimated via MCMC. For each retained MCMC iteration,
-the function evaluates the corresponding mixture density on a user-defined
-grid and stores the resulting density curves.
+Computes posterior density estimates for a selected group from
+a fitted SAN model estimated via MCMC. For each retained MCMC draw,
+the function evaluates the corresponding posterior predictive density of
+a new observation from the selected group.
 
 The returned object can be visualized with
 \code{\link{plot.SANmcmc_postdens}}, which displays the collection of
@@ -76,4 +75,10 @@ postdens <- compute_postdens(
 # Plot posterior density summaries
 plot(postdens)
 
+}
+\seealso{
+\code{\link{fit_CAM}},
+\code{\link{fit_fiSAN}},
+\code{\link{fit_fSAN}},
+\code{\link{plot.SANmcmc_postdens}}
 }

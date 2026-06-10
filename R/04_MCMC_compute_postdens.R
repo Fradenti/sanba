@@ -1,10 +1,10 @@
-#' Compute Posterior Predictive Density Samples for a Group
+#' Compute the Posterior Density for a Group
 #'
 #' @description
-#' Computes posterior predictive density estimates for a selected group from
-#' a fitted SAN model estimated via MCMC. For each retained MCMC iteration,
-#' the function evaluates the corresponding mixture density on a user-defined
-#' grid and stores the resulting density curves.
+#' Computes posterior density estimates for a selected group from
+#' a fitted SAN model estimated via MCMC. For each retained MCMC draw,
+#' the function evaluates the corresponding posterior predictive density of
+#' a new observation from the selected group.
 #'
 #' The returned object can be visualized with
 #' \code{\link{plot.SANmcmc_postdens}}, which displays the collection of
@@ -26,19 +26,24 @@
 #' @return
 #' An object of class \code{SANmcmc_postdens}, containing:
 #' \describe{
-#'   \item{mcmcdens}{
-#'     A matrix of dimension \code{length_yseq x mcmc_considered}, where each
-#'     column contains the posterior predictive density evaluated on the grid
-#'     for one MCMC iteration.
+#'   \item{densities}{
+#'     A matrix of dimension \code{length_yseq x mcmc_considered}.
+#'     Rows correspond to grid points and columns correspond to retained MCMC iterations.
 #'   }
-#'   \item{x}{
+#'   \item{grid}{
 #'     Numeric vector containing the evaluation grid.
 #'   }
-#'   \item{YG}{
+#'   \item{data}{
 #'     Two-column matrix containing the observations and corresponding group
 #'     labels for the selected group.
 #'   }
 #' }
+#'
+#' @seealso
+#' \code{\link{fit_CAM}},
+#' \code{\link{fit_fiSAN}},
+#' \code{\link{fit_fSAN}},
+#' \code{\link{plot.SANmcmc_postdens}}
 #'
 #' @examples
 #' # Generate example data
@@ -52,7 +57,7 @@
 #' # Compute posterior density samples for group 1
 #' postdens <- compute_postdens(
 #'   est,
-#'   group_ind = 1,
+#'   group_ind = 2,
 #'   mcmc_considered = 50
 #' )
 #'
@@ -66,8 +71,17 @@ compute_postdens <- function(object, group_ind = 1, mcmc_considered = 500,
   if (!inherits(object, "SANmcmc")) {
     stop("compute_postdens() is only defined for objects of class 'SANmcmc'.")
   }
-
   NSIM <- nrow(object$sim$mu)
+
+
+  if (mcmc_considered > NSIM) {
+    stop("'mcmc_considered' cannot exceed the number of saved MCMC iterations.")
+  }
+
+  if (!group_ind %in% unique(object$params$group)) {
+    stop("Invalid group_ind value.")
+  }
+
 
   # 1. Pre-allocate the grid
   x <- seq(min(object$params$y) - lim, max(object$params$y) + lim, length.out = length_yseq)
@@ -103,7 +117,8 @@ compute_postdens <- function(object, group_ind = 1, mcmc_considered = 500,
   whichg <- object$params$group[object$params$group==group_ind]
   whichy <- object$params$y[object$params$group==group_ind]
 
-  D <- list(mcmcdens = DENS, x=x, YG = cbind(y = whichy, g = whichg))
+  D <- list(densities = DENS, grid=x,
+            data = cbind(y = whichy, g = whichg))
   structure(D,
             class = c("SANmcmc_postdens", class(D)))
 
@@ -145,14 +160,14 @@ compute_postdens <- function(object, group_ind = 1, mcmc_considered = 500,
 #' @method plot SANmcmc_postdens
 #' @export
 plot.SANmcmc_postdens <- function(x, alpha = 0.025, ...){
-  title <- paste0("Posterior distribution of group # ", unique(x$YG[,2]))
-  matplot(y = x$mcmcdens,x = x$x, type="l", col="gray", lty=1,
+  title <- paste0("Posterior distribution of group # ", unique(x$data[,2]))
+  matplot(y = x$densities,x = x$grid, type="l", col="gray", lty=1,
           ylab = "Posterior density", xlab = "y", main = title, lwd = .5)
   graphics::abline(h=0,lty=2,lwd=.5)
-  sum <- t(apply(x$mcmcdens, 1, function(xx) stats::quantile(xx, c(alpha, .5, 1-alpha))))
-  graphics::lines(sum[,1]~x$x,col=4)
-  graphics::lines(sum[,2]~x$x,col=1)
-  graphics::lines(rowMeans(x$mcmcdens)~x$x,col=2)
-  graphics::lines(sum[,3]~x$x,col=4)
-  graphics::points(rep(0, nrow(x$YG))~x$YG[,1], cex = .5, pch=21, bg=4)
+  sum <- t(apply(x$densities, 1, function(xx) stats::quantile(xx, c(alpha, .5, 1-alpha))))
+  graphics::lines(sum[,1]~x$grid,col=4)
+  graphics::lines(sum[,2]~x$grid,col=1)
+  graphics::lines(rowMeans(x$densities)~x$grid,col=2)
+  graphics::lines(sum[,3]~x$grid,col=4)
+  graphics::points(rep(0, nrow(x$data))~x$data[,1], cex = .5, pch=21, bg=4)
   }
