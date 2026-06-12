@@ -68,7 +68,7 @@ est <- fit_fiSAN(y, g, est_method = "MCMC")
 # Compute posterior density samples for group 1
 postdens <- compute_postdens(
   est,
-  group_ind = 1,
+  group_ind = 2,
   mcmc_considered = 50
 )
 

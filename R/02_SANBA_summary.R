@@ -39,9 +39,9 @@ summary.SANvi <- function(object, ...){
   cat(paste("ELBO value:", round(max(object$sim$Elbo_val),3),"\n"))
   cat(paste("Best run out of",object$params$n_runs,"\n"))
   cat(paste("Convergence reached in",length(object$sim$Elbo_val),"iterations\n"))
-  if(!is.null(object$all_difftimes)){
+  if(!is.null(object$all_times)){
     cat(paste("Elapsed time (best run):",format_time(object$time),"\n"))
-    cat(paste("Elapsed time (all runs):", format_time(Reduce("+",object$all_difftimes)),"\n"))
+    cat(paste("Elapsed time (all runs):", format_time(Reduce("+",object$all_times)),"\n"))
   }else{
     cat(paste("Elapsed time (single run):",format_time(object$time),"\n"))
   }

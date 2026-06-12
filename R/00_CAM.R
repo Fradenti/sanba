@@ -82,7 +82,9 @@
 #'   \item{\code{model}}{Name of the fitted model.}
 #'   \item{\code{params}}{List containing the data and the parameters used in the simulation. Details below.}
 #'   \item{\code{sim}}{List containing the optimized variational parameters or the simulated values. Details below.}
-#'   \item{\code{time}}{Total computation time.}
+#'   \item{\code{time}}{The computing time required to reach convergence of the best run.}
+#'   \item{\code{all_elbos}}{List of all the ELBO trajectories obained across all \code{n_runs}.}
+#'   \item{\code{all_times}}{List of all the computing times required across all \code{n_runs}.}
 #' }
 #'
 #'
@@ -225,7 +227,7 @@ fit_CAM <- function(y,
       }
 
       est_model$all_elbos <- elbos
-      est_model$all_difftimes <- difftimes
+      est_model$all_times <- difftimes
     }
   }else{
     est_model <- sample_CAM(y,
