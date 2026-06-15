@@ -63,7 +63,7 @@ out_mcmc
 #> 
 #> Size of the MCMC sample (after burn-in): 2000 
 #> Total MCMC iterations performed: 5000 
-#> Elapsed time: 0.623 secs
+#> Elapsed time: 0.628 s
 plot(out_mcmc)
 ```
 
@@ -98,7 +98,8 @@ out_vi
 #> ELBO value: -171.476 
 #> Best run out of 100 
 #> Convergence reached in 291 iterations
-#> Elapsed time: 0.112 secs
+#> Elapsed time (best run): 0.109 s 
+#> Elapsed time (all runs): 6.537 s
 plot(out_vi)
 ```
 

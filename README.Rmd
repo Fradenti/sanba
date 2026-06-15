@@ -74,7 +74,7 @@ plot(out_vi)
 
 D’Angelo, L., and Denti, F. (2026). A Finite-Infinite Shared Atoms
 Nested Model for the Bayesian Analysis of Large Grouped Data Sets.  
-*Bayesian Analysis*, 21(1): 105-138;
+*Bayesian Analysis*, 21(1): 105-138; 
 
 Denti, F., Camerlenghi, F., Guindani, M., Mira, A., 2023. A Common Atoms
 Model for the Bayesian Nonparametric Analysis of Nested Data.   
