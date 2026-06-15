@@ -17,8 +17,7 @@ pointwise credible interval.}
 \item{...}{Additional graphical arguments passed to plotting methods.}
 }
 \value{
-Invisibly returns \code{NULL}. The function is called for its side effect of
-producing a plot.
+Invisibly returns \code{NULL}.
 }
 \description{
 Visualizes the output of \code{\link{compute_postdens}}. The plot displays

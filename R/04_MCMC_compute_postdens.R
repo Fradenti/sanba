@@ -148,8 +148,7 @@ compute_postdens <- function(object, group_ind = 1, mcmc_considered = 500,
 #' @param ... Additional graphical arguments passed to plotting methods.
 #'
 #' @return
-#' Invisibly returns \code{NULL}. The function is called for its side effect of
-#' producing a plot.
+#' Invisibly returns \code{NULL}.
 #'
 #' @seealso
 #' \code{\link{compute_postdens}}
