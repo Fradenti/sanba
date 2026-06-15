@@ -13,18 +13,20 @@
 #'
 #'
 #' @examples
+#' \donttest{
 #' # Generate example data
 #' set.seed(123)
-#' y <- c(rnorm(100),rnorm(100,5))
-#' g <- rep(1:2,rep(100,2))
+#' y <- c(rnorm(50),rnorm(50,5))
+#' g <- rep(1:2,rep(50,2))
 #' plot(y,col=g)
 #' # Fitting fiSAN via variational inference
-#' est <- fit_fiSAN(y,g,vi_param= list(n_runs = 10))
+#' est <- fit_fiSAN(y,g,vi_param= list(n_runs = 2))
 #' est
 #' summary(est)
 #' # Estimate posterior atoms and weights
 #' G <- estimate_G(est)
 #' summary(G)
+#' }
 estimate_G <- function(object){
 
   if (!inherits(object, "SANvi")) {

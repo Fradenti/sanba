@@ -4,6 +4,7 @@
 * Added functions to compute and display group-specific posterior densities for MCMC estimation methods.
 * Fixed some minor bugs and typos.
 * Minor edits in the titles of the produced tables.
+* Added two `\donttest{}` to examples, as they took too long (only for CRAN pre).
 
 ## R CMD check results
 

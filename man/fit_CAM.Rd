@@ -150,6 +150,7 @@ The clustering of observations (observational clustering) is provided by the all
 The distribution of the probabilities is \eqn{ \{\omega_{l,k}\}_{l=1}^{\infty} \sim GEM(\beta)} for all \eqn{k = 1,2,\dots}
 }
 \examples{
+\donttest{
 set.seed(123)
 y <- c(rnorm(60), rnorm(40, 5))
 g <- rep(1:2, rep(50, 2))
@@ -159,8 +160,9 @@ out_vi <- fit_CAM(y, group = g, est_method = "VI", vi_param = list(n_runs = 1,
 out_vi
 
 out_mcmc <- fit_CAM(y = y, group = g, est_method = "MCMC",
-                    mcmc_param = list(nrep = 50, burn = 20))
+                    mcmc_param = list(nrep = 50, burn = 10))
 out_mcmc
+}
 }
 \references{
 Denti, F., Camerlenghi, F., Guindani, M., and Mira, A. (2023). A Common Atoms Model for the Bayesian Nonparametric Analysis of Nested Data.
